@@ -1,0 +1,12 @@
+//
+//  HLSettingViewController.h
+//  HuiLife
+//
+//  Created by 闻喜惠生活 on 2018/7/24.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface HLSettingViewController : HLBaseViewController
+
+@end

@@ -1,0 +1,120 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - AvoidCrash (2.5.2)
+  - AWSCore (2.8.1)
+  - AWSS3 (2.8.1):
+    - AWSCore (= 2.8.1)
+  - BaiduMapKit (4.2.0)
+  - BMKLocationKit (1.3.0.2)
+  - Bugly (2.5.0)
+  - FLAnimatedImage (1.0.12)
+  - IQKeyboardManager (6.4.0)
+  - JCore (1.2.2)
+  - JPush (3.1.0):
+    - JCore (~> 1.2.0)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.1.0)
+  - MJExtension (3.0.15.1)
+  - MJRefresh (3.1.15.7)
+  - SDVersion (4.3.2)
+  - SDWebImage/Core (4.4.8)
+  - SDWebImage/GIF (4.4.8):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
+  - WechatOpenSDK (1.8.7.1)
+  - ZFPlayer (3.2.13):
+    - ZFPlayer/Core (= 3.2.13)
+  - ZFPlayer/Core (3.2.13)
+
+DEPENDENCIES:
+  - AFNetworking
+  - AvoidCrash (~> 2.5.2)
+  - AWSCore (from `https://github.com/ZHCliang/aws-sdk-ios.git`)
+  - AWSS3 (from `https://github.com/ZHCliang/aws-sdk-ios.git`)
+  - BaiduMapKit
+  - BMKLocationKit
+  - Bugly
+  - IQKeyboardManager
+  - JPush (= 3.1.0)
+  - Masonry
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - SDVersion
+  - SDWebImage/GIF
+  - WechatOpenSDK
+  - ZFPlayer (~> 3.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - AvoidCrash
+    - BaiduMapKit
+    - BMKLocationKit
+    - Bugly
+    - IQKeyboardManager
+    - JCore
+    - JPush
+    - Masonry
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - SDVersion
+    - ZFPlayer
+  trunk:
+    - FLAnimatedImage
+    - SDWebImage
+    - WechatOpenSDK
+
+EXTERNAL SOURCES:
+  AWSCore:
+    :git: https://github.com/ZHCliang/aws-sdk-ios.git
+  AWSS3:
+    :git: https://github.com/ZHCliang/aws-sdk-ios.git
+
+CHECKOUT OPTIONS:
+  AWSCore:
+    :commit: 765e017b82538fca9a6a29bc8e946e6c7c6e9177
+    :git: https://github.com/ZHCliang/aws-sdk-ios.git
+  AWSS3:
+    :commit: 765e017b82538fca9a6a29bc8e946e6c7c6e9177
+    :git: https://github.com/ZHCliang/aws-sdk-ios.git
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AvoidCrash: 28c6916fe19bd2b84126b8dec7cbe61c9a12741d
+  AWSCore: f17db38a5f8bceb217a19d58d8755bbb6f5ddb3c
+  AWSS3: 7b92a900fa54ce386e562d81c9d51724e70178a0
+  BaiduMapKit: b6a8f31b3d2e4e5cad4084512a0d9a3878638272
+  BMKLocationKit: 6c47273f985609be0a0785f2f6f12bb7c1b7e8b6
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
+  JCore: f14c0549968a63c22e246a4875aa9d428446f373
+  JPush: 5921e25ad13e0386351079217b009f2039084eac
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  SDVersion: 18f32c835c1543611fcfae3c6accd9a04b90597e
+  SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
+  ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
+
+PODFILE CHECKSUM: ee02c8d791c912e8c611cce28169654015d36548
+
+COCOAPODS: 1.9.0

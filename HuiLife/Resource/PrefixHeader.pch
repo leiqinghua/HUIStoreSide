@@ -1,0 +1,39 @@
+//
+//  PrefixHeader.pch
+//  HuiLife
+//
+//  Created by 闻喜惠生活 on 2018/7/12.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UtilsMacro.h"
+#import "HLNotifiConfig.h"
+#import "AppDelegate.h"
+#import "XMNetWorking.h"
+#import "HLCatatary.h"
+#import "HLAccount.h"
+#import "HLAreaCache.h"
+#import "HLCustomAlert.h"
+#import "HLLocationManager.h"
+#import "HLBaseViewController.h"
+#import "HLBaseWebviewController.h"
+
+#import <Masonry.h>
+#import <ZFPlayer/ZFPlayer.h>
+#import <MJRefresh.h>
+
+#import <SDWebImage/UIButton+WebCache.h>
+#import <UIImageView+WebCache.h>
+#import <SDWebImageManager.h>
+#import "SDImageCache.h"
+
+#import <MBProgressHUD.h>
+#import <MJExtension/MJExtension.h>
+#import <Photos/Photos.h>
+#import "HLPayManage.h"
+#import "HLFileManager.h"
+
+#endif /* PrefixHeader_pch */
+
