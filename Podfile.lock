@@ -62,7 +62,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
-    - AvoidCrash
     - BaiduMapKit
     - BMKLocationKit
     - Bugly
@@ -76,6 +75,7 @@ SPEC REPOS:
     - SDVersion
     - ZFPlayer
   trunk:
+    - AvoidCrash
     - FLAnimatedImage
     - SDWebImage
     - WechatOpenSDK
@@ -117,4 +117,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ee02c8d791c912e8c611cce28169654015d36548
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.3

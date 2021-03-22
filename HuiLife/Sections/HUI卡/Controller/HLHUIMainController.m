@@ -11,6 +11,7 @@
 #import "HLHUIMainInfo.h"
 #import "HLCardSecretController.h"
 #import "HLHUIAddController.h"
+#import "HLBuyCardViewController.h"
 
 @interface HLHUIMainController ()<UITableViewDelegate, UITableViewDataSource, HLHUIMainTableCellDelegate>
 @property(nonatomic, strong) UITableView *tableView;
@@ -27,6 +28,8 @@
     [super viewWillAppear:animated];
     [self hl_setTitle:@"锁客会员卡"];
     [self hl_setBackImage:@"back_black"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"购卡" style:UIBarButtonItemStyleDone target:self action:@selector(buyCard)];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
 
 - (void)viewDidLoad {
@@ -111,6 +114,12 @@
 - (void)reloadPageData {
     self.page = 1;
     [self loadListWithHud:NO];
+}
+
+// 购卡按钮
+- (void)buyCard{
+    HLBuyCardViewController *buyCard = [[HLBuyCardViewController alloc] init];
+    [self hl_pushToController:buyCard];
 }
 
 #pragma mark - Method

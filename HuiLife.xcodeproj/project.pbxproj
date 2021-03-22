@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		096747422605D06C0025E6DF /* HLBuyCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747412605D06C0025E6DF /* HLBuyCardViewController.m */; };
+		096747492605D1FF0025E6DF /* HLBuyCardListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */; };
+		09874913260605810043F2BB /* HLBuyCardBottomBuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */; };
+		09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */; };
+		09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */; };
 		2EED5CF4837C6B90C4C61C3D /* libPods-HuiLife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71912A473F109382F72211E1 /* libPods-HuiLife.a */; };
 		9403CCA920FF866B001AD3B1 /* HLConfirmTIXianView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403CCA820FF866B001AD3B1 /* HLConfirmTIXianView.m */; };
 		9403CCB02100EB9B001AD3B1 /* HLSelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403CCAF2100EB9B001AD3B1 /* HLSelectTimeCell.m */; };
@@ -684,6 +689,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		096747402605D06C0025E6DF /* HLBuyCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardViewController.h; sourceTree = "<group>"; };
+		096747412605D06C0025E6DF /* HLBuyCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardViewController.m; sourceTree = "<group>"; };
+		096747472605D1FF0025E6DF /* HLBuyCardListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardListViewCell.h; sourceTree = "<group>"; };
+		096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardListViewCell.m; sourceTree = "<group>"; };
+		09874911260605810043F2BB /* HLBuyCardBottomBuyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardBottomBuyView.h; sourceTree = "<group>"; };
+		09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardBottomBuyView.m; sourceTree = "<group>"; };
+		09A14A4F2605E7BD00171F0D /* HLBuyCardPackageViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageViewCell.h; sourceTree = "<group>"; };
+		09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageViewCell.m; sourceTree = "<group>"; };
+		09A14A562605EB1C00171F0D /* HLBuyCardPackageItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageItemView.h; sourceTree = "<group>"; };
+		09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageItemView.m; sourceTree = "<group>"; };
 		61F14042AEBA9E24BCE87BB7 /* Pods-HuiLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HuiLife.release.xcconfig"; path = "Pods/Target Support Files/Pods-HuiLife/Pods-HuiLife.release.xcconfig"; sourceTree = "<group>"; };
 		71912A473F109382F72211E1 /* libPods-HuiLife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HuiLife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9403CCA720FF866B001AD3B1 /* HLConfirmTIXianView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLConfirmTIXianView.h; sourceTree = "<group>"; };
@@ -2720,6 +2735,14 @@
 				945A18A9251D992600DE16BF /* HLProfitOrderView.m */,
 				9468CE0025206D6900C9ADA1 /* HLPickImageViewCell.h */,
 				9468CE0125206D6900C9ADA1 /* HLPickImageViewCell.m */,
+				096747472605D1FF0025E6DF /* HLBuyCardListViewCell.h */,
+				096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */,
+				09874911260605810043F2BB /* HLBuyCardBottomBuyView.h */,
+				09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */,
+				09A14A562605EB1C00171F0D /* HLBuyCardPackageItemView.h */,
+				09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */,
+				09A14A4F2605E7BD00171F0D /* HLBuyCardPackageViewCell.h */,
+				09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2752,6 +2775,8 @@
 				94298E76251DEA0F00E3288C /* HLCardSecretController.m */,
 				946328322533318C00C08740 /* HLCardRecordController.h */,
 				946328332533318C00C08740 /* HLCardRecordController.m */,
+				096747402605D06C0025E6DF /* HLBuyCardViewController.h */,
+				096747412605D06C0025E6DF /* HLBuyCardViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5333,6 +5358,7 @@
 				9D6372C8214920A600F791C1 /* HLMessageDetailViewCell.m in Sources */,
 				B438A946230D30AD008361A7 /* HLApiChangeController.m in Sources */,
 				B4A3A1802340C11900737280 /* HLAddressSearchView.m in Sources */,
+				096747492605D1FF0025E6DF /* HLBuyCardListViewCell.m in Sources */,
 				B429ED8A23795FFC00637FD5 /* HLImageAssetController.m in Sources */,
 				B417A86422FA9B3600011595 /* HLHotSekillImageViewCell.m in Sources */,
 				B4BD0E6C231FDB0600E47517 /* HLHeXiaoPassSetController.m in Sources */,
@@ -5436,6 +5462,7 @@
 				9DE8A64822FBC0390034C4AF /* HLCarMarketController.m in Sources */,
 				B415FC2C2317A18100F4331D /* ZFSpeedLoadingView.m in Sources */,
 				9DE8A5F322F6BE9E0034C4AF /* ALiImageBrowserController.m in Sources */,
+				09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */,
 				94695073255D1B0A00BE8774 /* HLCompeteUpPageInfo.m in Sources */,
 				B428FE3222FE981200256258 /* HLSekillPromoteAddController.m in Sources */,
 				9DE8A63522F973230034C4AF /* HLTemplateController.m in Sources */,
@@ -5477,6 +5504,7 @@
 				9DB1D62F2244C58B00B09E41 /* HLHotelCalanderHeader.m in Sources */,
 				9DFDF29820F84B6A0081BC46 /* UIColor+Common.m in Sources */,
 				9DFEC62721FDB5CB00FAC93B /* HLAboutUsTableViewCell.m in Sources */,
+				09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */,
 				B483DC5B23162EB1004EDA63 /* HLCaseListModel.m in Sources */,
 				9D25F12A2242447E00577ADE /* HLImageSinglePickerController.m in Sources */,
 				9DE8A5EA22F6BE850034C4AF /* ALiImagePickerController.m in Sources */,
@@ -5608,6 +5636,7 @@
 				946AC13A2562807C00A545D0 /* HLRedBagAddFooter.m in Sources */,
 				B429ED8D23795FFC00637FD5 /* HLImagePickerController.m in Sources */,
 				B4A3A1852340C1A300737280 /* HLAddressPOIInfo.m in Sources */,
+				09874913260605810043F2BB /* HLBuyCardBottomBuyView.m in Sources */,
 				9DE8A62622F916970034C4AF /* HLRuleDescViewCell.m in Sources */,
 				B415FC292317A18100F4331D /* ZFPlayerControlView.m in Sources */,
 				9DFFBFFA21CC92B400C26E7B /* NSDate+HLCalendar.m in Sources */,
@@ -5628,6 +5657,7 @@
 				B43886922303A18A00CE25A2 /* HLSekillPromoteListCell.m in Sources */,
 				B4C5A50D22F9206B001FBBE3 /* HLBuyGoodListCell.m in Sources */,
 				9DFFC04921D31AA200C26E7B /* HLAlertView.m in Sources */,
+				096747422605D06C0025E6DF /* HLBuyCardViewController.m in Sources */,
 				B48E534B22FD4B72006BFA58 /* HLSendOrderMoneyInfo.m in Sources */,
 				9DE8A5B422F5592F0034C4AF /* HLSetViewController.m in Sources */,
 				9DFFC07421D4FF0B00C26E7B /* HLBillModel.m in Sources */,
@@ -5961,6 +5991,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
@@ -5971,7 +6002,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HuiLife/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = HuiLife/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5983,7 +6014,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7s x86_64";
 			};
 			name = Debug;
 		};
@@ -5997,6 +6028,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
@@ -6007,7 +6039,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HuiLife/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = HuiLife/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
