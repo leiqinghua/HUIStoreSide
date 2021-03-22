@@ -10,11 +10,18 @@
 #import "HLBuyCardPackageViewCell.h"
 #import "HLBuyCardBottomBuyView.h"
 
-@interface HLBuyCardViewController () <UITableViewDataSource,UITableViewDelegate,HLBuyCardPackageViewCellDelegate>
+/* 注意：根据下标取model，dataSource改变，这里也需要改变 */
+#define kPackageModel self.dataSource[2] // 购买数量
+#define kNumModel self.dataSource[3] // 购买数量
+#define kGiveNumModel self.dataSource[4] // 赠送数量
+#define kMoneyModel self.dataSource[5] // 服务费
+
+@interface HLBuyCardViewController () <UITableViewDataSource,UITableViewDelegate,HLBuyCardPackageViewCellDelegate,HLBuyCardBottomBuyViewDelegate,HLBuyCardListViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) HLBuyCardBottomBuyView *buyView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) HLBuyCardVCModel *vcModel; // 数据model
 
 @end
 
@@ -22,10 +29,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.title = @"开通商家";
-    [self creatSubViews];
-    [self.tableView reloadData];
+    [self loadData];
+}
+
+- (void)loadData{
+    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest *request) {
+        request.api = @"/MerchantSide/UnionCard/StoreCard.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{};
+    } onSuccess:^(id responseObject) {
+        HLHideLoading(self.view);
+        XMResult *result = (XMResult *)responseObject;
+        if (result.code == 200) {
+            self.vcModel = [HLBuyCardVCModel mj_objectWithKeyValues:result.data];
+            [self creatSubViews];
+            [self createTableDataSource];
+            [self.tableView reloadData];
+        }else{
+            weakify(self)
+            [self hl_showNetFail:self.view.frame callBack:^{
+                [weak_self loadData];
+            }];
+        }
+    }onFailure:^(NSError *error) {
+        HLHideLoading(self.view);
+        weakify(self)
+        [self hl_showNetFail:self.view.frame callBack:^{
+            [weak_self loadData];
+        }];
+    }];
 }
 
 #pragma mark - Private Methods
@@ -35,6 +69,7 @@
     
     self.buyView = [[HLBuyCardBottomBuyView alloc] init];
     [self.view addSubview:self.buyView];
+    self.buyView.delegate = self;
     [self.buyView makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(0);
         make.height.equalTo(FitPTScreen(55) + Height_Bottom_Margn);
@@ -46,6 +81,28 @@
         make.left.top.right.equalTo(0);
         make.bottom.equalTo(self.buyView.top);
     }];
+}
+
+// 计算金额
+- (void)calucateTotalMoney{
+    // 获取购买张数
+    NSInteger buyNum = [kNumModel inputValue].integerValue;
+//    NSInteger multiple = self.vcModel.card.multiple.integerValue;
+    
+    // 如果不能整除&&选择的是自定义，则直接显示为0
+//    if (buyNum % multiple != 0 && [kPackageModel selectItem].isCustom) {
+//        [self.buyView configMoney:0];
+//        return;
+//    }
+    
+    // 获取单价
+    double price = self.vcModel.card.price.doubleValue;
+    // 获取服务费
+    double charge = [kMoneyModel inputValue].doubleValue;
+    
+    double totalMoney = buyNum * price + charge;
+    
+    [self.buyView configMoney:totalMoney];
 }
 
 #pragma mark - UITableViewDataSource&UITableViewDelegate
@@ -70,6 +127,7 @@
     HLBuyCardListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HLBuyCardListViewCell"];
     if (!cell) {
         cell = [[HLBuyCardListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HLBuyCardListViewCell"];
+        cell.delegate = self;
     }
     cell.listModel = self.dataSource[indexPath.row];
     return cell;
@@ -82,13 +140,128 @@
     return FitPTScreen(46.5);
 }
 
+#pragma mark - HLBuyCardListViewCellDelegate
+
+-(void)cardListViewCell:(HLBuyCardListViewCell *)cell editWithListModel:(HLBuyCardListViewModel *)model{
+    // 购买张数编辑
+    if(model == kNumModel){
+        NSInteger num = [[kNumModel inputValue] integerValue];
+        NSInteger multiple = self.vcModel.card.multiple.integerValue;
+        if (num >= 1000 && (num % multiple == 0)) {
+            [kGiveNumModel setInputValue:[NSString stringWithFormat:@"%.0lf",num * self.vcModel.card.gife.doubleValue]];
+        }else{
+            [kGiveNumModel setInputValue:@""];
+        }
+        // 触发金额计算方法
+        [self calucateTotalMoney];
+        // 刷新赠送张数
+        NSIndexPath *giveNumIndexPath = [NSIndexPath indexPathForRow:[self.dataSource indexOfObject:kGiveNumModel] inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[giveNumIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+        return;
+    }
+    
+    // 服务费编辑
+    if (model == kMoneyModel) {
+        // 触发金额计算方法
+        [self calucateTotalMoney];
+        return;
+    }
+}
+
 #pragma mark - HLBuyCardPackageViewCellDelegate
 
 - (void)packageViewCell:(HLBuyCardPackageViewCell *)cell selectItem:(HLBuyCardPackageViewItem *)item{
     
+    if (item.isCustom) {
+        // 自定义的时候，购买张数可以编辑
+        [kNumModel setCanEdit:YES];
+        [kNumModel setInputValue:@""];
+        [kGiveNumModel setInputValue:@""];
+        [self.tableView reloadData];
+        
+        NSIndexPath *numIndexPath = [NSIndexPath indexPathForRow:[self.dataSource indexOfObject:kNumModel] inSection:0];
+        HLBuyCardListViewCell *numCell = [self.tableView cellForRowAtIndexPath:numIndexPath];
+        [numCell changeEditState];
+    }else{
+        // 非自定义的时候，购买张数不可编辑
+        [kNumModel setCanEdit:NO];
+        [kNumModel setInputValue:item.num];
+        [kGiveNumModel setInputValue:item.gife];
+        [self.tableView reloadData];
+        // 计算总金额
+        [self calucateTotalMoney];
+    }
+}
+
+#pragma mark - HLBuyCardBottomBuyViewDelegate
+
+- (void)buyButtonClickWithBuyView:(HLBuyCardBottomBuyView *)buyView{
+
+    // 判断是否选择套餐
+    if([kNumModel inputValue].length == 0 && [kNumModel inputValue].intValue == 0){
+        HLShowText(@"请选择服务套餐或输入购买张数");
+        return;
+    }
+    
+    // 判断是否为整数
+    NSInteger buyNum = [kNumModel inputValue].integerValue;
+    NSInteger multiple = self.vcModel.card.multiple.integerValue;
+    if(buyNum % multiple != 0 && [kPackageModel selectItem].isCustom){
+        NSString *tips = [NSString stringWithFormat:@"购买张数请设置为%@的倍数",self.vcModel.card.multiple];
+        HLShowText(tips);
+        return;
+    }
+    
+    // 购买张数限制
+    if(buyNum < self.vcModel.card.minNum.integerValue && [kPackageModel selectItem].isCustom){
+        NSString *tips = [NSString stringWithFormat:@"购买张数至少%@张",self.vcModel.card.minNum];
+        HLShowText(tips);
+        return;
+    }
+    
+    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest *request) {
+        request.api = @"/MerchantSide/UnionCard/StoreCardBuy.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{
+            @"num":[kNumModel inputValue] ?: @"", 
+            @"charge":[kMoneyModel inputValue] ?: @""
+        };
+    } onSuccess:^(id responseObject) {
+        HLHideLoading(self.view);
+        XMResult *result = (XMResult *)responseObject;
+        if (result.code == 200) {
+            // 获取数据去支付
+            [[HLPayManage shareManage] preparePayWithParams:result.data finishBlock:^(BOOL success, NSString * _Nonnull msg) {
+                HLShowHint(msg, KEY_WINDOW);
+                if(success){
+                    [self.navigationController popViewControllerAnimated:YES];
+                    if (self.buySuccessBlock) {
+                        self.buySuccessBlock();
+                    }
+                }
+            }];
+        }
+    }onFailure:^(NSError *error) {
+        HLHideLoading(self.view);
+        weakify(self)
+        [self hl_showNetFail:self.view.frame callBack:^{
+            [weak_self loadData];
+        }];
+    }];
 }
 
 #pragma mark - Getter
+
+// 获取选择model
+- (HLBuyCardPackageViewModel *)packageViewModel{
+    for (NSObject *object in self.dataSource) {
+        if ([object isMemberOfClass:[HLBuyCardPackageViewModel class]]) {
+            return (HLBuyCardPackageViewModel *)object;
+        }
+    }
+    return nil;
+}
 
 - (UITableView *)tableView{
     if (!_tableView) {
@@ -104,83 +277,68 @@
     return _tableView;
 }
 
-- (NSMutableArray *)dataSource{
-    if (!_dataSource) {
-        HLBuyCardListViewModel *telModel = [[HLBuyCardListViewModel alloc] init];
-        telModel.tip = @"商家手机号:";
-        telModel.placeHolder = @"请输入商家手机号";
-        telModel.canEdit = YES;
-        telModel.keyboardType = UIKeyboardTypeDefault;
-        telModel.inputValue = [HLAccount shared].mobile;
-        
-        HLBuyCardListViewModel *nameModel = [[HLBuyCardListViewModel alloc] init];
-        nameModel.tip = @"商家名称:";
-        nameModel.placeHolder = @"请输入商家名称";
-        nameModel.canEdit = YES;
-        nameModel.keyboardType = UIKeyboardTypeDefault;
-        nameModel.inputValue = [HLAccount shared].store_name;
-        
-        HLBuyCardListViewModel *classModel = [[HLBuyCardListViewModel alloc] init];
-        classModel.tip = @"商家类别:";
-        classModel.placeHolder = @"请输入商家类别";
-        classModel.canEdit = YES;
-        classModel.keyboardType = UIKeyboardTypeDefault;
-    //    classModel.inputValue = [HLAccount shared].mobile;
-        
-        ///  选择服务套餐model
-        HLBuyCardPackageViewModel *packageModel = [self createPackageModel];
-        packageModel.tip = @"服务套餐选择:";
-        
-        HLBuyCardListViewModel *numModel = [[HLBuyCardListViewModel alloc] init];
-        numModel.tip = @"购买张数:";
-        numModel.placeHolder = @"请输入购买张数(不低于1000张)";
-        numModel.canEdit = YES;
-        classModel.keyboardType = UIKeyboardTypeNumberPad;
-        
-        HLBuyCardListViewModel *giveNumModel = [[HLBuyCardListViewModel alloc] init];
-        giveNumModel.tip = @"赠送张数:";
-        giveNumModel.placeHolder = @"赠送张数";
-        giveNumModel.canEdit = NO;
-        giveNumModel.inputValue = @"0";
-        classModel.keyboardType = UIKeyboardTypeNumberPad;
-        
-        HLBuyCardListViewModel *moneyModel = [[HLBuyCardListViewModel alloc] init];
-        moneyModel.tip = @"服务费:";
-        moneyModel.placeHolder = @"请输入服务费(选填)";
-        moneyModel.canEdit = YES;
-        moneyModel.keyboardType = UIKeyboardTypeDecimalPad;
-        
-        self.dataSource = [@[telModel,nameModel,classModel,packageModel,numModel,giveNumModel,moneyModel] mutableCopy];
-    }
-    return _dataSource;
+- (void)createTableDataSource{
+    HLBuyCardListViewModel *telModel = [[HLBuyCardListViewModel alloc] init];
+    telModel.tip = @"商家手机号:";
+    telModel.placeHolder = @"请输入商家手机号";
+    telModel.canEdit = NO;
+    telModel.keyboardType = UIKeyboardTypeDefault;
+    telModel.inputValue = self.vcModel.store.name;
+    
+    
+    HLBuyCardListViewModel *nameModel = [[HLBuyCardListViewModel alloc] init];
+    nameModel.tip = @"商家名称:";
+    nameModel.placeHolder = @"请输入商家名称";
+    nameModel.canEdit = NO;
+    nameModel.keyboardType = UIKeyboardTypeDefault;
+    nameModel.inputValue = self.vcModel.store.storeName;
+    
+//    HLBuyCardListViewModel *classModel = [[HLBuyCardListViewModel alloc] init];
+//    classModel.tip = @"商家类别:";
+//    classModel.placeHolder = @"请输入商家类别";
+//    classModel.canEdit = YES;
+//    classModel.keyboardType = UIKeyboardTypeDefault;
+//    classModel.inputValue = self.vcModel.store.className;
+    
+    ///  选择服务套餐model
+    HLBuyCardPackageViewModel *packageModel = [[HLBuyCardPackageViewModel alloc] init];
+    packageModel.tip = @"服务套餐选择:";
+    packageModel.items = [HLBuyCardPackageViewItem mj_objectArrayWithKeyValuesArray:self.vcModel.card.package];
+    
+    HLBuyCardListViewModel *numModel = [[HLBuyCardListViewModel alloc] init];
+    numModel.tip = @"购买张数:";
+    numModel.placeHolder = [NSString stringWithFormat:@"请输入购买张数(不低于%@张)",self.vcModel.card.minNum];
+    numModel.canEdit = NO;
+    numModel.keyboardType = UIKeyboardTypeNumberPad;
+    
+    HLBuyCardListViewModel *giveNumModel = [[HLBuyCardListViewModel alloc] init];
+    giveNumModel.tip = @"赠送张数:";
+    giveNumModel.placeHolder = @"赠送张数";
+    giveNumModel.canEdit = NO;
+    giveNumModel.inputValue = @"0";
+    giveNumModel.keyboardType = UIKeyboardTypeNumberPad;
+    
+    HLBuyCardListViewModel *moneyModel = [[HLBuyCardListViewModel alloc] init];
+    moneyModel.tip = @"服务费:";
+    moneyModel.placeHolder = @"请输入服务费(选填)";
+    moneyModel.canEdit = YES;
+    moneyModel.keyboardType = UIKeyboardTypeDecimalPad;
+    
+    self.dataSource = [@[telModel,nameModel,packageModel,numModel,giveNumModel,moneyModel] mutableCopy];
 }
 
-- (HLBuyCardPackageViewModel *)createPackageModel{
-    
-    HLBuyCardPackageViewItem *packageItem0 = [[HLBuyCardPackageViewItem alloc] init];
-    packageItem0.num = 100;
-    packageItem0.giveNum = 0;
-    
-    HLBuyCardPackageViewItem *packageItem1 = [[HLBuyCardPackageViewItem alloc] init];
-    packageItem1.num = 300;
-    packageItem1.giveNum = 10;
-    
-    HLBuyCardPackageViewItem *packageItem2 = [[HLBuyCardPackageViewItem alloc] init];
-    packageItem2.num = 500;
-    packageItem2.giveNum = 30;
-    
-    HLBuyCardPackageViewItem *packageItem3 = [[HLBuyCardPackageViewItem alloc] init];
-    packageItem3.num = 1000;
-    packageItem3.giveNum = 100;
-    
-    HLBuyCardPackageViewItem *packageItem4 = [[HLBuyCardPackageViewItem alloc] init];
-    packageItem4.isCustom = YES;
-    
-    
-    HLBuyCardPackageViewModel *packageModel = [[HLBuyCardPackageViewModel alloc] init];
-    packageModel.items = @[packageItem0,packageItem1,packageItem2,packageItem3,packageItem4];
-    packageModel.selectIndex = 0;
-    return packageModel;
-}
+@end
+
+
+
+@implementation HLBuyCardVCModel
+
+@end
+
+@implementation HLBuyCardVCStore
+
+@end
+
+@implementation HLBuyCardVCCard
 
 @end

@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
+- (HLBuyCardPackageViewItem *)selectItem;
+
 @end
 
 @class HLBuyCardPackageViewCell;

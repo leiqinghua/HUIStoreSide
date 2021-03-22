@@ -9,6 +9,10 @@
 
 @implementation HLBuyCardPackageViewItem
 
+- (BOOL)isCustom{
+    return [self.num isEqualToString:@"自定义"];
+}
+
 @end
 
 @interface HLBuyCardPackageItemView ()
@@ -50,15 +54,15 @@
 - (void)setItem:(HLBuyCardPackageViewItem *)item{
     _item = item;
     
-    self.numLab.text = [NSString stringWithFormat:@"%ld张",item.num];
-    self.giveNumLab.text = [NSString stringWithFormat:@"送%ld张",item.giveNum];
-    self.giveNumLab.hidden = item.giveNum <= 0;
+    self.numLab.text = [NSString stringWithFormat:@"%@张",item.num];
+    self.giveNumLab.text = [NSString stringWithFormat:@"送%@张",item.gife];
+    self.giveNumLab.hidden = item.gife.intValue <= 0;
     
     if (item.isCustom) {
         self.numLab.text = @"自定义";
     }
     
-    if(item.giveNum > 0){
+    if(item.gife.intValue > 0){
         [self.numLab makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.top.equalTo(FitPTScreen(14));

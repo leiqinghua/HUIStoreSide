@@ -87,7 +87,6 @@
     self.buyBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [self.buyBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     self.buyBtn.backgroundColor = UIColorFromRGB(0xFD6F2B);
-//    [self.buyBtn setBackgroundImage:[UIImage imageNamed:@"button_bag"] forState:UIControlStateNormal];
     [self.buyBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentV);
         make.right.equalTo(FitPTScreen(-12));
@@ -98,11 +97,19 @@
 }
 
 - (void)buyBtnClick{
-    
+    if (self.delegate) {
+        [self.delegate buyButtonClickWithBuyView:self];
+    }
 }
 
 - (void)configMoney:(double)money{
-    self.moneyLab.text = [NSString stringWithFormat:@"%.0lf",money];
+    
+    // 判断是否为整数
+    if (money == (NSInteger)money) {
+        self.moneyLab.text = [NSString stringWithFormat:@"%.0lf",money];
+    }else{
+        self.moneyLab.text = [NSString stringWithFormat:@"%.2lf",money];
+    }
 }
 
 @end

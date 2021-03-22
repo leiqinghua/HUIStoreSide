@@ -24,9 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@class HLBuyCardListViewCell;
+@protocol HLBuyCardListViewCellDelegate <NSObject>
+
+- (void)cardListViewCell:(HLBuyCardListViewCell *)cell editWithListModel:(HLBuyCardListViewModel *)model;
+
+@end
+
 @interface HLBuyCardListViewCell : UITableViewCell
 
 @property (nonatomic, strong) HLBuyCardListViewModel *listModel;
+
+@property (nonatomic, weak) id <HLBuyCardListViewCellDelegate> delegate;
+
+- (void)changeEditState;
 
 @end
 

@@ -11,8 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HLBuyCardPackageViewItem : NSObject
 
-@property (nonatomic, assign) NSInteger num;
-@property (nonatomic, assign) NSInteger giveNum;
+@property (nonatomic, copy) NSString *num;
+@property (nonatomic, copy) NSString *gife;
+@property (nonatomic, copy) NSString *price;
+
 @property (nonatomic, assign) BOOL isCustom; // 是否是自定义
 @property (nonatomic, assign) BOOL select;
 

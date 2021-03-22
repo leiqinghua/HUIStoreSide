@@ -20,6 +20,7 @@
 @property(nonatomic, strong) NSMutableArray *datasource;
 @property(nonatomic, strong) UIView *tipView;
 @property(nonatomic, strong) UIView *bottomView ;
+@property (nonatomic, copy) NSString *tips; // 用来标记是否可以进入购卡
 @end
 
 @implementation HLHUIMainController
@@ -52,6 +53,7 @@
         [self.tableView endRefresh];
         XMResult *result = (XMResult *)responseObject;
         if (result.code == 200) {
+            self.tips = result.data[@"tips"];
             [self handleList:result.data[@"cards"]];
             return;
         }
@@ -118,7 +120,17 @@
 
 // 购卡按钮
 - (void)buyCard{
+    if (self.tips && self.tips.length > 0) {
+        [HLCustomAlert showNormalStyleTitle:@"温馨提示" message:self.tips buttonTitles:@[@"知道了"] buttonColors:@[UIColorFromRGB(0xFF9900)] callBack:^(NSInteger index) {
+
+        }];
+        return;
+    }
+    
     HLBuyCardViewController *buyCard = [[HLBuyCardViewController alloc] init];
+    buyCard.buySuccessBlock = ^{
+        [self reloadPageData];
+    };
     [self hl_pushToController:buyCard];
 }
 

@@ -9,7 +9,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class HLBuyCardBottomBuyView;
+@protocol HLBuyCardBottomBuyViewDelegate <NSObject>
+
+- (void)buyButtonClickWithBuyView:(HLBuyCardBottomBuyView *)buyView;
+
+@end
+
 @interface HLBuyCardBottomBuyView : UIView
+
+@property (nonatomic, weak) id <HLBuyCardBottomBuyViewDelegate> delegate;
+
+- (void)configMoney:(double)money;
 
 @end
 

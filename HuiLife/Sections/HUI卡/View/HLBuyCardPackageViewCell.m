@@ -16,6 +16,10 @@
     return _cellHeight;
 }
 
+- (HLBuyCardPackageViewItem *)selectItem{
+    return self.items[self.selectIndex];
+}
+
 @end
 
 @interface HLBuyCardPackageViewCell ()
