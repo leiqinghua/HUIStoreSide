@@ -81,16 +81,16 @@
 
 //分享
 - (void)shareBtnClick{
-//#if DEBUG
-//    [HLTools pushAppPageLink:@"HLCompeteMainController" params:@{} needBack:NO];
-//#else
+#if DEBUG
+    [HLTools pushAppPageLink:@"HLAddProfitController" params:@{} needBack:NO];
+#else
     [HLTools shareImageWithId:self.homeData[@"id"]?:@"" type:4 controller:self completion:^(NSDictionary * data) {
         HLHomeShareController * shareVC = [[HLHomeShareController alloc]init];
         shareVC.data = data;
         shareVC.Id = self.homeData[@"id"]?:@"";
         [self presentViewController:shareVC animated:false completion:nil];
     }];
-//#endif
+#endif
 }
 
 // 展示1-5引导

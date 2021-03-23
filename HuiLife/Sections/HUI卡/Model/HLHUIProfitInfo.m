@@ -9,7 +9,9 @@
 #import "HLProfitGoodInfo.h"
 
 @interface HLHUIProfitInfo ()
+
 @property(nonatomic, strong)HLRightInputTypeInfo *dateInfo;
+
 @end
 
 @implementation HLHUIProfitInfo
@@ -22,40 +24,48 @@
 - (void)setType:(NSInteger)type {
     _type = type;
     switch (_type) {
-        case 1:case 3:case 2:
+        case 1:
+        case 3:
+        case 2:
             [self.datasource removeAllObjects];
             break;
-        case 43:case 27:
+        case 43:
+        case 27:
         {
             [self.datasource removeAllObjects];
             [self.datasource addObjectsFromArray:self.serviceSource];
-        }break;
+        }
+            break;
         case 42:case 26:
         {
             [self.datasource removeAllObjects];
             [self.datasource addObjectsFromArray:self.voucherSource];
-        }break;
-        case 41:case 25:
+        }
+            break;
+        case 41:
+        case 25:
         {
             [self.datasource removeAllObjects];
             [self.datasource addObjectsFromArray:self.discountSource];
-        }break;
+        }
+            break;
         case 21:
         {
             [self.datasource removeAllObjects];
             [self.datasource addObjectsFromArray:self.giftSource];
-        }break;
+        }
+            break;
+        case 61:
+        {
+            [self.datasource removeAllObjects];
+            [self.datasource addObjectsFromArray:self.redPacketSource];
+        }
         default:
             break;
     }
 }
 
-- (NSMutableArray *)datasource {
-    if (!_datasource) {
-        _datasource = [NSMutableArray array];
-    }
-    return _datasource;
-}
+#pragma mark - 服务卡数据
 
 - (NSMutableArray *)serviceSource {
     if (!_serviceSource) {
@@ -129,6 +139,8 @@
     }
     return _serviceSource;
 }
+
+#pragma mark - 代金券数据
 
 - (NSMutableArray *)voucherSource {
     if (!_voucherSource) {
@@ -216,6 +228,9 @@
     return _voucherSource;
 }
 
+
+#pragma mark - 打折券
+
 - (NSMutableArray *)discountSource {
     if (!_discountSource) {
         _discountSource = [NSMutableArray array];
@@ -301,6 +316,8 @@
     return _discountSource;
 }
 
+#pragma mark - 礼品/赠品
+
 - (NSMutableArray *)giftSource {
     if (!_giftSource) {
         _giftSource = [NSMutableArray array];
@@ -316,6 +333,7 @@
         name.cellHeight = FitPTScreen(50);
         name.saveKey = @"gainName";
         name.text = info?info.gainName:@"";
+        name.separatorInset = UIEdgeInsetsMake(0, ScreenW, 0, 0);
         [_giftSource addObject:name];
         
         HLRightInputTypeInfo *price = [[HLRightInputTypeInfo alloc]init];
@@ -393,6 +411,62 @@
         [_giftSource addObject:desc];
     }
     return _giftSource;
+}
+
+#pragma mark - 外卖红包
+
+- (NSMutableArray *)redPacketSource{
+    if (!_redPacketSource) {
+        _redPacketSource = [NSMutableArray array];
+        HLProfitRedPacketInfo *info = (HLProfitRedPacketInfo *)_editProfitInfo;
+
+        HLRightInputTypeInfo *name = [[HLRightInputTypeInfo alloc]init];
+        name.leftTip = @"* 赠送金额";
+        name.placeHoder = @"请输入赠送外卖红包金额";
+        name.errorHint = @"请输入赠送外卖红包金额";
+        name.needCheckParams = YES;
+        name.canInput = YES;
+        name.rightText = @"元";
+        name.keyBoardType = UIKeyboardTypeDecimalPad;
+        name.cellHeight = FitPTScreen(50);
+        name.saveKey = @"gainPrice";
+        name.text = info ? info.gainPrice :@"";
+        [_redPacketSource addObject:name];
+        
+        NSArray *gainInfos = info ? info.disOut : [HLProfitRedPacketGainInfo mj_objectArrayWithKeyValuesArray:self.redPacketMenuItems];
+        
+        for (NSInteger i = 0; i < gainInfos.count; i++) {
+            HLProfitRedPacketGainInfo *gainInfo = gainInfos[i];
+            HLRedPacketClassInfo *classInfo = [[HLRedPacketClassInfo alloc] init];
+            classInfo.leftTip = gainInfo.title;
+            classInfo.text = gainInfo.discount;
+            classInfo.type = HLInputRedPacketClassType;
+            if (i == 0) {
+                classInfo.showTopPlace = YES;
+            }
+            if (i == gainInfos.count - 1) {
+                classInfo.showBottomPlace = YES;
+                
+            }
+            [_redPacketSource addObject:classInfo];
+        }
+        
+        HLInputUseDescInfo *desc = [[HLInputUseDescInfo alloc]init];
+        desc.type = HLInputCellTypeUseDesc;
+        desc.placeHolder = @"请填写外卖红包使用规则说明";
+        desc.leftTip = @"* 使用说明";
+        desc.errorHint = @"请填写使用说明";
+        desc.needCheckParams = YES;
+        desc.cellHeight = FitPTScreen(110);
+        desc.showNum = YES;
+        desc.maxNum = 50;
+        desc.singleLine = YES;
+        desc.hideBorder = YES;
+        desc.saveKey = @"gainDesc";
+        desc.text = info ? [info.gainDesc filterwithRegex:@"\n"]:@"";
+        [_redPacketSource addObject:desc];
+    }
+    return _redPacketSource;
 }
 
 //是否开启月月赠送
@@ -507,6 +581,13 @@
         }
     }
     _editProfitInfo.gainType = self.type;
+}
+
+- (NSMutableArray *)datasource {
+    if (!_datasource) {
+        _datasource = [NSMutableArray array];
+    }
+    return _datasource;
 }
 
 @end

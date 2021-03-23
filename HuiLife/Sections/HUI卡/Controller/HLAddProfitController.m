@@ -40,7 +40,7 @@
 //选择的图片
 @property(nonatomic,strong) HLBaseUploadModel *singleImgModel;
 //添加 1，2，3 默认值
-@property(nonatomic, copy) NSString *firstFist;//首单折扣
+@property(nonatomic, copy) NSString *firstFist; //首单折扣
 @property(nonatomic, copy) NSString *normalFist;//日常折扣
 @property(nonatomic, strong) NSMutableArray *orderDiscounts;//外卖折扣
 
@@ -60,6 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 说明是编辑
     if (self.editProfitInfo) {
         [self initSubView];
         _selectBtn.userInteractionEnabled = NO;
@@ -70,10 +71,35 @@
         return;
     }
     
+    // 说明是添加
     [self loadDefaultData];
 }
 
 #pragma mark - Request
+
+// 添加时的1，2，3的默认值
+- (void)loadDefaultData {
+    [XMCenter sendRequest:^(XMRequest *request) {
+        request.api = @"/MerchantSideA/HuiCardSpreadSetInfo.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{};
+    }onSuccess:^(id responseObject) {
+        // 处理数据
+        XMResult *result = (XMResult *)responseObject;
+        if (result.code == 200) {
+            NSArray *contents = result.data[@"setContent"];
+            NSDictionary *first = contents.firstObject;
+            NSDictionary *normal = contents[1];
+            _firstFist = [NSString stringWithFormat:@"%@",first[@"set"]];
+            _normalFist = [NSString stringWithFormat:@"%@",normal[@"set"]];
+        }
+        [self loadProfitTypes];
+    }onFailure:^(NSError *error) {
+        HLHideLoading(self.view);
+    }];
+}
+
+// 加载类型数据
 - (void)loadProfitTypes {
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
@@ -85,7 +111,7 @@
         XMResult *result = (XMResult *)responseObject;
         if (result.code == 200) {
             [self initSubView];
-            [self handleProfitTypes:result.data[@"gainTypes"]];
+            [self handleProfitData:result.data];
             return;
         }
     }onFailure:^(NSError *error) {
@@ -93,15 +119,22 @@
     }];
 }
 
-- (void)handleProfitTypes:(NSArray *)typs {
-    _profitTypes = typs;
-    for (NSDictionary *dict in typs) {
+- (void)handleProfitData:(NSDictionary *)profitData {
+    NSArray *types = profitData[@"gainTypes"];
+    NSArray *menu = profitData[@"menu"];
+    // 记录类型数组
+    _profitTypes = types;
+    // 获取分类
+    for (NSDictionary *dict in types) {
         [self.profitNames addObject:dict[@"typeName"]];
     }
+    // 默认的类型为第一个
     NSDictionary *defaultType = _profitTypes.firstObject;
+    // 记录选中menu和默认的type值
+    self.mainInfo.redPacketMenuItems = menu; // 这个用于构建红包数据
     self.mainInfo.type = [defaultType[@"typeValue"] integerValue];
     _typeLb.text = defaultType[@"typeName"];
-    
+    // 配置底部视图
     [self configFooterView];
     [self.tableView reloadData];
 }
@@ -145,27 +178,7 @@
     
 }
 
-//添加时的1，2，3的默认值
-- (void)loadDefaultData {
-    [XMCenter sendRequest:^(XMRequest *request) {
-        request.api = @"/MerchantSideA/HuiCardSpreadSetInfo.php";
-        request.serverType = HLServerTypeNormal;
-        request.parameters = @{};
-    }onSuccess:^(id responseObject) {
-        // 处理数据
-        XMResult *result = (XMResult *)responseObject;
-        if (result.code == 200) {
-            NSArray *contents = result.data[@"setContent"];
-            NSDictionary *first = contents.firstObject;
-            NSDictionary *normal = contents[1];
-            _firstFist = [NSString stringWithFormat:@"%@",first[@"set"]];
-            _normalFist = [NSString stringWithFormat:@"%@",normal[@"set"]];
-        }
-        [self loadProfitTypes];
-    }onFailure:^(NSError *error) {
-        HLHideLoading(self.view);
-    }];
-}
+
 
 //请求外卖折扣的默认值
 - (void)loadOrderDefault {
@@ -226,6 +239,12 @@
     [HLSellTimeSelectView showWithTitles:self.profitNames selectIndex:_profitIndex height:FitPTScreen(280) dependView:sender completion:^(NSInteger index){
         NSDictionary *dict = weak_self.profitTypes[index];
         weak_self.mainInfo.type = [dict[@"typeValue"] integerValue];
+        // 如果type为61外卖红包，则重置顶部样式
+        if (weak_self.mainInfo.type == 61) {
+            self.tableView.tableHeaderView.frame = CGRectMake(0, 0, ScreenW, FitPTScreen(53));
+        }else{
+            self.tableView.tableHeaderView.frame = CGRectMake(0, 0, ScreenW, FitPTScreen(62));
+        }
         NSString *title = weak_self.profitNames[index];
         weak_self.typeLb.text = title;
         weak_self.profitIndex = index;
@@ -236,6 +255,7 @@
 
 #pragma mark - Method
 - (void)configFooterView {
+    // 首单折扣 || 日常折扣
     if (self.mainInfo.type == 1 || self.mainInfo.type == 3) {
         //先请求折扣
         if (!self.discounts.count) [self loadDiscount];
@@ -249,6 +269,7 @@
         return;
     }
     
+    // 外卖折扣
     if (self.mainInfo.type == 2) {
         //订单折扣
         if (_editProfitInfo) { //获取到所有订单折扣
@@ -324,9 +345,11 @@
 
 //重组编辑 模型
 - (BOOL)configEditProfitGoodInfo {
+    // 首单折扣 || 日常折扣
     if (self.mainInfo.type == 1 || self.mainInfo.type == 3) {
         HLProfitFirstInfo *firstInfo = (HLProfitFirstInfo *)self.editProfitInfo;
         firstInfo.disFirst = self.discountFooter.discount;
+    // 外卖折扣
     } else if (self.mainInfo.type == 2) {
         HLProfitYMInfo *ymInfo = (HLProfitYMInfo *)self.editProfitInfo;
         NSMutableArray *disout = [NSMutableArray array];
@@ -402,6 +425,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HLBaseTypeInfo *info = self.mainInfo.datasource[indexPath.row];
+    if(info.separatorInset.left != ScreenW){
+        info.separatorInset = UIEdgeInsetsMake(0, FitPTScreen(12), 0, 0);
+    }
+    
     switch (info.type) {
         case HLInputCellTypeDefault: //默认输入
         {
@@ -441,6 +468,14 @@
             HLInputImagesViewCell *cell = (HLInputImagesViewCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLInputImagesViewCell" indexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
+            cell.baseInfo = info;
+            return cell;
+            
+        }break;
+        case HLInputRedPacketClassType: //外卖红包-设置折扣
+        {
+            HLRedPacketClassViewCell *cell = (HLRedPacketClassViewCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLRedPacketClassViewCell" indexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.baseInfo = info;
             return cell;
             
@@ -487,7 +522,7 @@
     _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
     
-    UIView *tableHead = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(62))];
+    UIView *tableHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(62))];
     tableHead.backgroundColor = UIColorFromRGB(0xf5f6f9);
     _tableView.tableHeaderView = tableHead;
     

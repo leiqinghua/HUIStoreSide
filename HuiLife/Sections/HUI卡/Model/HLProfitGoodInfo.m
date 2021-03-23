@@ -111,6 +111,32 @@
 
 @end
 
+#pragma mark - 外卖红包相关
+
+@implementation HLProfitRedPacketGainInfo
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.discount = @"";
+        self.gain_id = @"";
+    }
+    return self;
+}
+
+@end
+
+@implementation HLProfitRedPacketInfo
+
++ (NSDictionary *)mj_objectClassInArray{
+    return @{@"disOut":@"HLProfitRedPacketGainInfo"};
+}
+
+@end
+
+#pragma mark - 首次折扣
+
 @implementation HLProfitFirstInfo
 
 - (NSAttributedString *)discountAttr {

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class HLProfitGiftInfo;
 
 @interface HLProfitGoodInfo : NSObject
+
 //权益索引（用于修改权益
 @property(nonatomic, copy) NSString *gainId;
 //卡索引
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  //权益类型
  1 收单折扣，3日常折扣,2 外卖折扣，
  43 服务卡，42代金券，41 打折券， 21赠品
- 60,话费
+ 60,话费 61 外卖红包
  */
 @property(nonatomic, assign) NSInteger gainType;
 //权益名称
@@ -51,6 +52,26 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)profitsWithDict:(NSArray *)oriResult;
 
 + (NSArray *)ignoredKeys;
+
+@end
+
+
+// 外卖红包子项
+@interface HLProfitRedPacketGainInfo : NSObject
+
+@property (nonatomic, copy) NSString *class_id; // id
+@property (nonatomic, copy) NSString *discount; // 折扣
+@property (nonatomic, copy) NSString *gain_id;  // 利润id
+@property (nonatomic, copy) NSString *title;    // 名称
+
+@end
+// 外卖红包
+@interface HLProfitRedPacketInfo : HLProfitGoodInfo
+
+@property(nonatomic, copy) NSArray <HLProfitRedPacketGainInfo *>*disOut;     // 分类列表
+@property (nonatomic, copy) NSString *gainNum;  // 数量
+@property (nonatomic, copy) NSString *gainPrice;// 价格
+
 @end
 
 //首单折扣,日常折扣

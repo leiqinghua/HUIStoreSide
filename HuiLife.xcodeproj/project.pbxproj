@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		096747422605D06C0025E6DF /* HLBuyCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747412605D06C0025E6DF /* HLBuyCardViewController.m */; };
 		096747492605D1FF0025E6DF /* HLBuyCardListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */; };
+		0970E643260A2B330013941A /* HLRedPacketClassViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */; };
 		09874913260605810043F2BB /* HLBuyCardBottomBuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */; };
 		09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */; };
 		09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */; };
@@ -693,6 +694,8 @@
 		096747412605D06C0025E6DF /* HLBuyCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardViewController.m; sourceTree = "<group>"; };
 		096747472605D1FF0025E6DF /* HLBuyCardListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardListViewCell.h; sourceTree = "<group>"; };
 		096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardListViewCell.m; sourceTree = "<group>"; };
+		0970E641260A2B330013941A /* HLRedPacketClassViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLRedPacketClassViewCell.h; sourceTree = "<group>"; };
+		0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLRedPacketClassViewCell.m; sourceTree = "<group>"; };
 		09874911260605810043F2BB /* HLBuyCardBottomBuyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardBottomBuyView.h; sourceTree = "<group>"; };
 		09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardBottomBuyView.m; sourceTree = "<group>"; };
 		09A14A4F2605E7BD00171F0D /* HLBuyCardPackageViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageViewCell.h; sourceTree = "<group>"; };
@@ -4955,6 +4958,8 @@
 				9468CDFB2520343B00C9ADA1 /* HLRightEditNumViewCell.m */,
 				9468CDFD2520435500C9ADA1 /* HLInputImagesViewCell.h */,
 				9468CDFE2520435500C9ADA1 /* HLInputImagesViewCell.m */,
+				0970E641260A2B330013941A /* HLRedPacketClassViewCell.h */,
+				0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */,
 			);
 			path = InputTableCell;
 			sourceTree = "<group>";
@@ -5728,6 +5733,7 @@
 				B4166EBB232749F3009371CE /* HLWithDrawalInputView.m in Sources */,
 				B429ED8623795FFC00637FD5 /* UIImage+JPExtension.m in Sources */,
 				B40EFCEF22FC23A400296DDA /* HLSendOrderMainInfo.m in Sources */,
+				0970E643260A2B330013941A /* HLRedPacketClassViewCell.m in Sources */,
 				9DFEC61A21FC995500FAC93B /* WHActionSheetCell.m in Sources */,
 				9DFDF2DD20FC90930081BC46 /* HLLoginController.m in Sources */,
 				9DFEC61921FC995500FAC93B /* WHActionSheet.m in Sources */,

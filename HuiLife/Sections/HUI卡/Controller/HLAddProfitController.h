@@ -16,6 +16,7 @@ typedef void(^SaveProfitBlock)(HLProfitGoodInfo *);
 @property(nonatomic, strong) HLProfitGoodInfo *editProfitInfo;
 
 @property(nonatomic, copy) SaveProfitBlock saveProfitBlock;
+
 //已经添加的类型
 @property(nonatomic, strong) NSArray *addProfitTypes;
 

@@ -210,6 +210,14 @@
         return cell;
     }
     
+    if (goodInfo.gainType == 61) { //外卖红包
+        HLProfitRedPacketTableCell *cell = (HLProfitRedPacketTableCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLProfitRedPacketTableCell" indexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
+        cell.goodInfo = goodInfo;
+        return cell;
+    }
+    
     HLProfitDefaultTableCell *cell = (HLProfitDefaultTableCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLProfitDefaultTableCell" indexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
@@ -405,6 +413,7 @@
     NSArray *profits =[HLProfitGoodInfo profitsWithDict:dict[@"gain"]];
     [self.profits addObjectsFromArray:profits];
     for (HLProfitGoodInfo *goodInfo in self.profits) {
+        NSLog(@"goodinfo gaintype - %ld",goodInfo.gainType);
         if (goodInfo.gainType == 1 || goodInfo.gainType == 2 ||goodInfo.gainType == 3) {
             [self.addProfitTypes addObject:@(goodInfo.gainType)];
         }

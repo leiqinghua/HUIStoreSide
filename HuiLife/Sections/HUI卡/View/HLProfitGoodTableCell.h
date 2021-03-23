@@ -43,6 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+//外卖红包
+@interface HLProfitRedPacketTableCell : HLProfitGoodTableCell
+
+@end
+
 @interface HLProfitPhoneFeeCell : UITableViewCell
 
 @property(nonatomic, strong) HLPhoneFeeInfo *goodInfo;

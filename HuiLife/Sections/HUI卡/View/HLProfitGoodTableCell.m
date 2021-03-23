@@ -242,6 +242,70 @@
 }
 @end
 
+#pragma mark - HLProfitRedPacketTableCell
+
+@interface HLProfitRedPacketTableCell ()
+
+@property(nonatomic, strong) UILabel *priceLb;
+@property(nonatomic, strong) UILabel *tipLb;
+@property(nonatomic, strong) UILabel *nameLb;
+@property(nonatomic, strong) UILabel *detailLb;
+
+@end
+
+@implementation HLProfitRedPacketTableCell
+
+- (void)initSubView{
+    [super initSubView];
+    _priceLb = [UILabel hl_regularWithColor:@"#FE9E30" font:18];
+    [self.bagView addSubview:_priceLb];
+    [_priceLb makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.bagView.centerY).offset(FitPTScreen(15));
+        make.centerX.equalTo(self.bagView.left).offset(FitPTScreen(54));
+    }];
+    
+    _tipLb = [UILabel hl_regularWithColor:@"#888888" font:13];
+    [self.bagView addSubview:_tipLb];
+    [_tipLb makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.priceLb);
+        make.top.equalTo(self.priceLb.bottom).offset(FitPTScreen(9));
+    }];
+    
+    _nameLb = [UILabel hl_regularWithColor:@"#343434" font:13];
+    [self.bagView addSubview:_nameLb];
+    [_nameLb makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.vline.right).offset(FitPTScreen(17));
+        make.top.equalTo(self.hline.bottom).offset(FitPTScreen(20));
+    }];
+    
+    _detailLb = [UILabel hl_lableWithColor:@"#9A9A9A" font:11 bold:NO numbers:1];
+    [self.bagView addSubview:_detailLb];
+    [_detailLb makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLb);
+        make.top.equalTo(self.nameLb.bottom).offset(FitPTScreen(10));
+    }];
+}
+
+- (void)setGoodInfo:(HLProfitRedPacketInfo *)goodInfo{
+    [super setGoodInfo:goodInfo];
+    _nameLb.text = goodInfo.gainName;
+    _priceLb.text = goodInfo.gainPrice;
+    _tipLb.text = goodInfo.gainTypeName;
+    _nameLb.text = goodInfo.gainName;
+    _detailLb.text = goodInfo.gainDesc;
+    if (!goodInfo.gainDesc.length) {
+        [_nameLb updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.hline.bottom).offset(FitPTScreen(32));
+        }];
+        return;
+    }
+    [_nameLb updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.hline.bottom).offset(FitPTScreen(20));
+    }];
+}
+
+@end
+
 
 @interface HLProfitPhoneFeeCell ()
 @property(nonatomic, strong) UILabel *titleLb;

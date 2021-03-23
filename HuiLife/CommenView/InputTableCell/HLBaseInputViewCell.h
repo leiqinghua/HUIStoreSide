@@ -26,6 +26,7 @@ typedef enum : NSUInteger {
     HLInputCellRightButton, //成团时间
     HLInputCellRightEditNum,//编辑折扣(+ -)
     HLInputPickImagesType,//选择图片
+    HLInputRedPacketClassType // hui卡外卖红包类别样式
 } HLInputCellType;
 
 @interface HLBaseTypeInfo : NSObject

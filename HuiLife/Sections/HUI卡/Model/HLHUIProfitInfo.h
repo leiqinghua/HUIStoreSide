@@ -11,6 +11,8 @@
 #import "HLInputUseDescViewCell.h"
 #import "HLRightEditNumViewCell.h"
 #import "HLInputImagesViewCell.h"
+#import "HLRedPacketClassViewCell.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 @class HLProfitGoodInfo;
@@ -18,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 //选择的类型
 /**
  1 首单折扣，3日常折扣,2 外卖折扣，
- 43 服务卡，42代金券，41 打折券， 21赠品
+ 43 服务卡，42代金券，41 打折券， 21赠品 61外卖红包
  
  */
 @property(nonatomic, assign) NSInteger type;
@@ -32,8 +34,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSMutableArray *discountSource;
 //赠品
 @property(nonatomic, strong) NSMutableArray *giftSource;
+// 外卖红包
+@property (nonatomic, strong) NSMutableArray *redPacketSource;
+@property (nonatomic, strong) NSArray <NSDictionary *>*redPacketMenuItems; // 外卖红包设置的列表
+
 //用于编辑的 卡 权益
 @property(nonatomic, strong) HLProfitGoodInfo *editProfitInfo;
+
+
 
 //是否开启月月赠送
 - (void)monthGiftOpen:(BOOL)open ;
@@ -41,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (HLProfitGoodInfo *)createProfitGoodInfo;
 //获取编辑后的 模型
 - (void)configEditProfitGoodInfo;
+
+
+
 
 @end
 
