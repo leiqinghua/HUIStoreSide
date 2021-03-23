@@ -11,10 +11,10 @@
 #import "HLBuyCardBottomBuyView.h"
 
 /* 注意：根据下标取model，dataSource改变，这里也需要改变 */
-#define kPackageModel self.dataSource[2] // 购买数量
-#define kNumModel self.dataSource[3] // 购买数量
-#define kGiveNumModel self.dataSource[4] // 赠送数量
-#define kMoneyModel self.dataSource[5] // 服务费
+#define kPackageModel ([self hasClassName] ? self.dataSource[3] : self.dataSource[2])   // 购买数量
+#define kNumModel ([self hasClassName] ? self.dataSource[4] : self.dataSource[3])       // 购买数量
+#define kGiveNumModel ([self hasClassName] ? self.dataSource[5] : self.dataSource[4])   // 赠送数量
+#define kMoneyModel ([self hasClassName] ? self.dataSource[6] : self.dataSource[5])     // 服务费
 
 @interface HLBuyCardViewController () <UITableViewDataSource,UITableViewDelegate,HLBuyCardPackageViewCellDelegate,HLBuyCardBottomBuyViewDelegate,HLBuyCardListViewCellDelegate>
 
@@ -295,12 +295,12 @@
     nameModel.keyboardType = UIKeyboardTypeDefault;
     nameModel.inputValue = self.vcModel.store.storeName;
     
-//    HLBuyCardListViewModel *classModel = [[HLBuyCardListViewModel alloc] init];
-//    classModel.tip = @"商家类别:";
-//    classModel.placeHolder = @"请输入商家类别";
-//    classModel.canEdit = YES;
-//    classModel.keyboardType = UIKeyboardTypeDefault;
-//    classModel.inputValue = self.vcModel.store.className;
+    HLBuyCardListViewModel *classModel = [[HLBuyCardListViewModel alloc] init];
+    classModel.tip = @"商家类别:";
+    classModel.placeHolder = @"请输入商家类别";
+    classModel.canEdit = NO;
+    classModel.keyboardType = UIKeyboardTypeDefault;
+    classModel.inputValue = self.vcModel.store.className ?: @"";
     
     ///  选择服务套餐model
     HLBuyCardPackageViewModel *packageModel = [[HLBuyCardPackageViewModel alloc] init];
@@ -327,6 +327,16 @@
     moneyModel.keyboardType = UIKeyboardTypeDecimalPad;
     
     self.dataSource = [@[telModel,nameModel,packageModel,numModel,giveNumModel,moneyModel] mutableCopy];
+    
+    // 如果有类别
+    if ([self hasClassName]) {
+        [self.dataSource insertObject:classModel atIndex:2];
+    }
+}
+
+// 是否有类别
+- (BOOL)hasClassName{
+    return (self.vcModel.store.className && self.vcModel.store.className.length > 0);
 }
 
 @end
