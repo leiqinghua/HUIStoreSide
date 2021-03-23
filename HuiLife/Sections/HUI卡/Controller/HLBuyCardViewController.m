@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"开通商家";
+    self.navigationItem.title = @"商家购卡";
     [self loadData];
 }
 
@@ -182,6 +182,8 @@
         NSIndexPath *numIndexPath = [NSIndexPath indexPathForRow:[self.dataSource indexOfObject:kNumModel] inSection:0];
         HLBuyCardListViewCell *numCell = [self.tableView cellForRowAtIndexPath:numIndexPath];
         [numCell changeEditState];
+        // 计算总金额
+        [self calucateTotalMoney];
     }else{
         // 非自定义的时候，购买张数不可编辑
         [kNumModel setCanEdit:NO];

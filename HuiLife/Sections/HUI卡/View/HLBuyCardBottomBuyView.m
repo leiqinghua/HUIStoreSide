@@ -83,10 +83,10 @@
     [self.contentV addSubview:self.buyBtn];
     self.buyBtn.layer.cornerRadius = FitPTScreen(10);
     self.buyBtn.layer.masksToBounds = YES;
-    [self.buyBtn setTitle:@"立即开户" forState:UIControlStateNormal];
+    [self.buyBtn setTitle:@"立即购卡" forState:UIControlStateNormal];
     self.buyBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [self.buyBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    self.buyBtn.backgroundColor = UIColorFromRGB(0xFD6F2B);
+    [self.buyBtn setBackgroundImage:[UIImage imageNamed:@"buy_card_btn"] forState:UIControlStateNormal];
     [self.buyBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentV);
         make.right.equalTo(FitPTScreen(-12));
