@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HLHUIProfitInfo : NSObject
 //选择的类型
 /**
- 1 首单折扣，3日常折扣,2 外卖折扣，
- 43 服务卡，42代金券，41 打折券， 21赠品 61外卖红包
+ 1 首单折扣，3日常折扣 2 外卖折扣，
+ 43 服务卡，42代金券，41 打折券， 21赠品  61外卖红包
  
  */
 @property(nonatomic, assign) NSInteger type;

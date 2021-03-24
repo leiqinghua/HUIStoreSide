@@ -79,6 +79,7 @@
 
 // 添加时的1，2，3的默认值
 - (void)loadDefaultData {
+    HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
         request.api = @"/MerchantSideA/HuiCardSpreadSetInfo.php";
         request.serverType = HLServerTypeNormal;
@@ -92,16 +93,25 @@
             NSDictionary *normal = contents[1];
             _firstFist = [NSString stringWithFormat:@"%@",first[@"set"]];
             _normalFist = [NSString stringWithFormat:@"%@",normal[@"set"]];
+            [self loadProfitTypes];
+        }else{
+            HLHideLoading(self.view);
+            weakify(self);
+            [self hl_showNetFail:self.view.bounds callBack:^{
+                [weak_self loadDefaultData];
+            }];
         }
-        [self loadProfitTypes];
     }onFailure:^(NSError *error) {
         HLHideLoading(self.view);
+        weakify(self);
+        [self hl_showNetFail:self.view.bounds callBack:^{
+            [weak_self loadDefaultData];
+        }];
     }];
 }
 
 // 加载类型数据
 - (void)loadProfitTypes {
-    HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
         request.api = @"/MerchantSide/UnionCard/GainEnum.php";
         request.serverType = HLServerTypeNormal;
@@ -113,9 +123,20 @@
             [self initSubView];
             [self handleProfitData:result.data];
             return;
+        }else{
+            weakify(self);
+            [self hl_showNetFail:self.view.bounds callBack:^{
+                HLLoading(weak_self.view);
+                [weak_self loadDefaultData];
+            }];
         }
     }onFailure:^(NSError *error) {
         HLHideLoading(self.view);
+        weakify(self);
+        [self hl_showNetFail:self.view.bounds callBack:^{
+            HLLoading(weak_self.view);
+            [weak_self loadDefaultData];
+        }];
     }];
 }
 
@@ -134,9 +155,20 @@
     self.mainInfo.redPacketMenuItems = menu; // 这个用于构建红包数据
     self.mainInfo.type = [defaultType[@"typeValue"] integerValue];
     _typeLb.text = defaultType[@"typeName"];
+    // 判断分类类型，
+    [self changeTableViewHeaderFrame];
     // 配置底部视图
     [self configFooterView];
     [self.tableView reloadData];
+}
+
+- (void)changeTableViewHeaderFrame{
+    // 如果type为61外卖红包，则重置顶部样式
+    if (self.mainInfo.type == 61) {
+        self.tableView.tableHeaderView.frame = CGRectMake(0, 0, ScreenW, FitPTScreen(53));
+    }else{
+        self.tableView.tableHeaderView.frame = CGRectMake(0, 0, ScreenW, FitPTScreen(62));
+    }
 }
 
 //加载折扣
@@ -158,6 +190,7 @@
     }];
 }
 
+// 处理数据
 - (void)handleDiscount:(NSDictionary *)dict {
     NSArray *discounts = dict[@"discount"];
     NSString *tip = dict[@"unit"];
@@ -177,8 +210,6 @@
     }
     
 }
-
-
 
 //请求外卖折扣的默认值
 - (void)loadOrderDefault {
@@ -213,7 +244,8 @@
 #pragma mark - Event
 //确定添加
 - (void)addClick {
-    if (!_editProfitInfo) { //添加
+    // 添加
+    if (!_editProfitInfo) {
         HLProfitGoodInfo *goodInfo = [self createAddProfitGoodInfo];
         if (!goodInfo) return;
         
@@ -227,24 +259,21 @@
         [self hl_goback];
         return;
     }
+    // 编辑
     BOOL success = [self configEditProfitGoodInfo];
     if (!success) return;
     if (self.saveProfitBlock) self.saveProfitBlock(self.editProfitInfo);
     [self hl_goback];
 }
 
-
+// 选择下拉框的选项事件
 - (void)selectClick:(UIButton *)sender {
     weakify(self);
     [HLSellTimeSelectView showWithTitles:self.profitNames selectIndex:_profitIndex height:FitPTScreen(280) dependView:sender completion:^(NSInteger index){
         NSDictionary *dict = weak_self.profitTypes[index];
         weak_self.mainInfo.type = [dict[@"typeValue"] integerValue];
         // 如果type为61外卖红包，则重置顶部样式
-        if (weak_self.mainInfo.type == 61) {
-            self.tableView.tableHeaderView.frame = CGRectMake(0, 0, ScreenW, FitPTScreen(53));
-        }else{
-            self.tableView.tableHeaderView.frame = CGRectMake(0, 0, ScreenW, FitPTScreen(62));
-        }
+        [weak_self changeTableViewHeaderFrame];
         NSString *title = weak_self.profitNames[index];
         weak_self.typeLb.text = title;
         weak_self.profitIndex = index;
@@ -330,7 +359,7 @@
         [disout addObject:downInfo];
         ymInfo.disOut = [disout copy];
         goodInfo = ymInfo;
-    } else {
+    } else { // 外卖红包
         for (HLBaseTypeInfo *info in self.mainInfo.datasource) {
             if (info.needCheckParams && ![info checkParamsIsOk]) {
                 [HLTools showWithText:info.errorHint];

@@ -122,7 +122,7 @@
 - (void)buyCard{
     if (self.tips && self.tips.length > 0) {
         [HLCustomAlert showNormalStyleTitle:@"温馨提示" message:self.tips buttonTitles:@[@"知道了"] buttonColors:@[UIColorFromRGB(0xFF9900)] callBack:^(NSInteger index) {
-
+            
         }];
         return;
     }

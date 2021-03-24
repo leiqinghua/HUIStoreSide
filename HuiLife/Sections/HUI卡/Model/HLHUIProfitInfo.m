@@ -333,7 +333,6 @@
         name.cellHeight = FitPTScreen(50);
         name.saveKey = @"gainName";
         name.text = info?info.gainName:@"";
-        name.separatorInset = UIEdgeInsetsMake(0, ScreenW, 0, 0);
         [_giftSource addObject:name];
         
         HLRightInputTypeInfo *price = [[HLRightInputTypeInfo alloc]init];
@@ -430,6 +429,7 @@
         name.keyBoardType = UIKeyboardTypeDecimalPad;
         name.cellHeight = FitPTScreen(50);
         name.saveKey = @"gainPrice";
+        name.separatorInset = UIEdgeInsetsMake(0, ScreenW, 0, 0);
         name.text = info ? info.gainPrice :@"";
         [_redPacketSource addObject:name];
         
@@ -440,6 +440,8 @@
             HLRedPacketClassInfo *classInfo = [[HLRedPacketClassInfo alloc] init];
             classInfo.leftTip = gainInfo.title;
             classInfo.text = gainInfo.discount;
+            classInfo.class_id = gainInfo.class_id;
+            classInfo.gain_id = gainInfo.gain_id;
             classInfo.type = HLInputRedPacketClassType;
             if (i == 0) {
                 classInfo.showTopPlace = YES;
@@ -559,25 +561,78 @@
     if (_type == 21) {
         goodInfo = [[HLProfitGiftInfo alloc]init];
     }
+    
+    if (_type == 61) {
+        goodInfo = [[HLProfitRedPacketInfo alloc] init];
+    }
+    
     goodInfo.gainType = _type;
-    for (HLBaseTypeInfo *info in self.datasource) {
-        if (info.saveKey.length) {
-            [goodInfo setValue:info.text forKey:info.saveKey];
+    
+    // 外卖红包和其他的不一样
+    if (_type == 61) {
+        NSMutableArray *mArr = [[NSMutableArray alloc] init];
+        for (HLBaseTypeInfo *info in self.datasource) {
+            if ([info isMemberOfClass:[HLRedPacketClassInfo class]]) {
+                HLProfitRedPacketGainInfo *gainInfo = [[HLProfitRedPacketGainInfo alloc] init];
+                gainInfo.title = info.leftTip;
+                gainInfo.discount = info.text;
+                gainInfo.class_id = ((HLRedPacketClassInfo *)info).class_id;
+                gainInfo.gain_id = ((HLRedPacketClassInfo *)info).gain_id;
+                [mArr addObject:gainInfo];
+            }else{
+                if (info.saveKey.length) {
+                    [goodInfo setValue:info.text forKey:info.saveKey];
+                }
+                if (info.mParams.count) {
+                    [goodInfo mj_setKeyValues:info.mParams];
+                }
+            }
         }
-        if (info.mParams.count) {
-            [goodInfo mj_setKeyValues:info.mParams];
+        [(HLProfitRedPacketInfo *)goodInfo setDisOut:[mArr copy]];
+    }else{
+        for (HLBaseTypeInfo *info in self.datasource) {
+            if (info.saveKey.length) {
+                [goodInfo setValue:info.text forKey:info.saveKey];
+            }
+            if (info.mParams.count) {
+                [goodInfo mj_setKeyValues:info.mParams];
+            }
         }
     }
     return goodInfo;
 }
 
 - (void)configEditProfitGoodInfo {
-    for (HLBaseTypeInfo *info in self.datasource) {
-        if (info.saveKey.length) {
-            [_editProfitInfo setValue:info.text forKey:info.saveKey];
+    
+    // 外卖红包和其他的不一样
+    if (self.type == 61) {
+        NSMutableArray *mArr = [[NSMutableArray alloc] init];
+        for (HLBaseTypeInfo *info in self.datasource) {
+            if ([info isMemberOfClass:[HLRedPacketClassInfo class]]) {
+                HLProfitRedPacketGainInfo *gainInfo = [[HLProfitRedPacketGainInfo alloc] init];
+                gainInfo.title = info.leftTip;
+                gainInfo.discount = info.text;
+                gainInfo.class_id = ((HLRedPacketClassInfo *)info).class_id;
+                gainInfo.gain_id = ((HLRedPacketClassInfo *)info).gain_id;
+                [mArr addObject:gainInfo];
+            }else{
+                if (info.saveKey.length) {
+                    [_editProfitInfo setValue:info.text forKey:info.saveKey];
+                }
+                if (info.mParams.count) {
+                    [_editProfitInfo mj_setKeyValues:info.mParams];
+                }
+            }
         }
-        if (info.mParams.count) {
-            [_editProfitInfo mj_setKeyValues:info.mParams];
+        [(HLProfitRedPacketInfo *)_editProfitInfo setDisOut:[mArr copy]];
+    }else{
+        for (HLBaseTypeInfo *info in self.datasource) {
+            if (info.saveKey.length) {
+                [_editProfitInfo setValue:info.text forKey:info.saveKey];
+            }
+            if (info.mParams.count) {
+                [_editProfitInfo mj_setKeyValues:info.mParams];
+            }
         }
     }
     _editProfitInfo.gainType = self.type;

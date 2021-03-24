@@ -59,9 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 外卖红包子项
 @interface HLProfitRedPacketGainInfo : NSObject
 
-@property (nonatomic, copy) NSString *class_id; // id
+@property (nonatomic, copy) NSString *class_id; // 分类id
 @property (nonatomic, copy) NSString *discount; // 折扣
-@property (nonatomic, copy) NSString *gain_id;  // 利润id
+@property (nonatomic, copy) NSString *gain_id;  // id
 @property (nonatomic, copy) NSString *title;    // 名称
 
 @end
@@ -69,8 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HLProfitRedPacketInfo : HLProfitGoodInfo
 
 @property(nonatomic, copy) NSArray <HLProfitRedPacketGainInfo *>*disOut;     // 分类列表
-@property (nonatomic, copy) NSString *gainNum;  // 数量
 @property (nonatomic, copy) NSString *gainPrice;// 价格
+
+@property (nonatomic, strong) NSMutableAttributedString *gainPriceAttr;
 
 @end
 

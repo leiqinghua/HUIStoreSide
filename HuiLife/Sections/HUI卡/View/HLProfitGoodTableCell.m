@@ -278,20 +278,20 @@
         make.top.equalTo(self.hline.bottom).offset(FitPTScreen(20));
     }];
     
-    _detailLb = [UILabel hl_lableWithColor:@"#9A9A9A" font:11 bold:NO numbers:1];
+    _detailLb = [UILabel hl_lableWithColor:@"#9A9A9A" font:11 bold:NO numbers:3];
     [self.bagView addSubview:_detailLb];
     [_detailLb makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLb);
         make.top.equalTo(self.nameLb.bottom).offset(FitPTScreen(10));
+        make.right.lessThanOrEqualTo(FitPTScreen(-12));
     }];
 }
 
 - (void)setGoodInfo:(HLProfitRedPacketInfo *)goodInfo{
     [super setGoodInfo:goodInfo];
     _nameLb.text = goodInfo.gainName;
-    _priceLb.text = goodInfo.gainPrice;
+    _priceLb.attributedText = goodInfo.gainPriceAttr;
     _tipLb.text = goodInfo.gainTypeName;
-    _nameLb.text = goodInfo.gainName;
     _detailLb.text = goodInfo.gainDesc;
     if (!goodInfo.gainDesc.length) {
         [_nameLb updateConstraints:^(MASConstraintMaker *make) {

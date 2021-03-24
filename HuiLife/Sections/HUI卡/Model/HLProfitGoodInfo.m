@@ -15,7 +15,7 @@
 
 //要忽略的keys
 + (NSArray *)ignoredKeys {
-    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr"];
+    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr"];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
@@ -55,9 +55,9 @@
             {
                 HLProfitDiscountInfo *info = [HLProfitDiscountInfo mj_objectWithKeyValues:dict];
                 [datasource addObject:info];
-                
             }break;
             case 21://赠品
+            case 22:
             {
                 HLProfitGiftInfo *info = [HLProfitGiftInfo mj_objectWithKeyValues:dict];
                 [datasource addObject:info];
@@ -67,7 +67,11 @@
             {
                 HLPhoneFeeInfo *info = [HLPhoneFeeInfo mj_objectWithKeyValues:dict];
                 [datasource insertObject:info atIndex:0];
-                
+            }break;
+            case 61://外卖红包
+            {
+                HLProfitRedPacketInfo *info = [HLProfitRedPacketInfo mj_objectWithKeyValues:dict];
+                [datasource addObject:info];
             }break;
             default:
                 break;
@@ -87,6 +91,7 @@
             case 42:case 26:_gainTypeName = @"代金券";break;
             case 41:case 25:_gainTypeName = @"超级打折券";break;
             case 21:_gainTypeName = @"礼品/赠品";break;
+            case 61:_gainTypeName = @"外卖红包";break;
             default:
                 break;
         }
@@ -131,6 +136,39 @@
 
 + (NSDictionary *)mj_objectClassInArray{
     return @{@"disOut":@"HLProfitRedPacketGainInfo"};
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.title = @"开卡送";
+        self.gainName = @"外卖单单立减红包";
+    }
+    return self;
+}
+
+- (CGFloat)cellHight{
+    CGFloat detailH = [self.gainDesc boundingRectWithSize:CGSizeMake(FitPTScreen(205), MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[self detailAttributes] context:nil].size.height;
+    return detailH + FitPTScreen(125);
+}
+
+- (NSAttributedString *)gainPriceAttr {
+    if (!_gainPriceAttr) {
+        NSString *text = [NSString stringWithFormat:@"¥%@",self.gainPrice];
+        NSRange tipRange = NSMakeRange(0, 1);
+        NSRange priceRange = NSMakeRange(tipRange.length, text.length - tipRange.length);
+        _gainPriceAttr = [[NSMutableAttributedString alloc]initWithString:text];
+        [_gainPriceAttr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(18)]} range:priceRange];
+        [_gainPriceAttr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(12)]} range:tipRange];
+    }
+    return _gainPriceAttr;
+}
+
+- (NSDictionary *)detailAttributes {
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
+    style.lineSpacing = 2;
+    return @{NSParagraphStyleAttributeName:style,NSFontAttributeName:[UIFont systemFontOfSize:FitPTScreen(11)]};
 }
 
 @end

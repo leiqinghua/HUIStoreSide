@@ -32,19 +32,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDefaultData];
-    
-//    [self initSubView];
-//    [self configDatasourceWithDict:nil];
 }
 
 #pragma mark - Request
+
 //获取联名卡信息
 - (void)loadDefaultData {
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
         request.api = @"/MerchantSide/UnionCard/CardInfo.php";
         request.serverType = HLServerTypeNormal;
-        request.parameters = @{@"cardId":_cardId?:@""};
+        request.parameters = @{@"cardId":self.cardId?:@""};
     } onSuccess:^(id responseObject) {
         HLHideLoading(self.view);
         XMResult *result = (XMResult *)responseObject;
@@ -79,11 +77,12 @@
 }
 
 #pragma mark - Event
+
 //确认发布
 - (void)productClick {
     
     NSMutableDictionary *pargram = [NSMutableDictionary dictionary];
-    for (int i = 0; i< self.datasource.count-1; i ++) {
+    for (int i = 0; i < self.datasource.count-1; i ++) {
         NSArray *infos = self.datasource[i];
         for (HLBaseTypeInfo *info in infos) {
             if (info.needCheckParams && ![info checkParamsIsOk]) {
@@ -95,11 +94,12 @@
             }
         }
     }
+    
     if (self.profits.count) {
         NSMutableArray *profitJson = [NSMutableArray array];
         for (HLProfitGoodInfo *info in self.profits) {
             if (info.gainType != 60) {
-                [profitJson addObject:[info mj_keyValuesWithIgnoredKeys:[HLProfitGiftInfo ignoredKeys]]];
+                [profitJson addObject:[info mj_keyValuesWithIgnoredKeys:[HLProfitGoodInfo ignoredKeys]]];
             }
         }
         HLLog(@"profitJson = %@",profitJson);
@@ -121,29 +121,28 @@
     addProfitVC.addProfitTypes = self.addProfitTypes;
     weakify(self);
     addProfitVC.saveProfitBlock = ^(HLProfitGoodInfo * goodInfo) {
-        if (goodInfo.gainType == 1||goodInfo.gainType == 2||goodInfo.gainType == 3) {
-            [weak_self.addProfitTypes addObject:@(goodInfo.gainType)];
-        }
+        [weak_self addGainType:goodInfo.gainType];
         [weak_self.profits addObject:goodInfo];
         NSIndexSet *profitSet = [[NSIndexSet alloc]initWithIndex:(weak_self.datasource.count-1)];
         [weak_self.tableView reloadSections:profitSet withRowAnimation:UITableViewRowAnimationNone];
     };
     [self hl_pushToController:addProfitVC];
 }
+
 #pragma mark - HLHUIGiftCellDelegate
+
 //删除
 - (void)giftCell:(HLProfitGoodTableCell *)cell deleteInfo:(HLProfitGoodInfo *)info {
     [HLCustomAlert showNormalStyleTitle:@"删除提示" message:@"是否确定删除权益" buttonTitles:@[@"取消",@"确定"] buttonColors:@[UIColorFromRGB(0x9A9A9A),UIColorFromRGB(0xFF9900)] callBack:^(NSInteger index) {
         if (index == 1) {
             [self.profits removeObject:info];
             [self.tableView reloadData];
-            if (info.gainType == 1 || info.gainType == 2 ||info.gainType == 3) {
-                [self.addProfitTypes removeObject:@(info.gainType)];
-            }
+            [self removeGainType:info.gainType];
         }
     }];
 }
-//编辑卡权益
+
+// 编辑卡权益
 - (void)giftCell:(HLProfitGoodTableCell *)cell editInfo:(HLProfitGoodInfo *)info {
     NSInteger index = [self.profits indexOfObject:info];
     HLAddProfitController *addProfitVC = [[HLAddProfitController alloc]init];
@@ -158,6 +157,7 @@
 }
 
 #pragma mark - UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.datasource.count;
 }
@@ -185,6 +185,7 @@
         return cell;
     }
     
+    // 卡列表展示
     HLProfitGoodInfo *goodInfo = self.profits[indexPath.row];
     
     if (goodInfo.gainType == 60) {
@@ -194,7 +195,7 @@
         return cell;
     }
     
-    if (goodInfo.gainType == 21) { //赠品
+    if (goodInfo.gainType == 21 || goodInfo.gainType == 22) { //赠品
         HLProfitGiftTableCell *cell = (HLProfitGiftTableCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLProfitGiftTableCell" indexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
@@ -226,6 +227,7 @@
 }
 
 #pragma mark - UITableViewDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section != self.datasource.count -1) {
         NSArray *infos = self.datasource[indexPath.section];
@@ -263,6 +265,7 @@
 }
 
 #pragma mark - UIView
+
 - (void)initSubView {
     if (_tableView) return;
     
@@ -315,6 +318,7 @@
 }
 
 #pragma mark - getter
+
 - (NSMutableArray *)datasource {
     if (!_datasource) {
         _datasource = [NSMutableArray array];
@@ -413,12 +417,8 @@
     NSArray *profits =[HLProfitGoodInfo profitsWithDict:dict[@"gain"]];
     [self.profits addObjectsFromArray:profits];
     for (HLProfitGoodInfo *goodInfo in self.profits) {
-        NSLog(@"goodinfo gaintype - %ld",goodInfo.gainType);
-        if (goodInfo.gainType == 1 || goodInfo.gainType == 2 ||goodInfo.gainType == 3) {
-            [self.addProfitTypes addObject:@(goodInfo.gainType)];
-        }
+        [self addGainType:goodInfo.gainType];
     }
-    
     [self.tableView reloadData];
 }
 
@@ -428,4 +428,17 @@
     }
     return _addProfitTypes;
 }
+
+- (void)removeGainType:(NSInteger)gainType{
+    if (gainType == 1 || gainType == 2 || gainType == 3 || gainType == 61) {
+        [self.addProfitTypes removeObject:@(gainType)];
+    }
+}
+
+- (void)addGainType:(NSInteger)gainType{
+    if (gainType == 1 || gainType == 2 || gainType == 3 || gainType == 61) {
+        [self.addProfitTypes addObject:@(gainType)];
+    }
+}
+
 @end

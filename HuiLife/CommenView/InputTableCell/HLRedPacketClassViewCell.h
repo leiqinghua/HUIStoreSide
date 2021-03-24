@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showTopPlace;    // 展示顶部站位区域
 @property (nonatomic, assign) BOOL showBottomPlace; // 展示底部站位区域
 
+@property (nonatomic, copy) NSString *class_id;
+@property (nonatomic, copy) NSString *gain_id;
 @end
 
 @interface HLRedPacketClassViewCell : HLBaseInputViewCell
