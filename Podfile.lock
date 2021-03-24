@@ -22,7 +22,7 @@ PODS:
   - BMKLocationKit (1.3.0.2)
   - Bugly (2.5.0)
   - FLAnimatedImage (1.0.12)
-  - IQKeyboardManager (6.4.0)
+  - IQKeyboardManager (6.5.6)
   - JCore (1.2.2)
   - JPush (3.1.0):
     - JCore (~> 1.2.0)
@@ -41,7 +41,7 @@ PODS:
   - ZFPlayer/Core (3.2.13)
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 3.2.1)
   - AvoidCrash (~> 2.5.2)
   - AWSCore (from `https://github.com/ZHCliang/aws-sdk-ios.git`)
   - AWSS3 (from `https://github.com/ZHCliang/aws-sdk-ios.git`)
@@ -61,11 +61,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - AFNetworking
     - BaiduMapKit
     - BMKLocationKit
     - Bugly
-    - IQKeyboardManager
     - JCore
     - JPush
     - Masonry
@@ -75,8 +73,10 @@ SPEC REPOS:
     - SDVersion
     - ZFPlayer
   trunk:
+    - AFNetworking
     - AvoidCrash
     - FLAnimatedImage
+    - IQKeyboardManager
     - SDWebImage
     - WechatOpenSDK
 
@@ -103,7 +103,7 @@ SPEC CHECKSUMS:
   BMKLocationKit: 6c47273f985609be0a0785f2f6f12bb7c1b7e8b6
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   JCore: f14c0549968a63c22e246a4875aa9d428446f373
   JPush: 5921e25ad13e0386351079217b009f2039084eac
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -115,6 +115,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
 
-PODFILE CHECKSUM: ee02c8d791c912e8c611cce28169654015d36548
+PODFILE CHECKSUM: eb52b873c8f95eac8327e151e4c8afbe13830831
 
 COCOAPODS: 1.9.3

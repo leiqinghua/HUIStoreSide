@@ -90,7 +90,7 @@
             case 43:case 27:_gainTypeName = @"服务卡";break;
             case 42:case 26:_gainTypeName = @"代金券";break;
             case 41:case 25:_gainTypeName = @"超级打折券";break;
-            case 21:_gainTypeName = @"礼品/赠品";break;
+            case 21:case 22:_gainTypeName = @"礼品/赠品";break;
             case 61:_gainTypeName = @"外卖红包";break;
             default:
                 break;
@@ -408,7 +408,7 @@
 @implementation HLProfitGiftInfo
 
 - (BOOL)open {
-    return !(_startDate.length && _endDate.length);
+    return self.gainType == 22;
 }
 
 - (NSString *)title {
@@ -418,7 +418,7 @@
         monthStr = @"月月送";
         cardStr = @"开卡送";
     }
-    NSString *title = self.open?monthStr:cardStr;
+    NSString *title = self.gainType == 22 ? monthStr : cardStr;
     return title;
 }
 

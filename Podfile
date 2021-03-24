@@ -2,7 +2,7 @@
 # platform :ios, '9.0'
 
 target 'HuiLife' do
- pod 'AFNetworking'
+ pod 'AFNetworking', '~> 3.2.1'
  pod 'Masonry'
  pod 'MJRefresh'
  #pod 'UICKeyChainStore'

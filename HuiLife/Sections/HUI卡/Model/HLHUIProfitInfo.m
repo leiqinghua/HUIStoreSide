@@ -50,6 +50,7 @@
         }
             break;
         case 21:
+        case 22:
         {
             [self.datasource removeAllObjects];
             [self.datasource addObjectsFromArray:self.giftSource];
@@ -530,7 +531,8 @@
         }
     }
     
-    if (_type == 21) {
+    if (_type == 21 || _type == 22) {
+        _type = open?22:21;
         if (!open) {
             if (![self.giftSource containsObject:_dateInfo]) {
                 [self.giftSource insertObject:_dateInfo atIndex:5];
@@ -558,15 +560,13 @@
         goodInfo = [[HLProfitDiscountInfo alloc]init];
     }
     
-    if (_type == 21) {
+    if (_type == 21 || _type == 22) {
         goodInfo = [[HLProfitGiftInfo alloc]init];
     }
     
     if (_type == 61) {
         goodInfo = [[HLProfitRedPacketInfo alloc] init];
     }
-    
-    goodInfo.gainType = _type;
     
     // 外卖红包和其他的不一样
     if (_type == 61) {
@@ -599,6 +599,14 @@
             }
         }
     }
+    // 设置类型
+    goodInfo.gainType = _type;
+    // 如果是 21 或者 22，区分是首单还是月月
+    if(_type == 21 || _type == 22){
+        BOOL isOpen = [(HLProfitGiftInfo *)goodInfo open];
+        [(HLProfitGiftInfo *)goodInfo setGainType: isOpen ? 22 : 21];
+    }
+    
     return goodInfo;
 }
 
@@ -636,6 +644,12 @@
         }
     }
     _editProfitInfo.gainType = self.type;
+    
+    // 如果是 21 或者 22，区分是首单还是月月
+    if(_type == 21 || _type == 22){
+        BOOL isOpen = [(HLProfitGiftInfo *)_editProfitInfo open];
+        [(HLProfitGiftInfo *)_editProfitInfo setGainType: isOpen ? 22 : 21];
+    }
 }
 
 - (NSMutableArray *)datasource {
