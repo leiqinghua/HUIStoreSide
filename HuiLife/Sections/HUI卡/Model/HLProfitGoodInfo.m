@@ -154,8 +154,8 @@
 }
 
 - (NSAttributedString *)gainPriceAttr {
-    if (!_gainPriceAttr) {
-        NSString *text = [NSString stringWithFormat:@"¥%@",self.gainPrice];
+    NSString *text = [NSString stringWithFormat:@"¥%@",self.gainPrice];
+    if (!_gainPriceAttr || ![_gainPriceAttr.string isEqualToString:text]) {
         NSRange tipRange = NSMakeRange(0, 1);
         NSRange priceRange = NSMakeRange(tipRange.length, text.length - tipRange.length);
         _gainPriceAttr = [[NSMutableAttributedString alloc]initWithString:text];

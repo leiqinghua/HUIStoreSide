@@ -93,7 +93,7 @@
     _upShow = totalHight > ScreenH;
     if (_upShow) { //tableView向上打开
         self.tableView.frame = CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, 0);
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.15 animations:^{
             CGRect frame = self.tableView.frame;
             frame.origin.y = CGRectGetMinY(rect) - tableHight;
             frame.size.height = tableHight;
@@ -101,7 +101,7 @@
         }];
     } else { //向下打开
         self.tableView.frame = CGRectMake(CGRectGetMinX(rect), CGRectGetMaxY(rect), rect.size.width, 0);
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.15 animations:^{
             CGRect frame = self.tableView.frame;
             frame.size.height = tableHight;
             self.tableView.frame = frame;
@@ -113,7 +113,7 @@
 - (void)hideTimeView {
     CGRect rect = [_dependView convertRect:_dependView.bounds toView:KEY_WINDOW];
     if (_upShow) {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.15 animations:^{
             CGRect frame = self.tableView.frame;
             frame.origin.y = CGRectGetMinY(rect);
             frame.size.height = 0;
@@ -125,7 +125,7 @@
         return;
     }
     
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.15 animations:^{
         CGRect frame = self.tableView.frame;
         frame.size.height = 0;
         self.tableView.frame = frame;

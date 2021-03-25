@@ -23,6 +23,7 @@
 
 - (void)setType:(NSInteger)type {
     _type = type;
+    
     switch (_type) {
         case 1:
         case 3:
@@ -109,7 +110,7 @@
         gift.swithOn = info.open;
         [_serviceSource addObject:gift];
         
-        if (!info.open) {
+        if (info && !info.open) {
             _dateInfo = [[HLRightInputTypeInfo alloc]init];
             _dateInfo.leftTip = @"* 使用有效期";
             _dateInfo.placeHoder = @"请选择使用有效期";
@@ -197,7 +198,7 @@
         gift.swithOn = info.open;
         [_voucherSource addObject:gift];
         
-        if (!info.open) {
+        if (info && !info.open) {
             _dateInfo = [[HLRightInputTypeInfo alloc]init];
             _dateInfo.leftTip = @"* 使用有效期";
             _dateInfo.placeHoder = @"请选择使用有效期";
@@ -285,7 +286,7 @@
         gift.swithOn = info.open;
         [_discountSource addObject:gift];
         
-        if (!info.open) {
+        if (info && !info.open) {
             _dateInfo = [[HLRightInputTypeInfo alloc]init];
             _dateInfo.leftTip = @"* 使用有效期";
             _dateInfo.placeHoder = @"请选择使用有效期";
@@ -381,7 +382,7 @@
         gift.swithOn = info.open;
         [_giftSource addObject:gift];
         
-        if (!info.open) {
+        if (info && !info.open) {
             _dateInfo = [[HLRightInputTypeInfo alloc]init];
             _dateInfo.leftTip = @"* 使用有效期";
             _dateInfo.placeHoder = @"请选择使用有效期";
@@ -486,7 +487,8 @@
     }
   
     if (open) { //打开，给时间置空
-        _dateInfo.mParams = @{@"startDate":@"",@"endDate":@""};
+        _dateInfo.mParams = @{};
+        _dateInfo.text = @"";
         if (_editProfitInfo) {
             [_editProfitInfo mj_setKeyValues:_dateInfo.mParams];
         }

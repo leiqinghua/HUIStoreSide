@@ -149,8 +149,9 @@
     weakify(self);
     addProfitVC.saveProfitBlock = ^(HLProfitGoodInfo * goodInfo) {
         [weak_self.profits replaceObjectAtIndex:index withObject:goodInfo];
-        NSIndexSet *profitSet = [[NSIndexSet alloc]initWithIndex:(weak_self.datasource.count-1)];
-        [weak_self.tableView reloadSections:profitSet withRowAnimation:UITableViewRowAnimationNone];
+        [weak_self.tableView reloadData];
+//        NSIndexSet *profitSet = [[NSIndexSet alloc] initWithIndex:(weak_self.datasource.count-1)];
+//        [weak_self.tableView reloadSections:profitSet withRowAnimation:UITableViewRowAnimationNone];
     };
     [self hl_pushToController:addProfitVC];
 }

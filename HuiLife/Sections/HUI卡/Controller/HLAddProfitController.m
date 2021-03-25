@@ -269,9 +269,16 @@
 // 选择下拉框的选项事件
 - (void)selectClick:(UIButton *)sender {
     weakify(self);
-    [HLSellTimeSelectView showWithTitles:self.profitNames selectIndex:_profitIndex height:FitPTScreen(280) dependView:sender completion:^(NSInteger index){
+    [HLSellTimeSelectView showWithTitles:self.profitNames selectIndex:_profitIndex height:FitPTScreen(40) * self.profitNames.count dependView:sender completion:^(NSInteger index){
         NSDictionary *dict = weak_self.profitTypes[index];
         weak_self.mainInfo.type = [dict[@"typeValue"] integerValue];
+        // 赋值成功时也需要改变
+        for (HLBaseTypeInfo *info in weak_self.mainInfo.datasource) {
+            if ([info isMemberOfClass:[HLInputDateInfo class]]) {
+                [weak_self.mainInfo monthGiftOpen:[(HLInputDateInfo *)info swithOn]];
+                break;
+            }
+        }
         // 如果type为61外卖红包，则重置顶部样式
         [weak_self changeTableViewHeaderFrame];
         NSString *title = weak_self.profitNames[index];
@@ -441,6 +448,7 @@
 }
 
 #pragma mark - HLInputDateViewCellDelegate
+
 //月月赠送开关
 - (void)dateCell:(HLInputDateViewCell *)cell switchON:(BOOL)on {
     [self.mainInfo monthGiftOpen:on];
@@ -537,6 +545,7 @@
         [self.navigationController presentViewController:calender animated:false completion:nil];
     }
 }
+
 #pragma mark - UIView
 - (void)initSubView {
     if (_tableView) return;
