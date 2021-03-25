@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *class_id; // 分类id
 @property (nonatomic, copy) NSString *discount; // 折扣
-@property (nonatomic, copy) NSString *gain_id;  // id
+//@property (nonatomic, copy) NSString *gain_id;  // id
 @property (nonatomic, copy) NSString *title;    // 名称
 
 @end

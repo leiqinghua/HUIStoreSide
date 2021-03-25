@@ -15,7 +15,7 @@
 
 //要忽略的keys
 + (NSArray *)ignoredKeys {
-    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr"];
+    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title"];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
@@ -125,7 +125,7 @@
     self = [super init];
     if (self) {
         self.discount = @"";
-        self.gain_id = @"";
+//        self.gain_id = @"";
     }
     return self;
 }

@@ -442,7 +442,7 @@
             classInfo.leftTip = gainInfo.title;
             classInfo.text = gainInfo.discount;
             classInfo.class_id = gainInfo.class_id;
-            classInfo.gain_id = gainInfo.gain_id;
+//            classInfo.gain_id = gainInfo.gain_id;
             classInfo.type = HLInputRedPacketClassType;
             if (i == 0) {
                 classInfo.showTopPlace = YES;
@@ -577,7 +577,7 @@
                 gainInfo.title = info.leftTip;
                 gainInfo.discount = info.text;
                 gainInfo.class_id = ((HLRedPacketClassInfo *)info).class_id;
-                gainInfo.gain_id = ((HLRedPacketClassInfo *)info).gain_id;
+//                gainInfo.gain_id = ((HLRedPacketClassInfo *)info).gain_id;
                 [mArr addObject:gainInfo];
             }else{
                 if (info.saveKey.length) {
@@ -621,7 +621,7 @@
                 gainInfo.title = info.leftTip;
                 gainInfo.discount = info.text;
                 gainInfo.class_id = ((HLRedPacketClassInfo *)info).class_id;
-                gainInfo.gain_id = ((HLRedPacketClassInfo *)info).gain_id;
+//                gainInfo.gain_id = ((HLRedPacketClassInfo *)info).gain_id;
                 [mArr addObject:gainInfo];
             }else{
                 if (info.saveKey.length) {

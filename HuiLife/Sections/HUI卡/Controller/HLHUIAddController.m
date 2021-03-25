@@ -105,13 +105,12 @@
         HLLog(@"profitJson = %@",profitJson);
         
         NSString *json = [profitJson mj_JSONString];
-        
+//        json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@""];
         [pargram setObject:json forKey:@"gain"];
         
         HLLog(@"json = %@",json);
     }
     if (_cardId) [pargram setObject:_cardId forKey:@"cardId"];
-    HLLog(@"pargram = %@",pargram);
     [self productWithPargrams:pargram];
 }
 
