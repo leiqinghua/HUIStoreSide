@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HLCardSelectTypeCell : UITableViewCell
 
-@property(nonatomic, strong)HLCardPromoteType *model;
+@property(nonatomic, strong) HLCardPromoteType *model;
 
 @end
 

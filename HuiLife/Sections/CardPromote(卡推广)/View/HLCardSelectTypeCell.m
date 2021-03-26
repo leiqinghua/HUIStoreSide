@@ -48,7 +48,7 @@
     _arrowImV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_right_grey"]];
     [self.contentView addSubview:_arrowImV];
     [_arrowImV makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(FitPTScreen(-15));
+        make.right.equalTo(FitPTScreen(-17));
         make.centerY.equalTo(self.contentView);
     }];
 }
@@ -57,5 +57,17 @@
     _model = model;
     _titleLb.text = model.title;
     _descLb.text = model.desc;
+    
+    if (model.canEdit) {
+        self.arrowImV.hidden = NO;
+        [_descLb updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(FitPTScreen(-30));
+        }];
+    }else{
+        self.arrowImV.hidden = YES;
+        [_descLb updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(FitPTScreen(-17));
+        }];
+    }
 }
 @end

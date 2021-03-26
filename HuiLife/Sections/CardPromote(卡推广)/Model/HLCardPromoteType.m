@@ -9,4 +9,13 @@
 
 @implementation HLCardPromoteType
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.canEdit = YES;
+    }
+    return self;
+}
+
 @end

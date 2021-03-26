@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, assign) NSInteger on;
 
+/// 是否可以编辑，默认为YES
+@property (nonatomic, assign) BOOL canEdit;
+
 @end
 
 NS_ASSUME_NONNULL_END

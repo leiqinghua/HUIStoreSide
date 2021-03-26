@@ -82,10 +82,17 @@
     _class_id = dict[@"bus_class_id"];
     _sclass_id = dict[@"bus_sclass_id"];
     
-    NSString *typeStr = dict[@"bus_class_name"];
-    NSString *subType = dict[@"bus_sclass_name"];
+    NSString *typeStr = dict[@"bus_class_name"] ?: @"";
+    NSString *subType = dict[@"bus_sclass_name"] ?: @"";
+    
     if (subType.length) {
         typeStr = [NSString stringWithFormat:@"%@-%@",typeStr,subType];
+    }
+    
+    // 如果都有值，则不能编辑了
+    BOOL canEditType = YES;
+    if (_class_id.integerValue > 0 && _sclass_id.integerValue > 0) {
+        canEditType = NO;
     }
     
     BOOL nameEmpty = [typeStr isEqualToString:@""] || !typeStr ;
@@ -97,6 +104,7 @@
     
     HLCardPromoteType *storeType = [[HLCardPromoteType alloc]init];
     storeType.title = @"店铺类型";
+    storeType.canEdit = canEditType;
     storeType.desc = nameEmpty?@"请选择店铺类型":typeStr;
     
     NSDictionary *discountDict = dict[@"setTakeAway"];
@@ -276,7 +284,7 @@
     
     if (indexPath.section == 0) {
         HLCardPromoteType *storeType = self.modelTypes[indexPath.row];
-        if ([storeType.title isEqualToString:@"店铺类型"]) {
+        if ([storeType.title isEqualToString:@"店铺类型"] && storeType.canEdit) {
             [self loadStoreTypesWithIndex:indexPath];
         }
         return;
