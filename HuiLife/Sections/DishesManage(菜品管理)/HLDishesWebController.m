@@ -21,6 +21,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 -(UIImagePickerController *)pickerVC{
@@ -38,6 +44,11 @@
     [self hl_interactivePopGestureRecognizerUseable];
     self.view.backgroundColor = UIColor.whiteColor;
     self.webview.scrollView.mj_header.hidden = YES;
+    
+    // 全屏显示
+    [self resetWebViewFrame:self.view.bounds];
+    [self setProgressFrame:CGRectMake(0, 0, ScreenW, 2)];
+    
 }
 
 -(void)hl_webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
