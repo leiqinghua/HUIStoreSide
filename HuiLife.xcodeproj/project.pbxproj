@@ -6012,7 +6012,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6049,7 +6049,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6137,7 +6137,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
@@ -6174,7 +6174,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
