@@ -298,8 +298,10 @@
         if(result.code == 200){
             NSDictionary * dict = result.data;
             if (dict.count) {
-                self.city.text = [NSString stringWithFormat:@"%@-%@-%@",dict[@"province"],dict[@"city"],dict[@"area"]];
-                self.city.pargram = @{@"country_code":dict[@"areaId"]?:@""};
+                if(dict[@"areaId"]){
+                    self.city.text = [NSString stringWithFormat:@"%@-%@-%@",dict[@"province"],dict[@"city"],dict[@"area"]];
+                    self.city.pargram = @{@"country_code":dict[@"areaId"]?:@""};
+                }
                 self.protocolUrl = dict[@"url"];
                 [self.tableView reloadData];
             }

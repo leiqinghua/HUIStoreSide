@@ -98,7 +98,7 @@ static NSString *wxAppKey = @"wx78999ba7073ec23c";
 }
 
 - (void)onCheckPermissionState:(BMKLocationAuthErrorCode)iError{
-
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
