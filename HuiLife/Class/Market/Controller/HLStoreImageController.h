@@ -11,7 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HLStoreImageController : HLBaseViewController
 
-@property(nonatomic,copy)NSString * storePic;
+@property (nonatomic, copy) NSString *storePic;
+@property (nonatomic, copy) NSString *storeId;
 
 @end
 

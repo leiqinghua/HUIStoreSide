@@ -16,9 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,assign)CGFloat progress;
 
-//@property(nonatomic,copy)NSString * timeStr;
-//
-//@property(nonatomic,copy)NSString * pic;
 
 @property(nonatomic,copy)NSString * state;
 
