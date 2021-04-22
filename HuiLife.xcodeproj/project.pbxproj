@@ -602,6 +602,10 @@
 		B472579C23151B0B00BB1A3A /* HLMatterNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = B472579B23151B0B00BB1A3A /* HLMatterNoteController.m */; };
 		B472579F2315253B00BB1A3A /* HLMatterNoteLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B472579E2315253B00BB1A3A /* HLMatterNoteLayout.m */; };
 		B47257A2231527B900BB1A3A /* HLMatterNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B47257A1231527B900BB1A3A /* HLMatterNoteCell.m */; };
+		B47721F52630636100998C26 /* HLVideoMarketHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721F42630636100998C26 /* HLVideoMarketHomeController.m */; };
+		B47721F8263063DA00998C26 /* HLVideoMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721F7263063DA00998C26 /* HLVideoMarketListCell.m */; };
+		B47721FB2630645900998C26 /* HLVideoMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721FA2630645900998C26 /* HLVideoMarketModel.m */; };
+		B47721FE2630648500998C26 /* HLVideoMarketAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721FD2630648500998C26 /* HLVideoMarketAddController.m */; };
 		B483DC5223161A89004EDA63 /* HLCollegeControlController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483DC5123161A89004EDA63 /* HLCollegeControlController.m */; };
 		B483DC5523161AA5004EDA63 /* HLCollegeCaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483DC5423161AA5004EDA63 /* HLCollegeCaseController.m */; };
 		B483DC5823161AB7004EDA63 /* HLCollegeFindController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483DC5723161AB7004EDA63 /* HLCollegeFindController.m */; };
@@ -1844,6 +1848,14 @@
 		B472579E2315253B00BB1A3A /* HLMatterNoteLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLMatterNoteLayout.m; sourceTree = "<group>"; };
 		B47257A0231527B900BB1A3A /* HLMatterNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLMatterNoteCell.h; sourceTree = "<group>"; };
 		B47257A1231527B900BB1A3A /* HLMatterNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLMatterNoteCell.m; sourceTree = "<group>"; };
+		B47721F32630636100998C26 /* HLVideoMarketHomeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketHomeController.h; sourceTree = "<group>"; };
+		B47721F42630636100998C26 /* HLVideoMarketHomeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketHomeController.m; sourceTree = "<group>"; };
+		B47721F6263063DA00998C26 /* HLVideoMarketListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketListCell.h; sourceTree = "<group>"; };
+		B47721F7263063DA00998C26 /* HLVideoMarketListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketListCell.m; sourceTree = "<group>"; };
+		B47721F92630645900998C26 /* HLVideoMarketModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketModel.h; sourceTree = "<group>"; };
+		B47721FA2630645900998C26 /* HLVideoMarketModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketModel.m; sourceTree = "<group>"; };
+		B47721FC2630648500998C26 /* HLVideoMarketAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketAddController.h; sourceTree = "<group>"; };
+		B47721FD2630648500998C26 /* HLVideoMarketAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketAddController.m; sourceTree = "<group>"; };
 		B483DC5023161A89004EDA63 /* HLCollegeControlController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLCollegeControlController.h; sourceTree = "<group>"; };
 		B483DC5123161A89004EDA63 /* HLCollegeControlController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLCollegeControlController.m; sourceTree = "<group>"; };
 		B483DC5323161AA5004EDA63 /* HLCollegeCaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLCollegeCaseController.h; sourceTree = "<group>"; };
@@ -2332,6 +2344,7 @@
 		9427E2CD20F6525100F5AC43 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				B47721EF2630631600998C26 /* 短视频营销 */,
 				946AC12825621D3200A545D0 /* 红包推广 */,
 				941CC9A9255A307600D16307 /* 竞业管理 */,
 				945A1876251997E600DE16BF /* HUI卡 */,
@@ -4731,6 +4744,45 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B47721EF2630631600998C26 /* 短视频营销 */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F22630632E00998C26 /* Model */,
+				B47721F12630632700998C26 /* View */,
+				B47721F02630632000998C26 /* Controller */,
+			);
+			path = "短视频营销";
+			sourceTree = "<group>";
+		};
+		B47721F02630632000998C26 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F32630636100998C26 /* HLVideoMarketHomeController.h */,
+				B47721F42630636100998C26 /* HLVideoMarketHomeController.m */,
+				B47721FC2630648500998C26 /* HLVideoMarketAddController.h */,
+				B47721FD2630648500998C26 /* HLVideoMarketAddController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B47721F12630632700998C26 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F6263063DA00998C26 /* HLVideoMarketListCell.h */,
+				B47721F7263063DA00998C26 /* HLVideoMarketListCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B47721F22630632E00998C26 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F92630645900998C26 /* HLVideoMarketModel.h */,
+				B47721FA2630645900998C26 /* HLVideoMarketModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B483DC4C23161A5E004EDA63 /* College(商家学院) */ = {
 			isa = PBXGroup;
 			children = (
@@ -5405,6 +5457,7 @@
 				9DBF036621A7B08700734669 /* HLBlueToothSetingController.m in Sources */,
 				9DFDF2E720FD886B0081BC46 /* HLListView.m in Sources */,
 				94341D23235715B800152C26 /* HLOPtionDescController.m in Sources */,
+				B47721FB2630645900998C26 /* HLVideoMarketModel.m in Sources */,
 				9DE8A5A822F52B9C0034C4AF /* HLMarketController.m in Sources */,
 				B417CF1C22FAD7450057A513 /* HLAreaSelectView.m in Sources */,
 				9D56694C2302B40D00B97EA6 /* HLStoreSelectViewCell.m in Sources */,
@@ -5586,6 +5639,7 @@
 				942960F723570ABD00203C74 /* HLHelpCenterController.m in Sources */,
 				945A189C251B411400DE16BF /* HLHUIAddController.m in Sources */,
 				B41ED7C3239F8BF500D730D1 /* HLImagePickerManager.m in Sources */,
+				B47721F52630636100998C26 /* HLVideoMarketHomeController.m in Sources */,
 				941F89002591FD48005AD408 /* HLReviewCheckController.m in Sources */,
 				9464711C25650C07002C2218 /* HLRedBagInfo.m in Sources */,
 				B4495A2E231D1B9F004D3798 /* HLVoucherBankInfo.m in Sources */,
@@ -5661,6 +5715,7 @@
 				9DE8A62622F916970034C4AF /* HLRuleDescViewCell.m in Sources */,
 				B415FC292317A18100F4331D /* ZFPlayerControlView.m in Sources */,
 				9DFFBFFA21CC92B400C26E7B /* NSDate+HLCalendar.m in Sources */,
+				B47721FE2630648500998C26 /* HLVideoMarketAddController.m in Sources */,
 				B42EBCFF23A0FB8B00EA2A1F /* HLImageRequestOperation.m in Sources */,
 				B428FE2222FE6AE700256258 /* HLPayPromoteController.m in Sources */,
 				B41E38D5230252590014DECF /* HLBaseUploadModel.m in Sources */,
@@ -5738,6 +5793,7 @@
 				B4FCAA5D22F4317E0053EA41 /* HLVoucherMarketFuncCell.m in Sources */,
 				B483DC5223161A89004EDA63 /* HLCollegeControlController.m in Sources */,
 				9DB1D6322249CC8600B09E41 /* HLBaseDateModel.m in Sources */,
+				B47721F8263063DA00998C26 /* HLVideoMarketListCell.m in Sources */,
 				9DE8A5A122F4455D0034C4AF /* HLHomeHeaderView.m in Sources */,
 				B41ED7C9239F970000D730D1 /* HLImageAlbumController.m in Sources */,
 				941CC9B5255A45E100D16307 /* HLCompeteUpController.m in Sources */,
