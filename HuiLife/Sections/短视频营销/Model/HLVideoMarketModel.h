@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HLVideoMarketModel : NSObject
 
 @property (nonatomic, copy) NSString *id;
-// 1 上架 15 驳回 0 下架
+// 状态 0下架 1上架 10:审核中 15:审核失败
 @property (nonatomic, assign) NSInteger state;
 @property (nonatomic, copy) NSString *proId;
 @property (nonatomic, copy) NSString *pic;
