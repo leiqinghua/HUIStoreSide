@@ -217,6 +217,9 @@
     _salePriceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",model.price];
     _orinalPriceLab.text = [NSString stringWithFormat:@"门市价: ¥%.2lf",model.sale];
     _orinalPriceLab.hidden = !self.showOrinalPrice;
+    if(!self.showOrinalPrice){
+        _salePriceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",model.sale];
+    }
     if ([model.pro_id isEqualToString:self.pro_id]) {
         // 已选择
         [self.stateBtn setTitle:@"已选择" forState:UIControlStateNormal];

@@ -124,10 +124,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HLVideoProductViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HLVideoProductViewCell" forIndexPath:indexPath];
-    cell.model = self.dataSource[indexPath.row];
 //    cell.delegate = self;
     cell.pro_id = self.pro_id;
     cell.showOrinalPrice = self.type == 1;
+    cell.model = self.dataSource[indexPath.row];
     return cell;
 }
 
