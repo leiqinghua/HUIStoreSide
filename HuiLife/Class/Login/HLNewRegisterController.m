@@ -120,7 +120,7 @@
 
 /// 构建底部的view
 - (void)creatFootView{
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenH - FitPTScreen(91), ScreenW, FitPTScreen(91))];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenH - FitPTScreen(91) - Height_Bottom_Margn, ScreenW, FitPTScreen(91) + Height_Bottom_Margn)];
     footView.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:footView];
     // 加按钮
@@ -145,7 +145,7 @@
     [footView addSubview:protocolBtn];
     [protocolBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(saveButton);
-        make.top.equalTo(saveButton.bottom).offset(-10);
+        make.top.equalTo(saveButton.bottom).offset(0);
     }];
     [protocolBtn addTarget:self action:@selector(protocolClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -298,8 +298,10 @@
         if(result.code == 200){
             NSDictionary * dict = result.data;
             if (dict.count) {
-                self.city.text = [NSString stringWithFormat:@"%@-%@-%@",dict[@"province"],dict[@"city"],dict[@"area"]];
-                self.city.pargram = @{@"country_code":dict[@"areaId"]?:@""};
+                if (dict[@"areaId"]) {
+                    self.city.text = [NSString stringWithFormat:@"%@-%@-%@",dict[@"province"],dict[@"city"],dict[@"area"]];
+                    self.city.pargram = @{@"country_code":dict[@"areaId"]?:@""};
+                }
                 self.protocolUrl = dict[@"url"];
                 [self.tableView reloadData];
             }
