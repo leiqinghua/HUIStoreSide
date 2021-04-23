@@ -6068,7 +6068,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuiLife/HuiLife.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = KCP6438BT4;
@@ -6086,7 +6086,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.4.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6105,7 +6105,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuiLife/HuiLife.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = KCP6438BT4;
@@ -6123,7 +6123,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6193,7 +6193,7 @@
 				CODE_SIGN_ENTITLEMENTS = HLNotificationExtension/HLNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6211,7 +6211,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.4.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
@@ -6230,7 +6230,7 @@
 				CODE_SIGN_ENTITLEMENTS = HLNotificationExtension/HLNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6248,7 +6248,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.4.4;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
