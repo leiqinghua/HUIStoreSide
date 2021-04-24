@@ -132,7 +132,7 @@
     [saveButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateNormal];
     [saveButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(FitPTScreen(0));
+        make.top.equalTo(FitPTScreen(-10));
         make.width.equalTo(FitPTScreen(307));
         make.height.equalTo(FitPTScreen(72));
     }];
