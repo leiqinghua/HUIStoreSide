@@ -56,7 +56,7 @@
     self.stateBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(12)];
     [self.stateBtn setTitle:@"选择" forState:UIControlStateNormal];
     [self.contentView addSubview:self.stateBtn];
-//    [self.stateBtn addTarget:self action:@selector(editBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.stateBtn addTarget:self action:@selector(stateBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.stateBtn.layer.cornerRadius = FitPTScreen(6);
     self.stateBtn.layer.masksToBounds = YES;
     self.stateBtn.layer.borderColor = UIColorFromRGB(0xFD9927).CGColor;
@@ -95,120 +95,27 @@
         make.height.equalTo(FitPTScreen(1));
     }];
     
-//
-//    _stateV = [[UIView alloc] init];
-//    [self.videoImgV addSubview:self.stateV];
-//    self.stateV.backgroundColor = UIColorFromRGB(0xFF9900);
-//    self.stateV.layer.cornerRadius = FitPTScreen(1);
-//    self.stateV.layer.masksToBounds = YES;
-//    [self.stateV makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(0);
-//        make.top.equalTo(FitPTScreen(5));
-//    }];
-//
-//
-//
-//    self.reasonBtn = [[UIButton alloc] init];
-//    [self.reasonBtn setBackgroundImage:[UIImage imageNamed:@"video_wenhao"] forState:UIControlStateNormal];
-//    [self.videoImgV addSubview:self.reasonBtn];
-//    [self.reasonBtn addTarget:self action:@selector(reasonBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.reasonBtn makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.stateV.right).offset(FitPTScreen(5));
-//        make.centerY.equalTo(self.stateV);
-//        make.width.height.equalTo(FitPTScreen(16));
-//    }];
-//
-//    self.titleLab = [[UILabel alloc] init];
-//    [self.contentView addSubview:self.titleLab];
-//    self.titleLab.font = [UIFont boldSystemFontOfSize:FitPTScreen(14)];
-//    self.titleLab.textColor = UIColorFromRGB(0x333333);
-//    self.titleLab.numberOfLines = 2;
-//    [self.titleLab makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.videoImgV.right).offset(FitPTScreen(11));
-//        make.right.equalTo(FitPTScreen(-12));
-//        make.top.equalTo(self.videoImgV.top).offset(FitPTScreen(2));
-//    }];
-//
-//    self.goodsView = [[UIView alloc] init];
-//    [self.contentView addSubview:self.goodsView];
-//    self.goodsView.backgroundColor = UIColorFromRGB(0xF6F6F6);
-//    self.goodsView.layer.cornerRadius = FitPTScreen(12.5);
-//    self.goodsView.layer.masksToBounds = YES;
-//    [self.goodsView makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.titleLab);
-//        make.top.equalTo(self.titleLab.bottom).offset(FitPTScreen(12));
-//        make.height.equalTo(FitPTScreen(25));
-//        make.right.lessThanOrEqualTo(self.titleLab.right).priorityHigh();
-//    }];
-//
-//    UIImageView *goodsImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video_good_tip"]];
-//    [self.goodsView addSubview:goodsImgV];
-//    [goodsImgV makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.goodsView);
-//        make.left.equalTo(FitPTScreen(10.5));
-//        make.width.equalTo(FitPTScreen(13));
-//        make.height.equalTo(FitPTScreen(14));
-//    }];
-//
-//    self.goodNameLab = [[UILabel alloc] init];
-//    [self.goodsView addSubview:self.goodNameLab];
-//    self.goodNameLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
-//    self.goodNameLab.textColor = UIColorFromRGB(0x666666);
-//    [self.goodNameLab makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(goodsImgV.right).offset(FitPTScreen(4.5));
-//        make.right.equalTo(FitPTScreen(-11.5));
-//        make.centerY.equalTo(self.goodsView);
-//    }];
-//
-//    self.descLab = [[UILabel alloc] init];
-//    [self.contentView addSubview:self.descLab];
-//    self.descLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
-//    self.descLab.textColor = UIColorFromRGB(0x999999);
-//    self.descLab.numberOfLines = 2;
-//    [self.descLab makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.titleLab);
-//        make.right.equalTo(self.titleLab);
-//        make.top.equalTo(self.goodsView.bottom).offset(FitPTScreen(14));
-//    }];
-//
-//    self.lookImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video_look_tip"]];
-//    [self.contentView addSubview:self.lookImgV];
-//    [self.lookImgV makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(self.videoImgV.bottom).offset(FitPTScreen(-2));
-//        make.left.equalTo(self.titleLab);
-//        make.width.equalTo(FitPTScreen(14));
-//        make.height.equalTo(FitPTScreen(9.5));
-//    }];
-//
-//    self.lookLab = [[UILabel alloc] init];
-//    [self.contentView addSubview:self.lookLab];
-//    self.lookLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
-//    self.lookLab.textColor = UIColorFromRGB(0x333333);
-//    [self.lookLab makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.lookImgV.right).offset(FitPTScreen(3));
-//        make.centerY.equalTo(self.lookImgV);
-//    }];
-//
-//    self.payImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video_pay_tip"]];
-//    [self.contentView addSubview:self.payImgV];
-//    [self.payImgV makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.lookImgV);
-//        make.left.equalTo(self.lookLab.right).offset(FitPTScreen(16));
-//        make.width.equalTo(FitPTScreen(11));
-//        make.height.equalTo(FitPTScreen(10.5));
-//    }];
-//
-//    self.payLab = [[UILabel alloc] init];
-//    [self.contentView addSubview:self.payLab];
-//    self.payLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
-//    self.payLab.textColor = UIColorFromRGB(0x333333);
-//    [self.payLab makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.payImgV.right).offset(FitPTScreen(3));
-//        make.centerY.equalTo(self.lookLab);
-//    }];
+    UIImageView *vipImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video_product_vip"]];
+    [self.contentView addSubview:vipImgV];
+    [vipImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(FitPTScreen(70));
+        make.height.equalTo(FitPTScreen(27));
+        make.top.equalTo(FitPTScreen(0));
+        make.right.equalTo(FitPTScreen(-12));
+    }];
 }
 
-
+- (void)stateBtnClick{
+    
+    // 使用中则不执行
+    if (self.model.state == 1) {
+        return;
+    }
+    
+    if (self.delegate) {
+        [self.delegate productViewCell:self selectProductModel:self.model];
+    }
+}
 
 - (void)setModel:(HLVideoProductModel *)model{
     _model = model;
@@ -217,6 +124,7 @@
     _salePriceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",model.price];
     _orinalPriceLab.text = [NSString stringWithFormat:@"门市价: ¥%.2lf",model.sale];
     _orinalPriceLab.hidden = !self.showOrinalPrice;
+    // 不显示原价，说明为外卖
     if(!self.showOrinalPrice){
         _salePriceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",model.sale];
     }

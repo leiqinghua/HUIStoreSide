@@ -285,6 +285,15 @@
 }
 
 - (void)login:(UIButton *)sender{
+    
+#if DEBUG
+    HLTextField * textField = self.textFields[0];
+    textField.textField.text = @"13426059431";
+    
+    HLTextField * textField1 = self.textFields[1];
+    textField1.textField.text = @"zyd123456";
+#endif
+    
     for (int i = 0; i<self.textFields.count; i++) {
         HLTextField * textField = self.textFields[i];
         if ([textField.textField.text isEqualToString:@""]) {

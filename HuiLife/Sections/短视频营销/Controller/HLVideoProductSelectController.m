@@ -82,6 +82,8 @@
         
         HLVideoProductListController *productList = [[HLVideoProductListController alloc] init];
         productList.type = i;
+        productList.pro_id = self.pro_id;
+        productList.productSelectBlock = self.productSelectBlock;
         [self addChildViewController:productList];
         [self.scrollView addSubview:productList.view];
         productList.view.frame = CGRectMake(i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);

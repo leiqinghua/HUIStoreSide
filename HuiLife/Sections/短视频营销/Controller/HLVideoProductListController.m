@@ -9,7 +9,7 @@
 #import "HLVideoProductModel.h"
 #import "HLVideoProductViewCell.h"
 
-@interface HLVideoProductListController () <UITableViewDelegate,UITableViewDataSource>
+@interface HLVideoProductListController () <UITableViewDelegate,UITableViewDataSource,HLVideoProductViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -58,7 +58,6 @@
     if (hud) {
         HLLoading(self.view);
     }
-//    https://sapi.51huilife.cn/HuiLife_Api
     NSDictionary *params = @{@"pageNo":@(_page),@"type":@(_type),@"mode":@"1"};
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api = @"/push/productList.php";
@@ -115,6 +114,14 @@
     self.tableView.mj_footer.hidden = self.dataSource.count == 0;
 }
 
+#pragma mark - HLVideoProductViewCellDelegate
+
+- (void)productViewCell:(HLVideoProductViewCell *)cell selectProductModel:(HLVideoProductModel *)model{
+    if (self.productSelectBlock) {
+        self.productSelectBlock(model, self.type);
+    }
+    [self.parentViewController.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -124,7 +131,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HLVideoProductViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HLVideoProductViewCell" forIndexPath:indexPath];
-//    cell.delegate = self;
+    cell.delegate = self;
     cell.pro_id = self.pro_id;
     cell.showOrinalPrice = self.type == 1;
     cell.model = self.dataSource[indexPath.row];
@@ -142,7 +149,6 @@
         _tableView.separatorColor = UIColorFromRGB(0xEDEDED);
         _tableView.rowHeight = FitPTScreen(121);
         _tableView.tableFooterView = [UIView new];
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(10))];
         [_tableView registerClass:[HLVideoProductViewCell class] forCellReuseIdentifier:@"HLVideoProductViewCell"];
         weakify(self);
         MJRefreshNormalHeader *mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

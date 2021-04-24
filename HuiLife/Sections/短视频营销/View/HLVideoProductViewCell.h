@@ -7,11 +7,21 @@
 
 #import <UIKit/UIKit.h>
 #import "HLVideoProductModel.h"
+
+@class HLVideoProductViewCell;
+@protocol HLVideoProductViewCellDelegate <NSObject>
+
+- (void)productViewCell:(HLVideoProductViewCell *)cell selectProductModel:(HLVideoProductModel *)model;
+
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HLVideoProductViewCell : UITableViewCell
 
 @property (nonatomic, strong) HLVideoProductModel *model;
+
+@property (nonatomic, weak) id <HLVideoProductViewCellDelegate> delegate;
 
 // 选择的pro_id，如果匹配，那么显示已选择
 @property (nonatomic, copy) NSString *pro_id;
