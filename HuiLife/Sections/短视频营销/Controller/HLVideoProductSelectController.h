@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 当前选择的 pro_id
 @property (nonatomic, copy) NSString *pro_id;
 
+// 当前选择的type
+@property (nonatomic, assign) NSInteger type;
+
 // 选择的数据回调
 @property (nonatomic, copy) void(^productSelectBlock)(HLVideoProductModel *proModel, NSInteger type);
 

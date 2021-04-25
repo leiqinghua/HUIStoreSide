@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ZFPlayer/ZFPlayer.h>
+#import "ZFAVPlayerManager.h"
+#import "ZFPlayerControlView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HLPlayManager : HLBaseViewController
 
-@property (nonatomic, copy) NSString *centerTitle;
+@property (nonatomic, strong) ZFPlayerController *player;
+@property (nonatomic, strong) ZFPlayerControlView *controlView;
 
 - (instancetype)initWithVideoUrl:(NSString *)videoUrl preImgUrl:(NSString *)preImgUrl;
 

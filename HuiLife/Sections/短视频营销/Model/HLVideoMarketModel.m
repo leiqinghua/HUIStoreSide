@@ -9,6 +9,11 @@
 
 @implementation HLVideoMarketModel
 
+- (void)setState:(NSInteger)state{
+    _state = state;
+    self.stateStr = nil;
+}
+
 - (NSString *)stateStr{
     if (!_stateStr) {
         _stateStr = @"";
@@ -21,6 +26,9 @@
                 break;
             case 15:
                 _stateStr = @"驳回";
+                break;
+            case 10:
+                _stateStr = @"审核中";
                 break;
             default:
                 break;

@@ -24,8 +24,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"college_nav_bg"] forBarMetrics:UIBarMetricsDefault];
+    UIImage *backGroundImage = [UIImage imageNamed:@"college_nav_bg"];
+    backGroundImage = [backGroundImage resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
+    [self.navigationController.navigationBar setBackgroundImage:backGroundImage forBarMetrics:UIBarMetricsDefault];
     [self hl_setBackImage:@"back_white"];
 }
 

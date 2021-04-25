@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UIButton *reasonBtn;
 @property (nonatomic, strong) UIButton *editBtn;
-@property (nonatomic, strong) UIButton *delBtn;
+@property (nonatomic, strong) UIButton *controlBtn;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIView *goodsView;
 @property (nonatomic, strong) UILabel *goodNameLab;
@@ -43,6 +43,7 @@
     [self.contentView addSubview:_videoImgV];
     _videoImgV.contentMode = UIViewContentModeScaleAspectFill;
     _videoImgV.clipsToBounds = YES;
+    _videoImgV.userInteractionEnabled = YES;
     [_videoImgV makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(FitPTScreen(12));
@@ -56,6 +57,7 @@
         make.center.equalTo(self.videoImgV);
         make.width.height.equalTo(FitPTScreen(30));
     }];
+    [playImgV hl_addTarget:self action:@selector(playBtnClick)];
     
     self.editBtn = [[UIButton alloc] init];
     self.editBtn.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
@@ -70,14 +72,14 @@
         make.width.equalTo(FitPTScreen(57));
     }];
     
-    self.delBtn = [[UIButton alloc] init];
-    self.delBtn.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
-    self.delBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(12)];
-    [self.delBtn setTitle:@"删除" forState:UIControlStateNormal];
-    [self.delBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [self.videoImgV addSubview:self.delBtn];
-    [self.delBtn addTarget:self action:@selector(delBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.delBtn makeConstraints:^(MASConstraintMaker *make) {
+    self.controlBtn = [[UIButton alloc] init];
+    self.controlBtn.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+    self.controlBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(12)];
+    [self.controlBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [self.controlBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [self.videoImgV addSubview:self.controlBtn];
+    [self.controlBtn addTarget:self action:@selector(controlBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.controlBtn makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self.videoImgV);
         make.height.equalTo(FitPTScreen(25.5));
         make.width.equalTo(FitPTScreen(57));
@@ -202,15 +204,27 @@
 }
 
 - (void)reasonBtnClick{
-    
+    if (self.delegate) {
+        [self.delegate marketListCell:self reasonClickWithModel:self.listModel];
+    }
 }
 
 - (void)editBtnClick{
-    
+    if (self.delegate) {
+        [self.delegate marketListCell:self editClickWithModel:self.listModel];
+    }
 }
 
-- (void)delBtnClick{
-    
+- (void)controlBtnClick{
+    if (self.delegate) {
+        [self.delegate marketListCell:self controlClickWithModel:self.listModel];
+    }
+}
+
+- (void)playBtnClick{
+    if (self.delegate) {
+        [self.delegate marketListCell:self playClickWithModel:self.listModel];
+    }
 }
 
 - (void)setListModel:(HLVideoMarketModel *)listModel{
@@ -222,7 +236,21 @@
     self.descLab.text = listModel.content;
     self.lookLab.text = [NSString stringWithFormat:@"%ld浏览",listModel.looks];
     self.payLab.text = [NSString stringWithFormat:@"%ld下单",listModel.pays];
+    // 被驳回显示问号按钮
     self.reasonBtn.hidden = listModel.state != 15;
+    // 审核中&被驳回不显示上下架
+    self.controlBtn.hidden = listModel.state == 10 || listModel.state == 15;
+    // 审核中不显示编辑
+    self.editBtn.hidden = listModel.state == 10;
+    
+//    0下架 1上架
+    NSString *controlTitle = @"";
+    if (listModel.state == 0) {
+        controlTitle = @"上架";
+    }else if(listModel.state == 1){
+        controlTitle = @"下架";
+    }
+    [self.controlBtn setTitle:controlTitle forState:UIControlStateNormal];
 }
 
 @end

@@ -18,7 +18,17 @@
 @class HLVideoMarketListCell;
 @protocol HLVideoMarketListCellDelegate <NSObject>
 
+/// 点击被驳回的原因
+- (void)marketListCell:(HLVideoMarketListCell *)cell reasonClickWithModel:(HLVideoMarketModel *)model;
 
+/// 点击上下架控制按钮
+- (void)marketListCell:(HLVideoMarketListCell *)cell controlClickWithModel:(HLVideoMarketModel *)model;
+
+/// 点击编辑按钮
+- (void)marketListCell:(HLVideoMarketListCell *)cell editClickWithModel:(HLVideoMarketModel *)model;
+
+/// 点击播放
+- (void)marketListCell:(HLVideoMarketListCell *)cell playClickWithModel:(HLVideoMarketModel *)model;
 
 @end
 

@@ -18,6 +18,7 @@
 		0992DD742632B76F00F94DC5 /* HLVideoProductListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD732632B76F00F94DC5 /* HLVideoProductListController.m */; };
 		0992DD772632C1B900F94DC5 /* HLVideoProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD762632C1B900F94DC5 /* HLVideoProductModel.m */; };
 		0992DD7A2632C23100F94DC5 /* HLVideoProductViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD792632C23100F94DC5 /* HLVideoProductViewCell.m */; };
+		099466052635536200F3A641 /* HLVideoMarketPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 099466042635536200F3A641 /* HLVideoMarketPlayController.m */; };
 		09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */; };
 		09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */; };
 		2EED5CF4837C6B90C4C61C3D /* libPods-HuiLife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71912A473F109382F72211E1 /* libPods-HuiLife.a */; };
@@ -723,6 +724,8 @@
 		0992DD762632C1B900F94DC5 /* HLVideoProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoProductModel.m; sourceTree = "<group>"; };
 		0992DD782632C23100F94DC5 /* HLVideoProductViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoProductViewCell.h; sourceTree = "<group>"; };
 		0992DD792632C23100F94DC5 /* HLVideoProductViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoProductViewCell.m; sourceTree = "<group>"; };
+		099466032635536200F3A641 /* HLVideoMarketPlayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketPlayController.h; sourceTree = "<group>"; };
+		099466042635536200F3A641 /* HLVideoMarketPlayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketPlayController.m; sourceTree = "<group>"; };
 		09A14A4F2605E7BD00171F0D /* HLBuyCardPackageViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageViewCell.h; sourceTree = "<group>"; };
 		09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageViewCell.m; sourceTree = "<group>"; };
 		09A14A562605EB1C00171F0D /* HLBuyCardPackageItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageItemView.h; sourceTree = "<group>"; };
@@ -4771,6 +4774,8 @@
 			children = (
 				B47721F32630636100998C26 /* HLVideoMarketHomeController.h */,
 				B47721F42630636100998C26 /* HLVideoMarketHomeController.m */,
+				099466032635536200F3A641 /* HLVideoMarketPlayController.h */,
+				099466042635536200F3A641 /* HLVideoMarketPlayController.m */,
 				B47721FC2630648500998C26 /* HLVideoMarketAddController.h */,
 				B47721FD2630648500998C26 /* HLVideoMarketAddController.m */,
 				0992DD6F2632B3A200F94DC5 /* HLVideoProductSelectController.h */,
@@ -5362,6 +5367,7 @@
 				B472579F2315253B00BB1A3A /* HLMatterNoteLayout.m in Sources */,
 				B415FC212317A18100F4331D /* HLPlayManager.m in Sources */,
 				9DE8A66C22FD080B0034C4AF /* AppDelegate+Network.m in Sources */,
+				099466052635536200F3A641 /* HLVideoMarketPlayController.m in Sources */,
 				B41ED7BF239F8B4700D730D1 /* HLImagePickerConfig.m in Sources */,
 				94536FAA238BB8AE00DE1A89 /* HLDisplayCollectionCell.m in Sources */,
 				B438868F2303A10D00CE25A2 /* HLSekillPromoteListModel.m in Sources */,

@@ -148,7 +148,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HLCaseListModel *listModel = self.dataSource[indexPath.row];
     HLPlayManager *playManager = [[HLPlayManager alloc] initWithVideoUrl:listModel.video preImgUrl:@""];
-    playManager.centerTitle = listModel.title;
     [self.navigationController pushViewController:playManager animated:YES];
 }
 

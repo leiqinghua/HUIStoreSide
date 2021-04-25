@@ -21,7 +21,7 @@ typedef enum : NSUInteger {
     HLVideoUploadAllSuccess     // 视频&缩略图都上传成功
 } HLVideoUploadState;
 
-@interface HLVideoMarketAddController () <UIImagePickerControllerDelegate>
+@interface HLVideoMarketAddController () <UIImagePickerControllerDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -51,6 +51,7 @@ typedef enum : NSUInteger {
 
 // 描述
 @property (nonatomic, strong) IQTextView *descTextView;
+@property (nonatomic, strong) UILabel *inputNumLab;
 
 
 @end
@@ -65,6 +66,24 @@ typedef enum : NSUInteger {
     self.delBtn.hidden = YES;
     self.videoTimeImgV.hidden = YES;
     self.upStateLab.hidden = YES;
+    
+    // 如果是编辑
+    if (self.marketModel) {
+        self.uploadState = HLVideoUploadAllSuccess;
+        
+        // 数据回显
+        self.delBtn.hidden = NO;
+        self.goodNameLab.text = self.marketModel.name;
+        self.titleTextView.text = self.marketModel.title;
+        self.descTextView.text = self.marketModel.content;
+        self.mParams[@"product_id"] = self.marketModel.proId;
+        self.mParams[@"videoUrl"] = self.marketModel.videoUrl;
+        self.mParams[@"pic"] = self.marketModel.pic;
+        [self.videoImgV sd_setImageWithURL:[NSURL URLWithString:self.marketModel.pic]];
+        self.mParams[@"product_source"] = 0;
+        self.mParams[@"video_id"] = self.marketModel.id;
+        self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)self.descTextView.text.length];
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -77,6 +96,7 @@ typedef enum : NSUInteger {
 - (void)selectGoods{
     HLVideoProductSelectController *selectGoods = [[HLVideoProductSelectController alloc] init];
     selectGoods.pro_id = self.mParams[@"product_id"] ?: @"";
+    selectGoods.type = self.mParams[@"product_source"] ? [self.mParams[@"product_source"] integerValue] : 0;
     selectGoods.productSelectBlock = ^(HLVideoProductModel * _Nonnull model, NSInteger type) {
         // 视图配置
         self.goodNameLab.text = model.name;
@@ -87,13 +107,73 @@ typedef enum : NSUInteger {
         // 请求参数配置
         self.mParams[@"product_id"] = model.pro_id;
         self.mParams[@"product_source"] = @(type); // 0 外卖 1 秒杀
+        self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)self.descTextView.text.length];
     };
     [self.navigationController pushViewController:selectGoods animated:YES];
 }
 
 /// 保存
 - (void)addButtonClick{
+    if(!self.mParams[@"product_id"]){
+        HLShowText(@"请选择推送商品");
+        return;
+    }
     
+    if(self.titleTextView.text.length == 0){
+        HLShowText(@"请输入分享标题");
+        return;
+    }
+    self.mParams[@"title"] = self.titleTextView.text;
+    
+    if (self.uploadState == HLVideoUploadNormal) {
+        HLShowText(@"请上传视频");
+        return;
+    }
+    
+    if (self.uploadState == HLVideoUploadVideoFailed || self.uploadState == HLVideoUploadPicFailed) {
+        HLShowText(@"视频上传失败，点击重新上传");
+        return;
+    }
+    
+    if (self.uploadState == HLVideoUploadVideoing || self.uploadState == HLVideoUploadPicing) {
+        HLShowText(@"正在上传视频，请稍后");
+        return;
+    }
+    
+    if(self.descTextView.text.length == 0){
+        HLShowText(@"请输入视频描述");
+        return;
+    }
+    
+    if(self.descTextView.text.length < 5){
+        HLShowText(@"视频描述最少输入5个字");
+        return;
+    }
+    self.mParams[@"describe"] = self.descTextView.text;
+    
+    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api = @"/sortVideo/add.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = self.mParams;
+    } onSuccess:^(XMResult *  _Nullable responseObject) {
+        HLHideLoading(self.view);
+        if ([responseObject code] == 200) {
+            if (self.marketModel) {
+                HLShowText(@"保存成功");
+            }else{
+                HLShowText(@"添加成功");
+            }
+            if (self.addBlock) {
+                self.addBlock();
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }
+    } onFailure:^(NSError * _Nullable error) {
+        HLHideLoading(self.view);
+    }];
 }
 
 /// 选择视频
@@ -120,11 +200,38 @@ typedef enum : NSUInteger {
     self.uploadState = HLVideoUploadNormal;
     self.videoPath = nil;
     self.picPath = nil;
+    [self.mParams removeObjectForKey:@"videoUrl"];
+    [self.mParams removeObjectForKey:@"pic"];
     self.videoImgV.image = [UIImage imageNamed:@"video_upload_place"];
     self.delBtn.hidden = YES;
     self.videoTimeImgV.hidden = YES;
     self.upStateLab.hidden = YES;
-    // 清除
+}
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidChange:(IQTextView *)textView{
+    NSString *toBeString = textView.text;
+    NSString *lang = [[UITextInputMode currentInputMode] primaryLanguage];
+    // 中文输入的时候,可能有markedText(高亮选择的文字),需要判断这种状态
+    // zh-Hans表示简体中文输入, 包括简体拼音，健体五笔，简体手写
+    if ([lang isEqualToString:@"zh-Hans"]) {
+        UITextRange *selectedRange = [textView markedTextRange];
+        //获取高亮选择部分
+        UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
+        // 没有高亮选择的字，表明输入结束,则对已输入的文字进行字数统计和限制
+        if (!position) {
+            if (toBeString.length > 50) {
+                textView.text = [toBeString substringToIndex:50];
+            }
+        }
+    }else {
+        // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        if (toBeString.length > 50) {
+            textView.text = [toBeString substringToIndex:50];
+        }
+    }
+    self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)textView.text.length];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -163,7 +270,7 @@ typedef enum : NSUInteger {
                 }else if (uploadUrl.length){
                     self.uploadState = HLVideoUploadVideoSuccess;
                     // 上传成功
-                    NSLog(@"视频上传成功");
+                    self.mParams[@"videoUrl"] = uploadUrl;
                     [self uploadVideoImage];
                 }
             });
@@ -186,6 +293,8 @@ typedef enum : NSUInteger {
             }else if (uploadUrl.length){
                 self.uploadState = HLVideoUploadAllSuccess;
                 self.upStateLab.text = @"100%";
+                // 上传成功
+                self.mParams[@"pic"] = uploadUrl;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     self.upStateLab.text = @"准备上传";
                     self.upStateLab.hidden = YES;
@@ -220,7 +329,7 @@ typedef enum : NSUInteger {
     // 加按钮
     UIButton *addButton = [[UIButton alloc] init];
     [self.scrollView addSubview:addButton];
-    [addButton setTitle:@"发布" forState:UIControlStateNormal];
+    [addButton setTitle:self.marketModel ? @"保存" : @"发布" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [addButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateNormal];
@@ -269,6 +378,17 @@ typedef enum : NSUInteger {
         make.right.equalTo(FitPTScreen(-12));
         make.height.equalTo(FitPTScreen(80));
     }];
+    self.descTextView.delegate = self;
+    
+    self.inputNumLab = [[UILabel alloc] init];
+    [descInputView addSubview:self.inputNumLab];
+    self.inputNumLab.text = @"0/50";
+    self.inputNumLab.textColor = UIColorFromRGB(0x999999);
+    self.inputNumLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
+    [self.inputNumLab makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(FitPTScreen(-12));
+        make.bottom.equalTo(FitPTScreen(-12));
+    }];
     
     return descInputView;
 }
@@ -311,6 +431,8 @@ typedef enum : NSUInteger {
     
     self.videoImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video_upload_place"]];
     [videoSelectView addSubview:self.videoImgV];
+    self.videoImgV.contentMode = UIViewContentModeScaleAspectFill;
+    self.videoImgV.clipsToBounds = YES;
     [self.videoImgV makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(FitPTScreen(-15));
         make.width.equalTo(FitPTScreen(75));
@@ -448,44 +570,6 @@ typedef enum : NSUInteger {
 }
 
 @end
-
-//1、视频列表
-//    https://test.51huilife.cn/HuiLife_Api/sortVideo/list.php
-//    uid=1767549&pageNo=1&pid=1346191&id=53130&token=8dIfBWJENdqaNkZSKDXM
-//
-//
-//2、上下架
-//    https://test.51huilife.cn/HuiLife_Api/sortVideo/change.php
-//     video_id=41&state=1&pid=1346191&id=53130&token=8dIfBWJENdqaNkZSKDXM
-//
-//    state  0下架 1上架
-//
-//
-//3、选择推广商品
-//    https://test.51huilife.cn/HuiLife_Api/push/productList.php
-//    id=53130&uid=1767549&pid=1346191&token=8dIfBWJENdqaNkZSKDXM&mode=1&type=0&pageNo=1
-//
-//    type 0 外卖  1秒杀     mode=1固定，代表来源是视频
-//    （选择完跳转回创建页面，把商品名称带入到第一行和视频标题，有描述的话带入到视频描述）
-//
-//
-//4、视频发布
-//    https://test.51huilife.cn/HuiLife_Api/sortVideo/add.php
-//    id=53130&pid=1346191&uid=1767549&token=8dIfBWJENdqaNkZSKDXM&
-//    title=天天喜炭烤鸡腿&describe=好吃的鸡腿哦&
-//    pic=http://hui-album.s3.cn-north-1.jcloudcs.com/android/store-home/53130/store/20210423_ee5167f8d73fec95_72579be379fc98c6ce8d620429397d6b.jpg&
-//    videoUrl=http://hui-v.s3.cn-north-1.jcloudcs.com/android/store-home/53130/store/20210423_6ffd88bb9da1e8b4_2a758867e5ac9adb9a55a30f272261bc.mp4&
-//    product_id=218260&product_source=0
-//
-//    product_source 0 外卖  1秒杀
-//
-//5、视频编辑保存
-//    https://test.51huilife.cn/HuiLife_Api/sortVideo/add.php
-//    id=53130&pid=1346191&uid=1767549&token=8dIfBWJENdqaNkZSKDXM&title=天天喜疯狂鸭翅好好吃&describe=描述一下吧唧唧复唧唧复唧唧歪歪扭扭捏捏腿疼不疼不痒的话应该没问题&
-//    pic=http://hui-album.s3.cn-north-1.jcloudcs.com/android/store-home/53130/store/20210325_5f8b5b1f5b0fab1d_0641f42c373006e3e83e53027c44c9e7.jpg&
-//    videoUrl=http://hui-v.s3.cn-north-1.jcloudcs.com/android/store-home/53130/store/20210325_45612a4e12c0d722_vivo X21 TVC %25E9%25B9%25BF%25E6%2599%2597%25E7%25AF%2587.mp4&
-//    video_id=41&product_id=218259&product_source=0
-//    地址同视频发布，参数不同点是多传一个video_id
 
 
  

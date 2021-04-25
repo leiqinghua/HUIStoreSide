@@ -89,7 +89,6 @@
         return;
     }
     HLPlayManager *playManager = [[HLPlayManager alloc] initWithVideoUrl:model.address preImgUrl:@""];
-    playManager.centerTitle = model.title;
     [self.navigationController pushViewController:playManager animated:YES];
 }
 

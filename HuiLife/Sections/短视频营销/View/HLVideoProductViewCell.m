@@ -108,7 +108,7 @@
 - (void)stateBtnClick{
     
     // 使用中则不执行
-    if (self.model.state == 1) {
+    if (self.model.state == 1 && ![self.model.pro_id isEqualToString:self.pro_id]) {
         return;
     }
     

@@ -28,7 +28,11 @@
     self.navigationItem.title = @"选择推广商品";
     [self creatSubViews];
     // 默认显示
-    [self controlTitleButtonStyle];
+    if (self.titleBtns.count > self.type) {
+        [self titleButtonClick:self.titleBtns[self.type]];
+    }else{
+        [self controlTitleButtonStyle];
+    }
 }
 
 #pragma mark - Method
