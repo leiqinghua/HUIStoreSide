@@ -10,6 +10,9 @@
 		096747422605D06C0025E6DF /* HLBuyCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747412605D06C0025E6DF /* HLBuyCardViewController.m */; };
 		096747492605D1FF0025E6DF /* HLBuyCardListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */; };
 		0970E643260A2B330013941A /* HLRedPacketClassViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */; };
+		097C41E22636662100D4C70E /* HLPushListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E12636662100D4C70E /* HLPushListViewController.m */; };
+		097C41E5263666A400D4C70E /* HLPushListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E4263666A400D4C70E /* HLPushListViewCell.m */; };
+		097C41E8263666D900D4C70E /* HLPushListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E7263666D900D4C70E /* HLPushListModel.m */; };
 		098529812630253900D376C3 /* HLSetShopControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529802630253900D376C3 /* HLSetShopControlView.m */; };
 		098529842630305C00D376C3 /* HLSetStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529832630305C00D376C3 /* HLSetStoreModel.m */; };
 		098529872630360A00D376C3 /* HLSetShopControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529862630360A00D376C3 /* HLSetShopControlCell.m */; };
@@ -708,6 +711,12 @@
 		096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardListViewCell.m; sourceTree = "<group>"; };
 		0970E641260A2B330013941A /* HLRedPacketClassViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLRedPacketClassViewCell.h; sourceTree = "<group>"; };
 		0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLRedPacketClassViewCell.m; sourceTree = "<group>"; };
+		097C41E02636662100D4C70E /* HLPushListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListViewController.h; sourceTree = "<group>"; };
+		097C41E12636662100D4C70E /* HLPushListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListViewController.m; sourceTree = "<group>"; };
+		097C41E3263666A400D4C70E /* HLPushListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListViewCell.h; sourceTree = "<group>"; };
+		097C41E4263666A400D4C70E /* HLPushListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListViewCell.m; sourceTree = "<group>"; };
+		097C41E6263666D900D4C70E /* HLPushListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListModel.h; sourceTree = "<group>"; };
+		097C41E7263666D900D4C70E /* HLPushListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListModel.m; sourceTree = "<group>"; };
 		0985297F2630253900D376C3 /* HLSetShopControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetShopControlView.h; sourceTree = "<group>"; };
 		098529802630253900D376C3 /* HLSetShopControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSetShopControlView.m; sourceTree = "<group>"; };
 		098529822630305C00D376C3 /* HLSetStoreModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetStoreModel.h; sourceTree = "<group>"; };
@@ -2041,6 +2050,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		097C40E92636639B00D4C70E /* 我的推送 */ = {
+			isa = PBXGroup;
+			children = (
+				097C40EC263663B600D4C70E /* Model */,
+				097C40EB263663AE00D4C70E /* View */,
+				097C40EA263663A500D4C70E /* Controller */,
+			);
+			path = "我的推送";
+			sourceTree = "<group>";
+		};
+		097C40EA263663A500D4C70E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				097C41E02636662100D4C70E /* HLPushListViewController.h */,
+				097C41E12636662100D4C70E /* HLPushListViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		097C40EB263663AE00D4C70E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				097C41E3263666A400D4C70E /* HLPushListViewCell.h */,
+				097C41E4263666A400D4C70E /* HLPushListViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		097C40EC263663B600D4C70E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				097C41E6263666D900D4C70E /* HLPushListModel.h */,
+				097C41E7263666D900D4C70E /* HLPushListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2BDFA2F11497C2FC7CA27385 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2359,6 +2405,7 @@
 		9427E2CD20F6525100F5AC43 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				097C40E92636639B00D4C70E /* 我的推送 */,
 				B47721EF2630631600998C26 /* 短视频营销 */,
 				946AC12825621D3200A545D0 /* 红包推广 */,
 				941CC9A9255A307600D16307 /* 竞业管理 */,
@@ -5622,6 +5669,7 @@
 				9D6372B72148EDB100F791C1 /* HLMessageViewController.m in Sources */,
 				B4933D5F236963F500546093 /* HLHotBuyKindModel.m in Sources */,
 				9D6372C52149117900F791C1 /* HLMessageDetailController.m in Sources */,
+				097C41E22636662100D4C70E /* HLPushListViewController.m in Sources */,
 				9D25F13722438FD800577ADE /* HLCalanderWeekView.m in Sources */,
 				B47257992315071E00BB1A3A /* HLMatterMainInfo.m in Sources */,
 				B4239A0823CF04FC00CF0B2C /* HLPickUpGoodViewCell.m in Sources */,
@@ -5673,10 +5721,12 @@
 				9464711C25650C07002C2218 /* HLRedBagInfo.m in Sources */,
 				B4495A2E231D1B9F004D3798 /* HLVoucherBankInfo.m in Sources */,
 				9465AB7A24CADE6A00FF0981 /* HLAccount.m in Sources */,
+				097C41E8263666D900D4C70E /* HLPushListModel.m in Sources */,
 				946D4DAA2374126200ECEF41 /* HLCalculateDiscountView.m in Sources */,
 				B4495A28231D13C9004D3798 /* HLVoucherBankQueryController.m in Sources */,
 				946AC134256255D700A545D0 /* HLRedBagAddController.m in Sources */,
 				B4F1266A2355D0FC00B0D72B /* HLHomeGuideInfo.m in Sources */,
+				097C41E5263666A400D4C70E /* HLPushListViewCell.m in Sources */,
 				9DFFC02E21CCBCBC00C26E7B /* HLCalendarHearder.m in Sources */,
 				943DB903242302D300301CBA /* HLHotControllerHelper.m in Sources */,
 				9432DB602300675A007E403E /* HLMineFooterView.m in Sources */,
