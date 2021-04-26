@@ -13,6 +13,10 @@
 		097C41E22636662100D4C70E /* HLPushListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E12636662100D4C70E /* HLPushListViewController.m */; };
 		097C41E5263666A400D4C70E /* HLPushListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E4263666A400D4C70E /* HLPushListViewCell.m */; };
 		097C41E8263666D900D4C70E /* HLPushListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E7263666D900D4C70E /* HLPushListModel.m */; };
+		097C41EB2636A2BC00D4C70E /* HLPushAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41EA2636A2BC00D4C70E /* HLPushAddViewController.m */; };
+		097C42132636CFED00D4C70E /* HLPushHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C42122636CFEC00D4C70E /* HLPushHistoryViewController.m */; };
+		097C42162636D0AA00D4C70E /* HLPushHistoryHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */; };
+		097C42192636D0FA00D4C70E /* HLPushHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C42182636D0FA00D4C70E /* HLPushHistoryModel.m */; };
 		098529812630253900D376C3 /* HLSetShopControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529802630253900D376C3 /* HLSetShopControlView.m */; };
 		098529842630305C00D376C3 /* HLSetStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529832630305C00D376C3 /* HLSetStoreModel.m */; };
 		098529872630360A00D376C3 /* HLSetShopControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529862630360A00D376C3 /* HLSetShopControlCell.m */; };
@@ -717,6 +721,14 @@
 		097C41E4263666A400D4C70E /* HLPushListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListViewCell.m; sourceTree = "<group>"; };
 		097C41E6263666D900D4C70E /* HLPushListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListModel.h; sourceTree = "<group>"; };
 		097C41E7263666D900D4C70E /* HLPushListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListModel.m; sourceTree = "<group>"; };
+		097C41E92636A2BC00D4C70E /* HLPushAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushAddViewController.h; sourceTree = "<group>"; };
+		097C41EA2636A2BC00D4C70E /* HLPushAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushAddViewController.m; sourceTree = "<group>"; };
+		097C42112636CFEC00D4C70E /* HLPushHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistoryViewController.h; sourceTree = "<group>"; };
+		097C42122636CFEC00D4C70E /* HLPushHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistoryViewController.m; sourceTree = "<group>"; };
+		097C42142636D0AA00D4C70E /* HLPushHistoryHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistoryHeadView.h; sourceTree = "<group>"; };
+		097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistoryHeadView.m; sourceTree = "<group>"; };
+		097C42172636D0FA00D4C70E /* HLPushHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistoryModel.h; sourceTree = "<group>"; };
+		097C42182636D0FA00D4C70E /* HLPushHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistoryModel.m; sourceTree = "<group>"; };
 		0985297F2630253900D376C3 /* HLSetShopControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetShopControlView.h; sourceTree = "<group>"; };
 		098529802630253900D376C3 /* HLSetShopControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSetShopControlView.m; sourceTree = "<group>"; };
 		098529822630305C00D376C3 /* HLSetStoreModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetStoreModel.h; sourceTree = "<group>"; };
@@ -2065,6 +2077,10 @@
 			children = (
 				097C41E02636662100D4C70E /* HLPushListViewController.h */,
 				097C41E12636662100D4C70E /* HLPushListViewController.m */,
+				097C41E92636A2BC00D4C70E /* HLPushAddViewController.h */,
+				097C41EA2636A2BC00D4C70E /* HLPushAddViewController.m */,
+				097C42112636CFEC00D4C70E /* HLPushHistoryViewController.h */,
+				097C42122636CFEC00D4C70E /* HLPushHistoryViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2074,6 +2090,8 @@
 			children = (
 				097C41E3263666A400D4C70E /* HLPushListViewCell.h */,
 				097C41E4263666A400D4C70E /* HLPushListViewCell.m */,
+				097C42142636D0AA00D4C70E /* HLPushHistoryHeadView.h */,
+				097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2083,6 +2101,8 @@
 			children = (
 				097C41E6263666D900D4C70E /* HLPushListModel.h */,
 				097C41E7263666D900D4C70E /* HLPushListModel.m */,
+				097C42172636D0FA00D4C70E /* HLPushHistoryModel.h */,
+				097C42182636D0FA00D4C70E /* HLPushHistoryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5457,6 +5477,7 @@
 				B4AE254E22F6BDEB001109E9 /* HLRightImageViewCell.m in Sources */,
 				B4FCAA6322F43BFC0053EA41 /* HLVoucherMarketAddController.m in Sources */,
 				9DE70D352101802300B52862 /* HLYGManagerController.m in Sources */,
+				097C42192636D0FA00D4C70E /* HLPushHistoryModel.m in Sources */,
 				B42AA17B23603005000BBF97 /* HLHotBuyListModel.m in Sources */,
 				9456D8C32431BD4600B2BB4C /* HLTradeTimeTableCell.m in Sources */,
 				B4239A0523CF04EF00CF0B2C /* HLPickUpMoneyViewCell.m in Sources */,
@@ -5497,6 +5518,7 @@
 				B431840D23507E910080B21C /* HLCardProductController.m in Sources */,
 				946B8A2D25060D2700436B3A /* HLExportViewController.m in Sources */,
 				946471192563BFEE002C2218 /* HLDayDealGoodInfo.m in Sources */,
+				097C41EB2636A2BC00D4C70E /* HLPushAddViewController.m in Sources */,
 				B4F126672355B1D300B0D72B /* HLGuideLayout.m in Sources */,
 				9D6372BA2148F56800F791C1 /* UITabBar+HLBadge.m in Sources */,
 				9D6372C8214920A600F791C1 /* HLMessageDetailViewCell.m in Sources */,
@@ -5561,6 +5583,7 @@
 				94389A5C23A79E0800A3EA81 /* HLSubOrderLayout.m in Sources */,
 				94695068255BDCBE00BE8774 /* HLCompeteDownController.m in Sources */,
 				9470F1F0237AA31F004EF76F /* HLCardPromoteType.m in Sources */,
+				097C42132636CFED00D4C70E /* HLPushHistoryViewController.m in Sources */,
 				9DBF035C21A66CFB00734669 /* HLPrinterHeaderView.m in Sources */,
 				9D25F0EA2238D40200577ADE /* UITableViewCell+HLConfiger.m in Sources */,
 				943DB909242355F900301CBA /* HLHotListModel.m in Sources */,
@@ -5622,6 +5645,7 @@
 				9466A82F23161ABB00725981 /* HLSuccessView.m in Sources */,
 				945A18A5251C849000DE16BF /* HLAddProfitController.m in Sources */,
 				9DE8A66622FD06FF0034C4AF /* XMRequest.m in Sources */,
+				097C42162636D0AA00D4C70E /* HLPushHistoryHeadView.m in Sources */,
 				9456D8C62431D2EF00B2BB4C /* HLSellModel.m in Sources */,
 				B4176A7122F9538600CF277F /* HLHotSekillGoodModel.m in Sources */,
 				9DEC532A219D6CCE00CB0D5C /* HLFilterView.m in Sources */,

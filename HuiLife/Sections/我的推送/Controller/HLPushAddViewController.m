@@ -1,37 +1,44 @@
 //
-//  HLVideoMarketAddController.m
+//  HLPushAddViewController.m
 //  HuiLife
 //
-//  Created by 王策 on 2021/4/21.
+//  Created by 王策 on 2021/4/26.
 //
 
-#import "HLVideoMarketAddController.h"
+#import "HLPushAddViewController.h"
+
 #import <IQKeyboardManager/IQTextView.h>
 #import "HLVideoProductSelectController.h"
 #import "HLVideoProductModel.h"
 #import "HLJDAPIManager.h"
+#import "HLPushHistoryViewController.h"
 
 typedef enum : NSUInteger {
-    HLVideoUploadNormal,        // 默认状态
-    HLVideoUploadVideoing,      // 视频上传中..
-    HLVideoUploadVideoSuccess,  // 视频上传成功，图片还没上传
-    HLVideoUploadVideoFailed,   // 视频上传失败
-    HLVideoUploadPicing,        // 视频上传成功，图片上传中
-    HLVideoUploadPicFailed,     // 视频上传成功，图片上传失败
-    HLVideoUploadAllSuccess     // 视频&缩略图都上传成功
-} HLVideoUploadState;
+    HLPicUploadNormal,          // 默认状态
+    HLPicUploading,             // 图片上传中
+    HLPicUploadFailed,       // 图片上传失败
+    HLPicUploadSuccess          // 上传成功
+} HLPicUploadState;
 
-@interface HLVideoMarketAddController () <UIImagePickerControllerDelegate,UITextViewDelegate>
+// 保存用的参数
+#define KEY_TYPE @"type"
+#define KEY_PROID @"pro_id"
+#define KEY_NAME @"name"
+#define KEY_TITLE @"title"
+#define KEY_DESCRIBE @"describe"
+#define KEY_IMAGE @"image"
+
+
+@interface HLPushAddViewController () <UIImagePickerControllerDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property(nonatomic, strong) UIImagePickerController * imagePicker;
-// 视频在APP中的路径
-@property(nonatomic, copy) NSString *videoPath;
-// 预览图
-@property (nonatomic, copy) NSString *picPath;
+
 // 上传状态
-@property (nonatomic, assign) HLVideoUploadState uploadState;
+@property (nonatomic, assign) HLPicUploadState uploadState;
+@property (nonatomic, strong) NSString *picPath;
+
 
 // 最后构造的参数
 @property (nonatomic, strong) NSMutableDictionary *mParams;
@@ -44,8 +51,6 @@ typedef enum : NSUInteger {
 // 视频上传视图
 @property (nonatomic, strong) UIImageView *videoImgV;
 @property (nonatomic, strong) IQTextView *titleTextView;
-@property (nonatomic, strong) UIImageView *videoTimeImgV;
-@property (nonatomic, strong) UILabel *videoTimeLab;
 @property (nonatomic, strong) UIButton *delBtn;
 @property (nonatomic, strong) UILabel *upStateLab;
 
@@ -53,36 +58,25 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) IQTextView *descTextView;
 @property (nonatomic, strong) UILabel *inputNumLab;
 
+// 预计推送的人数
+@property (nonatomic, strong) UILabel *pushNumLab;
+
+// 被拒的原因
+@property (nonatomic, strong) UILabel *reasonLab;
+
 
 @end
 
-@implementation HLVideoMarketAddController
+@implementation HLPushAddViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"创建短视频";
-    [self creatSubViews];
-    self.uploadState = HLVideoUploadNormal;
-    self.delBtn.hidden = YES;
-    self.videoTimeImgV.hidden = YES;
-    self.upStateLab.hidden = YES;
+    self.navigationItem.title = self.pushId ? @"修改推送" : @"创建推送";
     
-    // 如果是编辑
-    if (self.marketModel) {
-        self.uploadState = HLVideoUploadAllSuccess;
-        
-        // 数据回显
-        self.delBtn.hidden = NO;
-        self.goodNameLab.text = self.marketModel.name;
-        self.titleTextView.text = self.marketModel.title;
-        self.descTextView.text = self.marketModel.content;
-        self.mParams[@"product_id"] = self.marketModel.proId;
-        self.mParams[@"videoUrl"] = self.marketModel.videoUrl;
-        self.mParams[@"pic"] = self.marketModel.pic;
-        [self.videoImgV sd_setImageWithURL:[NSURL URLWithString:self.marketModel.pic]];
-        self.mParams[@"product_source"] = 0;
-        self.mParams[@"video_id"] = self.marketModel.id;
-        self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)self.descTextView.text.length];
+    if(self.pushId.length){
+        [self loadPushDetailData];
+    }else{
+        [self loadDefautData];
     }
 }
 
@@ -92,78 +86,155 @@ typedef enum : NSUInteger {
 
 #pragma mark - Method
 
+/// 加载预计推送人数
+- (void)loadDefautData{
+    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api = @"/push/pushDetail.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{};
+    } onSuccess:^(XMResult *  _Nullable responseObject) {
+        HLHideLoading(self.view);
+        if ([responseObject code] == 200) {
+            [self creatSubViews];
+            self.reasonLab.hidden = YES;
+            self.pushNumLab.text = [NSString stringWithFormat:@"预计%ld位HUI卡会员能接收到",[responseObject.data[@"total"] integerValue]];
+        }else{
+            weakify(self);
+            [self hl_showNetFail:self.view.bounds callBack:^{
+                [weak_self loadDefautData];
+            }];
+        }
+    } onFailure:^(NSError * _Nullable error) {
+        HLHideLoading(self.view);
+        weakify(self);
+        [self hl_showNetFail:self.view.bounds callBack:^{
+            [weak_self loadDefautData];
+        }];
+    }];
+}
+
+/// 加载推送详情 https://sapi.51huilife.cn/HuiLife_Api/push/pushDetail.php
+- (void)loadPushDetailData{
+    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api = @"/push/pushDetail.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{@"push_id":self.pushId};
+    } onSuccess:^(XMResult *  _Nullable responseObject) {
+        HLHideLoading(self.view);
+        if ([responseObject code] == 200) {
+            //
+            HLPushEditDataModel *dataModel = [HLPushEditDataModel mj_objectWithKeyValues:responseObject.data];
+            
+            // 参数构建
+            self.mParams[KEY_IMAGE] = dataModel.image;
+            self.mParams[KEY_TITLE] = dataModel.title;
+            self.mParams[KEY_DESCRIBE] = dataModel.push_desc;
+            self.mParams[KEY_PROID] = dataModel.pro_id;
+            self.mParams[KEY_NAME] = dataModel.name;
+            self.mParams[@"push_id"] = self.pushId;
+            // UI构建
+            [self creatSubViews];
+            self.uploadState = HLPicUploadSuccess;
+            self.pushNumLab.text = [NSString stringWithFormat:@"预计%ld位HUI卡会员能接收到",[responseObject.data[@"total"] integerValue]];
+            [self.videoImgV sd_setImageWithURL:[NSURL URLWithString:dataModel.image]];
+            self.delBtn.hidden = NO;
+            self.goodNameLab.text = dataModel.name;
+            self.titleTextView.text = dataModel.title;
+            self.descTextView.text = dataModel.push_desc;
+            self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)self.descTextView.text.length];
+            self.reasonLab.hidden = NO;
+            self.reasonLab.text = dataModel.reason;
+            self.reasonLab.text = @"标题与视频不符";
+        }else{
+            weakify(self);
+            [self hl_showNetFail:self.view.bounds callBack:^{
+                [weak_self loadDefautData];
+            }];
+        }
+    } onFailure:^(NSError * _Nullable error) {
+        HLHideLoading(self.view);
+        weakify(self);
+        [self hl_showNetFail:self.view.bounds callBack:^{
+            [weak_self loadDefautData];
+        }];
+    }];
+}
+
 /// 选择商品
 - (void)selectGoods{
+    if(self.pushId){
+        HLShowText(@"修改推送信息，不能更改商品类型");
+        return;
+    }
     HLVideoProductSelectController *selectGoods = [[HLVideoProductSelectController alloc] init];
-    selectGoods.mode = 1;
-    selectGoods.pro_id = self.mParams[@"product_id"] ?: @"";
-    selectGoods.type = self.mParams[@"product_source"] ? [self.mParams[@"product_source"] integerValue] : 0;
+    selectGoods.mode = 0;
+    selectGoods.pro_id = self.mParams[KEY_PROID] ?: @"";
+    selectGoods.type = self.mParams[KEY_TYPE] ? [self.mParams[KEY_TYPE] integerValue] : 0;
     selectGoods.productSelectBlock = ^(HLVideoProductModel * _Nonnull model, NSInteger type) {
         // 视图配置
         self.goodNameLab.text = model.name;
-        self.titleTextView.text = model.name;
-        if (type == 1) { // 秒杀
-            self.descTextView.text = model.content;
-        }
+
         // 请求参数配置
-        self.mParams[@"product_id"] = model.pro_id;
-        self.mParams[@"product_source"] = @(type); // 0 外卖 1 秒杀
-        self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)self.descTextView.text.length];
+        self.mParams[KEY_PROID] = model.pro_id;
+        self.mParams[KEY_NAME] = model.name;
+        self.mParams[KEY_TYPE] = @(type); // 0 外卖 1 秒杀
     };
     [self.navigationController pushViewController:selectGoods animated:YES];
 }
 
 /// 保存
 - (void)addButtonClick{
-    if(!self.mParams[@"product_id"]){
+    if(!self.mParams[KEY_PROID]){
         HLShowText(@"请选择推送商品");
         return;
     }
     
     if(self.titleTextView.text.length == 0){
-        HLShowText(@"请输入分享标题");
+        HLShowText(@"请输入推送标题");
         return;
     }
-    self.mParams[@"title"] = self.titleTextView.text;
+    self.mParams[KEY_TITLE] = self.titleTextView.text;
     
-    if (self.uploadState == HLVideoUploadNormal) {
-        HLShowText(@"请上传视频");
-        return;
-    }
-    
-    if (self.uploadState == HLVideoUploadVideoFailed || self.uploadState == HLVideoUploadPicFailed) {
-        HLShowText(@"视频上传失败，点击重新上传");
+    if (self.uploadState == HLPicUploadNormal) {
+        HLShowText(@"请选择推送图片");
         return;
     }
     
-    if (self.uploadState == HLVideoUploadVideoing || self.uploadState == HLVideoUploadPicing) {
-        HLShowText(@"正在上传视频，请稍后");
+    if (self.uploadState == HLPicUploadFailed) {
+        HLShowText(@"图片上传失败，点击重新上传");
+        return;
+    }
+    
+    if (self.uploadState == HLPicUploading) {
+        HLShowText(@"正在上传图片，请稍后");
         return;
     }
     
     if(self.descTextView.text.length == 0){
-        HLShowText(@"请输入视频描述");
+        HLShowText(@"请输入推送描述");
         return;
     }
     
     if(self.descTextView.text.length < 5){
-        HLShowText(@"视频描述最少输入5个字");
+        HLShowText(@"推送描述最少输入5个字");
         return;
     }
-    self.mParams[@"describe"] = self.descTextView.text;
+    self.mParams[KEY_DESCRIBE] = self.descTextView.text;
     
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.api = @"/sortVideo/add.php";
+        request.api = @"/push/myPush.php";
         request.serverType = HLServerTypeNormal;
         request.parameters = self.mParams;
     } onSuccess:^(XMResult *  _Nullable responseObject) {
         HLHideLoading(self.view);
         if ([responseObject code] == 200) {
-            if (self.marketModel) {
-                HLShowText(@"保存成功");
+            if (self.pushId) {
+                HLShowText(@"修改成功");
             }else{
-                HLShowText(@"添加成功");
+                HLShowText(@"创建成功");
             }
             if (self.addBlock) {
                 self.addBlock();
@@ -180,15 +251,11 @@ typedef enum : NSUInteger {
 /// 选择视频
 - (void)selectVideo{
     switch (self.uploadState) {
-        case HLVideoUploadNormal:
+        case HLPicUploadNormal:
             [self.navigationController presentViewController:self.imagePicker animated:YES completion:nil];
             break;
-        case HLVideoUploadVideoFailed:
-            self.uploadState = HLVideoUploadNormal;
-            [[HLJDAPIManager manager] reUploadWithFileName:_videoPath.lastPathComponent video:YES];
-            break;;
-        case HLVideoUploadPicFailed:
-            self.uploadState = HLVideoUploadPicing;
+        case HLPicUploadFailed:
+            self.uploadState = HLPicUploading;
             [[HLJDAPIManager manager] reUploadWithFileName:_picPath.lastPathComponent video:false];
             break;
         default:
@@ -198,20 +265,21 @@ typedef enum : NSUInteger {
 
 /// 删除选择的视频
 - (void)deleteSelectVideo{
-    self.uploadState = HLVideoUploadNormal;
-    self.videoPath = nil;
+    self.uploadState = HLPicUploadNormal;
     self.picPath = nil;
-    [self.mParams removeObjectForKey:@"videoUrl"];
-    [self.mParams removeObjectForKey:@"pic"];
-    self.videoImgV.image = [UIImage imageNamed:@"video_upload_place"];
+    [self.mParams removeObjectForKey:KEY_IMAGE];
+    self.videoImgV.image = [UIImage imageNamed:@"push_add_select"];
     self.delBtn.hidden = YES;
-    self.videoTimeImgV.hidden = YES;
     self.upStateLab.hidden = YES;
 }
 
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(IQTextView *)textView{
+    NSInteger maxInputCount = 20;
+    if(textView == self.descTextView){
+        maxInputCount = 20;
+    }
     NSString *toBeString = textView.text;
     NSString *lang = [[UITextInputMode currentInputMode] primaryLanguage];
     // 中文输入的时候,可能有markedText(高亮选择的文字),需要判断这种状态
@@ -222,87 +290,63 @@ typedef enum : NSUInteger {
         UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
         // 没有高亮选择的字，表明输入结束,则对已输入的文字进行字数统计和限制
         if (!position) {
-            if (toBeString.length > 50) {
-                textView.text = [toBeString substringToIndex:50];
+            if (toBeString.length > maxInputCount) {
+                textView.text = [toBeString substringToIndex:maxInputCount];
             }
         }
     }else {
         // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
-        if (toBeString.length > 50) {
-            textView.text = [toBeString substringToIndex:50];
+        if (toBeString.length > maxInputCount) {
+            textView.text = [toBeString substringToIndex:maxInputCount];
         }
     }
-    self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)textView.text.length];
+    if (textView == self.descTextView) {
+        self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)textView.text.length];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 // 选择视频
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
-    // 先删除之前的
-    if (self.videoPath.length > 0){
-        [[NSFileManager defaultManager] removeItemAtPath:self.videoPath error:nil];
-    }
+
     // 先删除之前的缩略图
     if(self.picPath.length > 0){
         [[NSFileManager defaultManager] removeItemAtPath:self.picPath error:nil];
     }
-    self.videoPath = [HLTools filePathWithSystemPath:info[UIImagePickerControllerMediaURL]];
-    // 获取视频缩略图
-    UIImage *videoImage = [HLTools getScreenShotImageFromVideoPath:self.videoPath];
-    self.picPath = [HLTools saveImageWithImage:[HLTools compressImage:videoImage toByte:800 * 1024]];
-    // 拿到视频长度更新
-    AVURLAsset *audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:self.videoPath] options:nil];
+    
+    UIImage *selectImage = info[@"UIImagePickerControllerOriginalImage"];
+    self.picPath = [HLTools saveImageWithImage:[HLTools compressImage:selectImage toByte:800 * 1024]];
     // UI设置
-    self.videoImgV.image = videoImage;
-    self.videoTimeImgV.hidden = NO;
+    self.videoImgV.image = selectImage;
     self.delBtn.hidden = NO;
-    self.videoTimeLab.text = [HLTools convertStrToTime:[NSString stringWithFormat:@"%lf",CMTimeGetSeconds(audioAsset.duration) *1000]];
     // 上传视频
-    self.uploadState = HLVideoUploadVideoing;
+    self.uploadState = HLPicUploading;
     self.upStateLab.text = @"准备上传";
     self.upStateLab.hidden = NO;
     [self.imagePicker dismissViewControllerAnimated:YES completion:^{
-        [[HLJDAPIManager manager] uploadFileWithFilePath:self.videoPath video:YES completion:^(NSString * _Nonnull uploadUrl, NSInteger result) {
+        [[HLJDAPIManager manager] uploadFileWithFilePath:self.picPath video:NO completion:^(NSString * _Nonnull uploadUrl, NSInteger result) {
             dispatch_main_async_safe(^{
+                NSLog(@"图片地址:%@",uploadUrl);
                 if (result < 0) { // 上传失败
-                    self.uploadState = HLVideoUploadVideoFailed;
+                    self.uploadState = HLPicUploadFailed;
                     self.upStateLab.text = @"重新上传";
                 }else if (uploadUrl.length){
-                    self.uploadState = HLVideoUploadVideoSuccess;
+                    self.uploadState = HLPicUploadSuccess;
                     // 上传成功
-                    self.mParams[@"videoUrl"] = uploadUrl;
-                    [self uploadVideoImage];
+                    self.mParams[KEY_IMAGE] = uploadUrl;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        self.upStateLab.text = @"准备上传";
+                        self.upStateLab.hidden = YES;
+                    });
                 }
             });
         } progress:^(CGFloat progress) {
             dispatch_main_async_safe((^{
-                self.upStateLab.text = [NSString stringWithFormat:@"%.0f%%",(progress > 0.9 ? 0.9 : progress) * 100];
+                self.upStateLab.text = [NSString stringWithFormat:@"%.0f%%",progress * 100];
             }));
         }];
     }];
-}
-
-// 上传缩略图
-- (void)uploadVideoImage{
-    self.uploadState = HLVideoUploadPicing;
-    [[HLJDAPIManager manager] uploadFileWithFilePath:self.picPath video:false completion:^(NSString * _Nonnull uploadUrl, NSInteger result) {
-        dispatch_main_async_safe(^{
-            if (result < 0) { // 上传失败
-                self.uploadState = HLVideoUploadPicFailed;
-                self.upStateLab.text = @"重新上传";
-            }else if (uploadUrl.length){
-                self.uploadState = HLVideoUploadAllSuccess;
-                self.upStateLab.text = @"100%";
-                // 上传成功
-                self.mParams[@"pic"] = uploadUrl;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    self.upStateLab.text = @"准备上传";
-                    self.upStateLab.hidden = YES;
-                });
-            }
-        });
-    } progress:^(CGFloat progress) {}];
 }
 
 // 取消选择
@@ -330,7 +374,7 @@ typedef enum : NSUInteger {
     // 加按钮
     UIButton *addButton = [[UIButton alloc] init];
     [self.scrollView addSubview:addButton];
-    [addButton setTitle:self.marketModel ? @"保存" : @"发布" forState:UIControlStateNormal];
+    [addButton setTitle:self.pushId ? @"修改推送" : @"创建推送" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [addButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateNormal];
@@ -342,11 +386,27 @@ typedef enum : NSUInteger {
         make.height.equalTo(FitPTScreen(72));
     }];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.reasonLab = [[UILabel alloc] init];
+    [self.scrollView addSubview:self.reasonLab];
+    self.reasonLab.font = [UIFont systemFontOfSize:FitPTScreen(13)];
+    self.reasonLab.textColor = UIColor.redColor;
+    self.reasonLab.numberOfLines = 0;
+    self.reasonLab.textAlignment = NSTextAlignmentCenter;
+    [self.reasonLab makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.scrollView);
+        make.width.equalTo(FitPTScreen(340));
+        make.top.equalTo(addButton.bottom).offset(FitPTScreen(0));
+    }];
+    
+    self.uploadState = HLPicUploadNormal;
+    self.delBtn.hidden = YES;
+    self.upStateLab.hidden = YES;
 }
 
 // 底部视图
 - (UIView *)createDescInputViewWithTopView:(UIView *)topView{
-    UIView *descInputView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topView.frame), ScreenW, FitPTScreen(120))];
+    UIView *descInputView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topView.frame), ScreenW, FitPTScreen(160))];
     descInputView.backgroundColor = UIColor.whiteColor;
     [self.scrollView addSubview:descInputView];
     
@@ -360,7 +420,7 @@ typedef enum : NSUInteger {
     
     UILabel *tipLab = [[UILabel alloc] init];
     [descInputView addSubview:tipLab];
-    tipLab.text = @"视频描述：";
+    tipLab.text = @"推送描述：";
     tipLab.textColor = UIColorFromRGB(0x666666);
     tipLab.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [tipLab makeConstraints:^(MASConstraintMaker *make) {
@@ -371,7 +431,7 @@ typedef enum : NSUInteger {
     self.descTextView = [[IQTextView alloc] init];
     [descInputView addSubview:self.descTextView];
     self.descTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.descTextView.placeholder = @"请输入视频描述（最少5个字/最多50字以内）";
+    self.descTextView.placeholder = @"请输入推广描述（最少5个字/最多50字以内）";
     self.descTextView.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [self.descTextView makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(FitPTScreen(8));
@@ -389,6 +449,31 @@ typedef enum : NSUInteger {
     [self.inputNumLab makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(FitPTScreen(-12));
         make.bottom.equalTo(FitPTScreen(-12));
+    }];
+    
+    UIView *pushNumView = [[UIView alloc] init];
+    [descInputView addSubview:pushNumView];
+    pushNumView.backgroundColor = UIColorFromRGB(0xFFF2E7);
+    [pushNumView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.descTextView.bottom).offset(FitPTScreen(10));
+        make.left.right.bottom.equalTo(0);
+    }];
+    
+    self.pushNumLab = [[UILabel alloc] init];
+    [pushNumView addSubview:self.pushNumLab];
+    self.pushNumLab.textColor = UIColorFromRGB(0xFF9900);
+    self.pushNumLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
+    [self.pushNumLab makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(pushNumView);
+        make.centerX.equalTo(pushNumView.centerX).offset(FitPTScreen(5));
+    }];
+    
+    UIImageView *pushTipImgV = [[UIImageView alloc] init];
+    [descInputView addSubview:pushTipImgV];
+    pushTipImgV.image = [UIImage imageNamed:@"push_add_huangguan"];
+    [pushTipImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.pushNumLab.left).offset(FitPTScreen(-7));
+        make.centerY.equalTo(pushNumView);
     }];
     
     return descInputView;
@@ -422,7 +507,7 @@ typedef enum : NSUInteger {
     
     UILabel *tipLab = [[UILabel alloc] init];
     [videoSelectView addSubview:tipLab];
-    tipLab.text = @"视频标题";
+    tipLab.text = @"推送标题";
     tipLab.textColor = UIColorFromRGB(0x333333);
     tipLab.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [tipLab makeConstraints:^(MASConstraintMaker *make) {
@@ -430,15 +515,15 @@ typedef enum : NSUInteger {
         make.left.equalTo(starLab.right).offset(FitPTScreen(4));
     }];
     
-    self.videoImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video_upload_place"]];
+    self.videoImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"push_add_select"]];
     [videoSelectView addSubview:self.videoImgV];
     self.videoImgV.contentMode = UIViewContentModeScaleAspectFill;
     self.videoImgV.clipsToBounds = YES;
     [self.videoImgV makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(FitPTScreen(-15));
-        make.width.equalTo(FitPTScreen(75));
-        make.height.equalTo(FitPTScreen(100));
-        make.top.equalTo(line.bottom).offset(FitPTScreen(43));
+        make.width.equalTo(FitPTScreen(90));
+        make.height.equalTo(FitPTScreen(90));
+        make.top.equalTo(line.bottom).offset(FitPTScreen(45));
     }];
     [self.videoImgV hl_addTarget:self action:@selector(selectVideo)];
     
@@ -452,35 +537,11 @@ typedef enum : NSUInteger {
     }];
     [self.delBtn addTarget:self action:@selector(deleteSelectVideo) forControlEvents:UIControlEventTouchUpInside];
     
-    _videoTimeImgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"video_bag"]];
-    [self.videoImgV addSubview:_videoTimeImgV];
-    [_videoTimeImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.videoImgV);
-        make.height.equalTo(FitPTScreen(21.5));
-    }];
-    
-    UIImageView *tipImgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"little_video"]];
-    [_videoTimeImgV addSubview:tipImgV];
-    [tipImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.videoTimeImgV);
-        make.left.equalTo(FitPTScreen(9));
-        make.height.equalTo(FitPTScreen(8.5));
-        make.width.equalTo(FitPTScreen(13));
-    }];
-    
-    _videoTimeLab = [[UILabel alloc]init];
-    _videoTimeLab.textColor = UIColorFromRGB(0xFFFFFF);
-    _videoTimeLab.font = [UIFont systemFontOfSize:FitPTScreen(10)];
-    [self.videoTimeImgV addSubview:_videoTimeLab];
-    [_videoTimeLab makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(FitPTScreen(-9));
-        make.centerY.equalTo(self.videoTimeImgV);
-    }];
-
     self.titleTextView = [[IQTextView alloc] init];
     [videoSelectView addSubview:self.titleTextView];
-    self.titleTextView.placeholder = @"请输入分享标题";
+    self.titleTextView.placeholder = @"请输入推广标题(最多20个字)";
     self.titleTextView.font = [UIFont systemFontOfSize:FitPTScreen(14)];
+    self.titleTextView.delegate = self;
     [self.titleTextView makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(FitPTScreen(8));
         make.bottom.equalTo(self.videoImgV);
@@ -564,13 +625,17 @@ typedef enum : NSUInteger {
     if (!_imagePicker) {
         _imagePicker = [[UIImagePickerController alloc] init];
         _imagePicker.delegate = self;
+        _imagePicker.allowsEditing = YES;
         _imagePicker.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        _imagePicker.mediaTypes = [NSArray arrayWithObjects:@"public.movie",  nil];
     }
     return _imagePicker;
 }
 
 @end
 
+//https://sapi.51huilife.cn/HuiLife_Api/push/pushDetail.php
 
- 
+
+@implementation HLPushEditDataModel
+
+@end

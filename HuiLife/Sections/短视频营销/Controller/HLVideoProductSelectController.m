@@ -85,6 +85,7 @@
         [self.titleView addSubview:button];
         
         HLVideoProductListController *productList = [[HLVideoProductListController alloc] init];
+        productList.mode = self.mode;
         productList.type = i;
         productList.pro_id = self.pro_id;
         productList.productSelectBlock = self.productSelectBlock;

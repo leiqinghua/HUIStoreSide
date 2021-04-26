@@ -7,6 +7,8 @@
 
 #import "HLPushListViewController.h"
 #import "HLPushListViewCell.h"
+#import "HLPushAddViewController.h"
+#import "HLPushHistoryViewController.h"
 
 @interface HLPushListViewController () <UITableViewDelegate,UITableViewDataSource,HLPushListViewCellDelegate>
 
@@ -115,16 +117,36 @@
 
 /// 添加
 - (void)addButtonClick{
-//    HLVideoMarketAddController *addVC = [[HLVideoMarketAddController alloc] init];
-//    addVC.addBlock = ^{
-//        [self reloadListData];
-//    };
-//    [self.navigationController pushViewController:addVC animated:YES];
+    HLPushAddViewController *addVC = [[HLPushAddViewController alloc] init];
+    addVC.addBlock = ^{
+        [self reloadListData];
+    };
+    [self.navigationController pushViewController:addVC animated:YES];
 }
 
 #pragma mark - HLPushListViewCellDelegate
 
-
+- (void)listViewCell:(HLPushListViewCell *)cell stateBtnClick:(HLPushListModel *)model{
+    // 0 活动推送  10 审核中 // 15 审核失败
+    if (model.state == 10) {
+        
+    }
+    
+    else if(model.state == 15){
+        HLPushAddViewController *addVC = [[HLPushAddViewController alloc] init];
+        addVC.pushId = model.push_id;
+        addVC.addBlock = ^{
+            [self reloadListData];
+        };
+        [self.navigationController pushViewController:addVC animated:YES];
+    }
+    
+    else if (model.state == 0){
+        HLPushHistoryViewController *history = [[HLPushHistoryViewController alloc] init];
+        history.push_id = model.push_id;
+        [self.navigationController pushViewController:history animated:YES];
+    }
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -175,7 +197,7 @@
         _tableView.estimatedRowHeight = FitPTScreen(260);
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.tableFooterView = [UIView new];
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(10))];
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(0))];
         [_tableView registerClass:[HLPushListViewCell class] forCellReuseIdentifier:@"HLPushListViewCell"];
         weakify(self);
         MJRefreshNormalHeader *mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

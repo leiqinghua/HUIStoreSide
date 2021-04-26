@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 当前选择的 pro_id
 @property (nonatomic, copy) NSString *pro_id;
 
+// 请求商品列表的mode，短视频为 1  推送为 0
+@property (nonatomic, assign) NSInteger mode;
+
 // 当前选择的type
 @property (nonatomic, assign) NSInteger type;
 

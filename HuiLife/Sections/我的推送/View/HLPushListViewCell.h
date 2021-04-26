@@ -11,7 +11,7 @@
 @class HLPushListViewCell;
 @protocol HLPushListViewCellDelegate <NSObject>
 
-//- ()
+- (void)listViewCell:(HLPushListViewCell *)cell stateBtnClick:(HLPushListModel *)model;
 
 @end
 

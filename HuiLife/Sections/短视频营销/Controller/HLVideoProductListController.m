@@ -58,7 +58,7 @@
     if (hud) {
         HLLoading(self.view);
     }
-    NSDictionary *params = @{@"pageNo":@(_page),@"type":@(_type),@"mode":@"1"};
+    NSDictionary *params = @{@"pageNo":@(_page),@"type":@(_type),@"mode":@(self.mode)};
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api = @"/push/productList.php";
         request.serverType = HLServerTypeNormal;

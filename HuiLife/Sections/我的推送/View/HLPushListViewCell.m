@@ -75,6 +75,7 @@
         make.width.equalTo(FitPTScreen(59));
         make.height.equalTo(FitPTScreen(17.5));
     }];
+    [self.stateBtn addTarget:self action:@selector(stateBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     self.dateLab = [[UILabel alloc] init];
     [self.whiteBgView addSubview:self.dateLab];
@@ -247,6 +248,12 @@
         make.left.equalTo(payTipLab);
         make.top.equalTo(payTipLab.bottom).offset(FitPTScreen(4));
     }];
+}
+
+- (void)stateBtnClick{
+    if (self.delegate) {
+        [self.delegate listViewCell:self stateBtnClick:self.listModel];
+    }
 }
 
 - (void)setListModel:(HLPushListModel *)listModel{
