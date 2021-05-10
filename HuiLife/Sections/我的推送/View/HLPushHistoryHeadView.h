@@ -6,10 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HLPushHistoryModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HLPushHistoryHeadView : UIView
+
+@property (nonatomic, copy) void(^pushBtnClick)(void);
+
+- (void)confgiDataModel:(HLPushHistoryModel *)model;
 
 @end
 

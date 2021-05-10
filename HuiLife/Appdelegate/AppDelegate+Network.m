@@ -146,12 +146,10 @@ static BOOL showExpireUpdateView = NO;
             return result;
         }
         
-        if (!result.data) {
-            return result;
-        }
-        
         if (result.code != 200 && result.code != 404 && result.code != 405 && result.code != 201404 && result.code != 201406 && !request.hideError) {
-            [HLTools showWithText:result.msg];
+            dispatch_main_async_safe(^{
+                [HLTools showWithText:result.msg];
+            });
             return result;
         }
         

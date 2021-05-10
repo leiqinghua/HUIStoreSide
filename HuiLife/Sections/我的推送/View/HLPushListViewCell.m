@@ -271,9 +271,9 @@
         self.salePriceLab.hidden = YES;
         self.salePriceLab.text = @"";
     }else{
-        self.priceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",listModel.price];
+        self.priceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",listModel.sale];
         self.salePriceLab.hidden = NO;
-        self.salePriceLab.text = [NSString stringWithFormat:@"原价: ¥%.2lf",listModel.sale];
+        self.salePriceLab.text = [NSString stringWithFormat:@"门市价: ¥%.2lf",listModel.price];
     }
     
     

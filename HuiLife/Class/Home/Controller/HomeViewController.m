@@ -70,12 +70,12 @@
 
 //设置
 - (void)setBtnClick {
-#if DEBUG
-    [HLTools pushAppPageLink:@"HLPushListViewController" params:@{} needBack:NO];
-#else
+//#if DEBUG
+//    [HLTools pushAppPageLink:@"HLPushListViewController" params:@{} needBack:NO];
+//#else
     HLSetViewController *setVC = [[HLSetViewController alloc] init];
     [self hl_pushToController:setVC];
-#endif
+//#endif
     
 }
 

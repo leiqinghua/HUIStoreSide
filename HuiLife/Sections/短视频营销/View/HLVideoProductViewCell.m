@@ -121,8 +121,8 @@
     _model = model;
     [_goodImgV sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"logo_list_default"]];
     _nameLab.text = model.name;
-    _salePriceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",model.price];
-    _orinalPriceLab.text = [NSString stringWithFormat:@"门市价: ¥%.2lf",model.sale];
+    _salePriceLab.text = [NSString stringWithFormat:@"售价: ¥%.2lf",model.sale];
+    _orinalPriceLab.text = [NSString stringWithFormat:@"门市价: ¥%.2lf",model.price];
     _orinalPriceLab.hidden = !self.showOrinalPrice;
     // 不显示原价，说明为外卖
     if(!self.showOrinalPrice){

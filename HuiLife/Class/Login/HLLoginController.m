@@ -286,16 +286,16 @@
 
 - (void)login:(UIButton *)sender{
     
-#if DEBUG
-    HLTextField * textField = self.textFields[0];
-    HLTextField * textField1 = self.textFields[1];
-    
-//    textField.textField.text = @"13426059431";
-//    textField1.textField.text = @"zyd123456";
-    
-    textField.textField.text = @"15011523930";
-    textField1.textField.text = @"zlz123";
-#endif
+//#if DEBUG
+//    HLTextField * textField = self.textFields[0];
+//    HLTextField * textField1 = self.textFields[1];
+//
+////    textField.textField.text = @"13426059431";
+////    textField1.textField.text = @"zyd123456";
+//
+//    textField.textField.text = @"15011523930";
+//    textField1.textField.text = @"zlz123";
+//#endif
     
     for (int i = 0; i<self.textFields.count; i++) {
         HLTextField * textField = self.textFields[i];

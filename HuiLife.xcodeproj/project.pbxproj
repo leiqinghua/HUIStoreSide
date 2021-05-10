@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090069462639498F0065C6E4 /* HLPushHistorySectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 090069452639498F0065C6E4 /* HLPushHistorySectionHeader.m */; };
 		096747422605D06C0025E6DF /* HLBuyCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747412605D06C0025E6DF /* HLBuyCardViewController.m */; };
 		096747492605D1FF0025E6DF /* HLBuyCardListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */; };
 		0970E643260A2B330013941A /* HLRedPacketClassViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */; };
@@ -709,6 +710,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		090069442639498F0065C6E4 /* HLPushHistorySectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistorySectionHeader.h; sourceTree = "<group>"; };
+		090069452639498F0065C6E4 /* HLPushHistorySectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistorySectionHeader.m; sourceTree = "<group>"; };
 		096747402605D06C0025E6DF /* HLBuyCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardViewController.h; sourceTree = "<group>"; };
 		096747412605D06C0025E6DF /* HLBuyCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardViewController.m; sourceTree = "<group>"; };
 		096747472605D1FF0025E6DF /* HLBuyCardListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardListViewCell.h; sourceTree = "<group>"; };
@@ -2092,6 +2095,8 @@
 				097C41E4263666A400D4C70E /* HLPushListViewCell.m */,
 				097C42142636D0AA00D4C70E /* HLPushHistoryHeadView.h */,
 				097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */,
+				090069442639498F0065C6E4 /* HLPushHistorySectionHeader.h */,
+				090069452639498F0065C6E4 /* HLPushHistorySectionHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5564,6 +5569,7 @@
 				9D70348B22F1264A003B14FD /* HLBaseViewController.m in Sources */,
 				94695065255BD48E00BE8774 /* HLCompeteUpCollectionCell.m in Sources */,
 				9D6372BF2148FDDC00F791C1 /* HLMessageHeaderView.m in Sources */,
+				090069462639498F0065C6E4 /* HLPushHistorySectionHeader.m in Sources */,
 				9DE8A64E22FBD6040034C4AF /* HLAddCardController.m in Sources */,
 				B415FC202317A18100F4331D /* ZFAVPlayerManager.m in Sources */,
 				9DBF035621A6492B00734669 /* HLPrinterSetModel.m in Sources */,
@@ -6172,7 +6178,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuiLife/HuiLife.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = KCP6438BT4;
@@ -6190,7 +6196,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6209,7 +6215,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuiLife/HuiLife.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = KCP6438BT4;
@@ -6227,7 +6233,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6297,7 +6303,7 @@
 				CODE_SIGN_ENTITLEMENTS = HLNotificationExtension/HLNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6315,7 +6321,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
@@ -6334,7 +6340,7 @@
 				CODE_SIGN_ENTITLEMENTS = HLNotificationExtension/HLNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6352,7 +6358,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;

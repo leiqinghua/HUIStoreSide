@@ -72,7 +72,6 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.pushId ? @"修改推送" : @"创建推送";
-    
     if(self.pushId.length){
         [self loadPushDetailData];
     }else{
@@ -134,7 +133,6 @@ typedef enum : NSUInteger {
             self.mParams[KEY_PROID] = dataModel.pro_id;
             self.mParams[KEY_NAME] = dataModel.name;
             self.mParams[@"push_id"] = self.pushId;
-            // UI构建
             [self creatSubViews];
             self.uploadState = HLPicUploadSuccess;
             self.pushNumLab.text = [NSString stringWithFormat:@"预计%ld位HUI卡会员能接收到",[responseObject.data[@"total"] integerValue]];
@@ -144,9 +142,9 @@ typedef enum : NSUInteger {
             self.titleTextView.text = dataModel.title;
             self.descTextView.text = dataModel.push_desc;
             self.inputNumLab.text = [NSString stringWithFormat:@"%lu/50",(unsigned long)self.descTextView.text.length];
+            self.inputNumLab.hidden = NO;
             self.reasonLab.hidden = NO;
             self.reasonLab.text = dataModel.reason;
-            self.reasonLab.text = @"标题与视频不符";
         }else{
             weakify(self);
             [self hl_showNetFail:self.view.bounds callBack:^{
@@ -374,7 +372,7 @@ typedef enum : NSUInteger {
     // 加按钮
     UIButton *addButton = [[UIButton alloc] init];
     [self.scrollView addSubview:addButton];
-    [addButton setTitle:self.pushId ? @"修改推送" : @"创建推送" forState:UIControlStateNormal];
+    [addButton setTitle:self.pushId ? @"确定修改" : @"创建推送" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [addButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateNormal];
@@ -420,7 +418,7 @@ typedef enum : NSUInteger {
     
     UILabel *tipLab = [[UILabel alloc] init];
     [descInputView addSubview:tipLab];
-    tipLab.text = @"推送描述：";
+    tipLab.text = @"推广描述：";
     tipLab.textColor = UIColorFromRGB(0x666666);
     tipLab.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [tipLab makeConstraints:^(MASConstraintMaker *make) {
@@ -440,16 +438,6 @@ typedef enum : NSUInteger {
         make.height.equalTo(FitPTScreen(80));
     }];
     self.descTextView.delegate = self;
-    
-    self.inputNumLab = [[UILabel alloc] init];
-    [descInputView addSubview:self.inputNumLab];
-    self.inputNumLab.text = @"0/50";
-    self.inputNumLab.textColor = UIColorFromRGB(0x999999);
-    self.inputNumLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
-    [self.inputNumLab makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(FitPTScreen(-12));
-        make.bottom.equalTo(FitPTScreen(-12));
-    }];
     
     UIView *pushNumView = [[UIView alloc] init];
     [descInputView addSubview:pushNumView];
@@ -474,6 +462,16 @@ typedef enum : NSUInteger {
     [pushTipImgV makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.pushNumLab.left).offset(FitPTScreen(-7));
         make.centerY.equalTo(pushNumView);
+    }];
+    
+    self.inputNumLab = [[UILabel alloc] init];
+    [descInputView addSubview:self.inputNumLab];
+    self.inputNumLab.text = @"0/50";
+    self.inputNumLab.textColor = UIColorFromRGB(0x999999);
+    self.inputNumLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
+    [self.inputNumLab makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(FitPTScreen(-12));
+        make.bottom.equalTo(FitPTScreen(-46));
     }];
     
     return descInputView;
