@@ -276,7 +276,7 @@ typedef enum : NSUInteger {
 - (void)textViewDidChange:(IQTextView *)textView{
     NSInteger maxInputCount = 20;
     if(textView == self.descTextView){
-        maxInputCount = 20;
+        maxInputCount = 50;
     }
     NSString *toBeString = textView.text;
     NSString *lang = [[UITextInputMode currentInputMode] primaryLanguage];

@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *rangeLab;
 @property (nonatomic, strong) UILabel *pushNumLab;
 @property (nonatomic, strong) UILabel *numLab;
+@property (nonatomic, strong) UIButton *pushButton;
 
 
 @end
@@ -127,8 +128,6 @@
     [pushButton setTitle:@"确定推送" forState:UIControlStateNormal];
     pushButton.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(15)];
     [pushButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [pushButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateNormal];
-    [pushButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateHighlighted];
     [pushButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bottomView);
         make.top.equalTo(FitPTScreen(0));
@@ -136,6 +135,7 @@
         make.height.equalTo(FitPTScreen(72));
     }];
     [pushButton addTarget:self action:@selector(pushButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    self.pushButton = pushButton;
 
     self.numLab = [[UILabel alloc] init];
     [bottomView addSubview:self.numLab];
@@ -161,6 +161,13 @@
     self.rangeLab.text = model.range;
     self.pushNumLab.text = [NSString stringWithFormat:@"预计推送人数：%ld人",model.total];
     self.numLab.text = [NSString stringWithFormat:@"今日还剩 %ld 次推送机会",model.number];
+    
+    [self.pushButton setBackgroundImage:[UIImage imageNamed:model.number > 0 ? @"voucher_bottom_btn" : @"bag_btn_unable"] forState:UIControlStateNormal];
+    [self.pushButton setBackgroundImage:[UIImage imageNamed:model.number > 0 ? @"voucher_bottom_btn" : @"bag_btn_unable"] forState:UIControlStateHighlighted];
+    self.pushButton.userInteractionEnabled = model.number > 0;
+    if(model.number == 0){
+        self.pushButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, FitPTScreen(3), 0);
+    }
     
     CGFloat height = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     self.frame = CGRectMake(0, 0, ScreenW, height);
@@ -227,3 +234,10 @@
 }
 
 @end
+
+//id    60528
+//pid    1346191
+//uid    1954147
+//token    oKYT0A5sGCXy6Ky2dgys
+//push_time    [0,0]
+//push_id    978

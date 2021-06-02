@@ -117,15 +117,15 @@ dispatch_async(dispatch_get_main_queue(), block);\
 #define NORMAL_DOMEN_SERVER_KEY @"normal_domen_server_key"
 
 /// 惠生活普通的
-#define NORMAL_TEST_SERVER @"https://test.51huilife.cn/HuiLife_Api"
+#define NORMAL_TEST_SERVER @"http://test.51huilife.cn/HuiLife_Api"
 #define NORMAL_MID_SERVER  @"https://mid.sapi.51huilife.cn/HuiLife_Api"
 #define NORMAL_PRODUCT_SERVER @"https://sapi.51huilife.cn/HuiLife_Api"
 
-#define STORE_SERVICE_TEST_SERVER @"https://test.p1api.51huilife.com.cn"
+#define STORE_SERVICE_TEST_SERVER @"http://test.p1api.51huilife.com.cn"
 #define STORE_SERVICE_MID_SERVER  @"https://mid.sp1api.51huilife.com.cn"
 #define STORE_SERVICE_PRODUCT_SERVER @"https://sp1api.51huilife.com.cn"
 
-#define NORMAL_DOMEN_TEST_SERVER @"https://test.51huilife.cn"
+#define NORMAL_DOMEN_TEST_SERVER @"http://test.51huilife.cn"
 #define NORMAL_DOMEN_MID_SERVER  @"https://mid.51huilife.cn"
 #define NORMAL_DOMEN_PRODUCT_SERVER @"https://sapi.51huilife.cn"
 
