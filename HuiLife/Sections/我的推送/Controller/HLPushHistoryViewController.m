@@ -101,6 +101,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UILabel *leftLab = [[UILabel alloc] init];
         [cell.contentView addSubview:leftLab];
