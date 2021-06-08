@@ -29,6 +29,7 @@
 		099466052635536200F3A641 /* HLVideoMarketPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 099466042635536200F3A641 /* HLVideoMarketPlayController.m */; };
 		09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */; };
 		09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */; };
+		09B64243266F629100F22A4F /* HLTakeOrderTypeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B64242266F629100F22A4F /* HLTakeOrderTypeViewCell.m */; };
 		2EED5CF4837C6B90C4C61C3D /* libPods-HuiLife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71912A473F109382F72211E1 /* libPods-HuiLife.a */; };
 		9403CCA920FF866B001AD3B1 /* HLConfirmTIXianView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403CCA820FF866B001AD3B1 /* HLConfirmTIXianView.m */; };
 		9403CCB02100EB9B001AD3B1 /* HLSelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403CCAF2100EB9B001AD3B1 /* HLSelectTimeCell.m */; };
@@ -754,6 +755,8 @@
 		09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageViewCell.m; sourceTree = "<group>"; };
 		09A14A562605EB1C00171F0D /* HLBuyCardPackageItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageItemView.h; sourceTree = "<group>"; };
 		09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageItemView.m; sourceTree = "<group>"; };
+		09B64241266F629100F22A4F /* HLTakeOrderTypeViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTakeOrderTypeViewCell.h; sourceTree = "<group>"; };
+		09B64242266F629100F22A4F /* HLTakeOrderTypeViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTakeOrderTypeViewCell.m; sourceTree = "<group>"; };
 		61F14042AEBA9E24BCE87BB7 /* Pods-HuiLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HuiLife.release.xcconfig"; path = "Pods/Target Support Files/Pods-HuiLife/Pods-HuiLife.release.xcconfig"; sourceTree = "<group>"; };
 		71912A473F109382F72211E1 /* libPods-HuiLife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HuiLife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9403CCA720FF866B001AD3B1 /* HLConfirmTIXianView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLConfirmTIXianView.h; sourceTree = "<group>"; };
@@ -2812,6 +2815,8 @@
 				9456D8C22431BD4600B2BB4C /* HLTradeTimeTableCell.m */,
 				94FBA33F2432D241006E4E3C /* HLSellTimeSelectView.h */,
 				94FBA3402432D241006E4E3C /* HLSellTimeSelectView.m */,
+				09B64241266F629100F22A4F /* HLTakeOrderTypeViewCell.h */,
+				09B64242266F629100F22A4F /* HLTakeOrderTypeViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5694,6 +5699,7 @@
 				94389A6E23A79E0800A3EA81 /* HLRefundReasonView.m in Sources */,
 				9D804C5A21A5563D00677C51 /* HLBuniessAlertView.m in Sources */,
 				B4AE255722F6DC72001109E9 /* HLVoucherCodeViewCell.m in Sources */,
+				09B64243266F629100F22A4F /* HLTakeOrderTypeViewCell.m in Sources */,
 				9DE8A60A22F6BEA90034C4AF /* ALiImageBrowserBottomToolBar.m in Sources */,
 				94289D692333307500D1A42A /* HLRightButtonsViewCell.m in Sources */,
 				9D6372B72148EDB100F791C1 /* HLMessageViewController.m in Sources */,

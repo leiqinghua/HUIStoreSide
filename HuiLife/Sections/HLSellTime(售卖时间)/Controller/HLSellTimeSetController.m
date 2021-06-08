@@ -10,12 +10,15 @@
 #import "HLTradeDayTableCell.h"
 #import "HLTradeTimeTableCell.h"
 #import "HLSellModel.h"
+#import "HLTakeOrderTypeViewCell.h"
 
 @interface HLSellTimeSetController () <UITableViewDelegate, UITableViewDataSource, HLSellTimeTableCellDelegate, HLTradeDayTableCellDelegate>
 
 @property(nonatomic, strong) UITableView *tableView;
 
 @property(nonatomic, strong) NSMutableArray *datasource;
+
+@property (nonatomic, strong) HLSellModel *takTypeModel;
 
 @property(nonatomic, strong) HLSellModel *sellModel;
 
@@ -48,6 +51,7 @@
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    [_tableView registerClass:[HLTakeOrderTypeViewCell class] forCellReuseIdentifier:@"HLTakeOrderTypeViewCell"];
     [_tableView registerClass:[HLSellTimeTableViewCell class] forCellReuseIdentifier:@"HLSellTimeTableViewCell"];
     [_tableView registerClass:[HLTradeDayTableCell class] forCellReuseIdentifier:@"HLTradeDayTableCell"];
     [_tableView registerClass:[HLTradeTimeTableCell class] forCellReuseIdentifier:@"HLTradeTimeTableCell"];
@@ -80,6 +84,7 @@
 
 //保存
 - (void)saveClick {
+    // 时间
     NSInteger sell_time = [_sellModel.values.firstObject integerValue];
     if (sell_time == 0) {
         [self saveWithSellTime:sell_time days:@"" hours:@""];
@@ -108,8 +113,6 @@
     }];
     NSString *hour = [hours mj_JSONString];
     [self saveWithSellTime:sell_time days:dayStr hours:hour];
-    
-    
 }
 
 #pragma mark - HLSellTimeTableCellDelegate
@@ -163,6 +166,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
+        HLTakeOrderTypeViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"HLTakeOrderTypeViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.model = self.datasource[indexPath.section];
+        return cell;
+    }
+    
+    if (indexPath.section == 1) {
         HLSellTimeTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"HLSellTimeTableViewCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
@@ -170,7 +180,7 @@
         return cell;
     }
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         HLTradeDayTableCell * cell =  cell = [tableView dequeueReusableCellWithIdentifier:@"HLTradeDayTableCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
@@ -186,11 +196,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 || indexPath.section == 1) {
         return  FitPTScreen(82);
     }
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         return FitPTScreen(132);
     }
     return FitPTScreen(297);
@@ -225,6 +235,17 @@
 }
 
 - (void)handleDataWithDict:(NSDictionary *)dict {
+    
+    _takTypeModel = [[HLSellModel alloc] init];
+    _takTypeModel.title = @"接单方式";
+    _takTypeModel.values = @[@(1)];
+    NSArray *handingTimeArr = dict[@"handing_time"];
+    for (NSDictionary *item in handingTimeArr) {
+        NSInteger select = [item[@"state"] integerValue];
+        if (select == 1) {
+            _takTypeModel.values = @[@([handingTimeArr indexOfObject:item])];
+        }
+    }
     
     NSArray *sellTimeArr = dict[@"selling_time"];
     _sellModel = [[HLSellModel alloc]init];
@@ -273,6 +294,7 @@
     //    所有可选择的时间
     _timeData = dict[@"hours_data"];
     
+    [self.datasource addObject:_takTypeModel];
     [self.datasource addObject:_sellModel];
     if (selectIndex == 1) {
         [self.datasource addObject:_sellDay];
@@ -288,10 +310,13 @@
 #pragma mark - 保存
 - (void)saveWithSellTime:(NSInteger)sell days:(NSString *)days hours:(NSString *)hours {
     HLLoading(self.view);
+    // 接单方式 0 手动 1 自动
+    NSInteger handingTime = [_takTypeModel.values.firstObject integerValue];
+    handingTime = handingTime == 0 ? 1 : 0;
     [XMCenter sendRequest:^(XMRequest *request) {
         request.api = @"/MerchantSideA/BusinessHoursSet.php";
         request.serverType = HLServerTypeNormal;
-        request.parameters = @{@"selling_time":@(sell),@"business_day":days,@"business_hours":hours};
+        request.parameters = @{@"selling_time":@(sell),@"handing_time":@(handingTime),@"business_day":days,@"business_hours":hours};
     } onSuccess:^(id responseObject) {
         HLHideLoading(self.view);
         // 处理数据
