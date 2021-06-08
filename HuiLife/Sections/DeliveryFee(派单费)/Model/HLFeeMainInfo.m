@@ -19,7 +19,6 @@
         if (_distance_fee_3)[section1 addObject:_distance_fee_3];
         
         HLFeeHeaderInfo *setInfo = [[HLFeeHeaderInfo alloc]init];
-        setInfo.hideDesc = YES;
         setInfo.hideTipV = YES;
         setInfo.index = 0;
         setInfo.title = _dispatch_title;
@@ -28,7 +27,6 @@
         setInfo.datasource = section1;
         setInfo.mainKey = @"is_dispatch";
         setInfo.value = @(setInfo.on);
-        
         
         NSMutableArray *section2 = [NSMutableArray array];
         if (_distance_reward_fee_1) [section2 addObject:_distance_reward_fee_1];
@@ -39,7 +37,7 @@
         orderInfo.hideSwitch = YES;
         orderInfo.index = 1;
         orderInfo.title = _distance_reward_title;
-        orderInfo.subTitle = _distance_reward_label;
+        orderInfo.desc = _distance_reward_label;
         orderInfo.datasource = section2;
         
         NSMutableArray *section3 = [NSMutableArray array];
@@ -50,11 +48,9 @@
         
         HLFeeHeaderInfo *timeInfo = [[HLFeeHeaderInfo alloc]init];
         timeInfo.hideSwitch = YES;
-        timeInfo.hideDesc = YES;
         timeInfo.index = 2;
         timeInfo.title = _consume_reward_title;
         timeInfo.datasource = section3;
-        
         
         NSMutableArray *section4 = [NSMutableArray array];
         if (_tp_distance_fee_1) [section4 addObject:_tp_distance_fee_1];
@@ -63,7 +59,6 @@
         
         HLFeeHeaderInfo *serveInfo = [[HLFeeHeaderInfo alloc]init];
         serveInfo.hideTipV = YES;
-        serveInfo.hideDesc = YES;
         serveInfo.hideSection = YES;
         serveInfo.index = 3;
         serveInfo.canEdit = NO;

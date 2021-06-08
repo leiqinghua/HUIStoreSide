@@ -37,6 +37,11 @@ typedef enum : NSUInteger {
 //是否隐藏第三方配送服务模块 0隐藏 1展示，服务端控制
 @property(nonatomic, assign) BOOL is_third_party_open;
 
+// 商家自配送开关
+@property (nonatomic, assign) BOOL self_state;
+// 第三方配送开关
+@property (nonatomic, assign) BOOL third_state;
+
 //时间范围
 @property(nonatomic, strong) NSArray *consume_time_set;
 
@@ -105,8 +110,6 @@ typedef enum : NSUInteger {
 @interface HLFeeHeaderInfo : NSObject
 //隐藏图片
 @property(nonatomic, assign) BOOL hideTipV;
-//
-@property(nonatomic, assign) BOOL hideDesc;
 //隐藏开关
 @property(nonatomic, assign) BOOL hideSwitch;
 //需不需要隐藏整个section
@@ -119,6 +122,8 @@ typedef enum : NSUInteger {
 @property(nonatomic, copy) NSString *title;
 
 @property(nonatomic, copy) NSString *subTitle;
+
+@property(nonatomic, copy) NSString *desc;
 
 @property(nonatomic, strong) NSMutableArray<HLFeeBaseInfo *> *datasource;
 

@@ -659,6 +659,7 @@
 		B4C5A50A22F91E76001FBBE3 /* HLBuyGoodAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50922F91E76001FBBE3 /* HLBuyGoodAddController.m */; };
 		B4C5A50D22F9206B001FBBE3 /* HLBuyGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50C22F9206B001FBBE3 /* HLBuyGoodListCell.m */; };
 		B4C5A51022F92079001FBBE3 /* HLBuyGoodListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50F22F92079001FBBE3 /* HLBuyGoodListModel.m */; };
+		B4ECD1B4266FAD4900411D75 /* HLFeeTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */; };
 		B4F126602355AB8D00B0D72B /* HLGuideMask.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F1265F2355AB8D00B0D72B /* HLGuideMask.m */; };
 		B4F126632355AF1800B0D72B /* HLGuideMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F126622355AF1800B0D72B /* HLGuideMaskView.m */; };
 		B4F126672355B1D300B0D72B /* HLGuideLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F126662355B1D300B0D72B /* HLGuideLayout.m */; };
@@ -1976,6 +1977,8 @@
 		B4C5A50C22F9206B001FBBE3 /* HLBuyGoodListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyGoodListCell.m; sourceTree = "<group>"; };
 		B4C5A50E22F92079001FBBE3 /* HLBuyGoodListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyGoodListModel.h; sourceTree = "<group>"; };
 		B4C5A50F22F92079001FBBE3 /* HLBuyGoodListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyGoodListModel.m; sourceTree = "<group>"; };
+		B4ECD1B2266FAD4900411D75 /* HLFeeTableViewHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFeeTableViewHeader.h; sourceTree = "<group>"; };
+		B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFeeTableViewHeader.m; sourceTree = "<group>"; };
 		B4F1265E2355AB8D00B0D72B /* HLGuideMask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLGuideMask.h; sourceTree = "<group>"; };
 		B4F1265F2355AB8D00B0D72B /* HLGuideMask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLGuideMask.m; sourceTree = "<group>"; };
 		B4F126612355AF1800B0D72B /* HLGuideMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLGuideMaskView.h; sourceTree = "<group>"; };
@@ -2933,6 +2936,8 @@
 				945A31DB247516120097464D /* HLDiscountSetTableCell.m */,
 				940995A22521D76B00EC61CC /* HLDeliveryWayTableCell.h */,
 				940995A32521D76B00EC61CC /* HLDeliveryWayTableCell.m */,
+				B4ECD1B2266FAD4900411D75 /* HLFeeTableViewHeader.h */,
+				B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5778,6 +5783,7 @@
 				9DED3265217DB03A007E7D75 /* HLStoreDetailTableViewCell.m in Sources */,
 				94389A6C23A79E0800A3EA81 /* HLFastBuyTableCell.m in Sources */,
 				945A31D624750A890097464D /* HLFeatureMainInfo.m in Sources */,
+				B4ECD1B4266FAD4900411D75 /* HLFeeTableViewHeader.m in Sources */,
 				949CDF832315134900BDB144 /* HLRegisterViewCell.m in Sources */,
 				946920B12592EC1000680A7E /* HLReviewFailAlert.m in Sources */,
 				9DCA5A4A212AC835001AF43F /* HLEmptyDataView.m in Sources */,

@@ -73,23 +73,28 @@
             _autoTakeBtn.selected = YES;
             _manualTakeBtn.selected = NO;
             _selectBtn = _autoTakeBtn;
+            _tipLb.text = @"用户下单后平台自动为商家接单";
         } else {
             _manualTakeBtn.selected = YES;
             _autoTakeBtn.selected = NO;
             _selectBtn = _manualTakeBtn;
+            _tipLb.text = @"用户下单后商家可选择接单/取消接单";
         }
     }
 }
 
 - (void)buttonClick:(UIButton *)sender {
+    if(sender.selected) return;;
     sender.selected = YES;
     _selectBtn.selected = NO;
     _selectBtn = sender;
     
     if ([sender isEqual:_autoTakeBtn]) {
         _model.values = @[@(0)];
+        _tipLb.text = @"用户下单后平台自动为商家接单";
     } else {
         _model.values = @[@(1)];
+        _tipLb.text = @"用户下单后商家可选择接单/取消接单";
     }
 }
 @end

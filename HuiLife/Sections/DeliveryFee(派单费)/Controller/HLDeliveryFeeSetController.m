@@ -15,9 +15,10 @@
 #import "HLDeliveryWayInfo.h"
 #import "HLDeliveryWayTableCell.h"
 #import "HLCustomAlert.h"
+#import "HLFeeTableViewHeader.h"
 
 #define bottomViewH FitPTScreen(206)
-@interface HLDeliveryFeeSetController () <UITableViewDelegate, UITableViewDataSource, HLFeeSectionHeaderDelegate, HLDeliveryWayTableCellDelegate>
+@interface HLDeliveryFeeSetController () <UITableViewDelegate, UITableViewDataSource, HLFeeSectionHeaderDelegate, HLDeliveryWayTableCellDelegate, HLFeeTableViewHeaderDelegate>
 
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) HLFeeMainInfo *mainInfo;
@@ -28,17 +29,28 @@
 @property(nonatomic, strong) HLFeeHeaderInfo *deliveryHeader;
 @property(nonatomic, assign) BOOL deliveryOpen;
 
+@property (nonatomic, strong) HLFeeTableViewHeader *tableHeader;
+
 @end
 
 @implementation HLDeliveryFeeSetController
+
+#pragma mark - Life Cycle
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hl_setTitle:@"派单费设置"];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initNavBarView];
+    [self loadDefaultData];
+}
+
 #pragma mark - request
-//请求默认数据
+
+// 请求默认数据
 - (void)loadDefaultData {
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
@@ -59,18 +71,22 @@
     }];
 }
 
+// 配置数据
 - (void)configDatas:(NSDictionary *)dict {
     self.mainInfo = [HLFeeMainInfo mj_objectWithKeyValues:dict];
     self.oriMainInfo = dict;
     
-    _deliveryOpen = self.mainInfo.is_third_party_open;
+    _deliveryOpen = self.mainInfo.is_third_party;
+    
+    [_tableHeader configSwitchOn:self.mainInfo.self_state];
+    self.deliveryHeader.on = self.mainInfo.third_state;
     
     NSDictionary *deliverDict = dict[@"eleRole"];
     NSArray *deliverArr = deliverDict[@"eleRoles"];
-    //蜂鸟
+    // 蜂鸟
     HLDeliveryWayInfo *fnInfo = [[HLDeliveryWayInfo alloc]init];
     fnInfo.enable = YES;
-    fnInfo.on = self.mainInfo.is_third_party_open;
+    fnInfo.on = self.mainInfo.is_third_party;
     fnInfo.pic = @"fnPic";
     fnInfo.name = @"蜂鸟配送";
     fnInfo.detail = @"开启配送服务，则同意平台定义规则";
@@ -79,7 +95,7 @@
     fnInfo.rule = [NSString stringWithFormat:@"蜂鸟平台配送规则（%@元起送）",fnInfo.startPrice];
     fnInfo.eleRoles = [HLDeliveryRule mj_objectArrayWithKeyValuesArray:deliverArr];
     [self.deliveryWays addObject:fnInfo];
-//    美团
+    // 美团
     HLDeliveryWayInfo *mtInfo = [[HLDeliveryWayInfo alloc]init];
     mtInfo.pic = @"mtPic";
     mtInfo.name = @"美团配送";
@@ -88,7 +104,7 @@
     mtInfo.startPrice = [NSString stringWithFormat:@"%@",deliverDict[@"startPrice"]];
     mtInfo.rule = [NSString stringWithFormat:@"美团平台配送规则（%@元起送）",mtInfo.startPrice];
     [self.deliveryWays addObject:mtInfo];
-    //达达
+    // 达达
     HLDeliveryWayInfo *ddInfo = [[HLDeliveryWayInfo alloc]init];
     ddInfo.pic = @"ddPic";
     ddInfo.name = @"达达配送";
@@ -101,7 +117,7 @@
     [self.tableView reloadData];
 }
 
-//保存
+// 保存
 - (void)saveDataWithPargram:(NSDictionary *)pargram {
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
@@ -122,7 +138,7 @@
     }];
 }
 
-//蜂鸟配送开关
+// 蜂鸟配送开关
 - (void)deliveryWayUpdate:(HLDeliveryWayInfo *)info on:(BOOL)on{
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
@@ -153,6 +169,7 @@
 }
 
 #pragma mark - Event
+
 //保存
 - (void)saveClick {
     NSMutableDictionary *pargram = [NSMutableDictionary dictionary];
@@ -181,7 +198,9 @@
             }
         }
     }
-    [pargram setObject:@(_deliveryOpen) forKey:@"is_third_party_open"];
+    [pargram setObject:@(_deliveryOpen) forKey:@"is_third_party"];
+    [pargram setObject:@(_mainInfo.self_state) forKey:@"self_state"];
+    [pargram setObject:@(_deliveryHeader.on) forKey:@"third_state"];
     HLLog(@"pargram = %@",pargram);
     [self saveDataWithPargram:pargram];
 }
@@ -189,12 +208,36 @@
 //重置
 - (void)resetClick {
     _mainInfo = [HLFeeMainInfo mj_objectWithKeyValues:_oriMainInfo];
+    [_tableHeader configSwitchOn:self.mainInfo.self_state];
+    _deliveryHeader.on = self.mainInfo.third_state;
     [self.tableView reloadData];
 }
 
 //专送员
 - (void)rightItemClick {
     [HLTools pushAppPageLink:@"HLSpecialPersonController" params:@{} needBack:NO];
+}
+
+// 更改三个开关
+
+#pragma mark - HLFeeTableViewHeaderDelegate
+
+- (void)feeTableHeader:(HLFeeTableViewHeader *)header switchChanged:(BOOL)switchOn{
+    _mainInfo.self_state = switchOn;
+    // 获取到家配送服务和三方配送服务
+    HLFeeHeaderInfo *dispatchInfo = self.mainInfo.datasource.firstObject;
+    dispatchInfo.on = !switchOn;
+    _mainInfo.is_dispatch = !switchOn;
+    dispatchInfo.value = @(dispatchInfo.on);
+
+    _deliveryHeader.on = !switchOn;
+    _mainInfo.third_state = !switchOn;
+    
+    NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:dispatchInfo.index];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+    
+    set = [[NSIndexSet alloc] initWithIndex:_deliveryHeader.index];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - HLDeliveryWayTableCellDelegate
@@ -210,19 +253,31 @@
 - (void)header:(HLFeeSectionHeader *)header headerInfo:(HLFeeHeaderInfo *)headerInfo {
     if (headerInfo.index == 0) {
         _mainInfo.is_dispatch = headerInfo.on;
+        [self changeSwitchState];
     } else if (headerInfo.index == 3) {
         _mainInfo.is_third_party = headerInfo.on;
         NSIndexSet *set = [[NSIndexSet alloc]initWithIndex:headerInfo.index];
         [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+    } else if (headerInfo.index == 4){
+        _mainInfo.third_state = headerInfo.on;
+        [self changeSwitchState];
     }
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self initNavBarView];
-    [self loadDefaultData];
+- (void)changeSwitchState{
+    HLFeeHeaderInfo *dispatchInfo = self.mainInfo.datasource.firstObject;
+    if (dispatchInfo.on || _deliveryHeader.on) {
+        // 只要有一个开的，顶部就关闭
+        [_tableHeader configSwitchOn:NO];
+        _mainInfo.self_state = NO;
+    }
+    
+    if (!dispatchInfo.on && !_deliveryHeader.on) {
+        // 如果都关了，就开
+        [_tableHeader configSwitchOn:YES];
+        _mainInfo.self_state = YES;
+    }
 }
-
 
 #pragma mark - UITableViewDataSource
 
@@ -375,6 +430,11 @@
     bottomView.backgroundColor = UIColor.whiteColor;
     _tableView.tableFooterView = bottomView;
     
+    _tableHeader = [[HLFeeTableViewHeader alloc] initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(70))];
+    _tableHeader.backgroundColor = UIColor.whiteColor;
+    _tableHeader.delegate = self;
+    _tableView.tableHeaderView = _tableHeader;
+    
     // 加按钮
     UIButton *saveButton = [[UIButton alloc] init];
     [bottomView addSubview:saveButton];
@@ -385,6 +445,8 @@
     [saveButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(FitPTScreen(30));
+        make.width.equalTo(FitPTScreen(261));
+        make.height.equalTo(FitPTScreen(42));
     }];
     [saveButton addTarget:self action:@selector(saveClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -434,8 +496,9 @@
         _deliveryHeader.hideTipV = YES;
         _deliveryHeader.title = @"第三方配送服务";
         _deliveryHeader.subTitle = @"选择派单团队自由定义";
-        _deliveryHeader.hideSwitch = YES;
+        _deliveryHeader.hideSwitch = NO;
         _deliveryHeader.index = 4;
+        _deliveryHeader.mainKey = @"third_state";
     }
     return _deliveryHeader;
 }
