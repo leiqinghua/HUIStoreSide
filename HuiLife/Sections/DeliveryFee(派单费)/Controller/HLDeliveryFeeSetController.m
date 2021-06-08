@@ -445,8 +445,8 @@
     [saveButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(FitPTScreen(30));
-        make.width.equalTo(FitPTScreen(261));
-        make.height.equalTo(FitPTScreen(42));
+        make.width.equalTo(FitPTScreen(271));
+        make.height.equalTo(FitPTScreen(53));
     }];
     [saveButton addTarget:self action:@selector(saveClick) forControlEvents:UIControlEventTouchUpInside];
     
