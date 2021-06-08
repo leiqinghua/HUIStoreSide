@@ -51,6 +51,7 @@
         [bottomView addSubview:button];
         [button makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.centerY.equalTo(bottomView);
+            make.width.height.equalTo(bottomView);
         }];
         button.tag = i;
         [_buttons addObject:button];
