@@ -46,7 +46,7 @@
     _tableView.scrollsToTop = YES;
     AdjustsScrollViewInsetNever(self, _tableView);
     [self.view addSubview:_tableView];
-    _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [_tableView registerClass:[HLSellTimeTableViewCell class] forCellReuseIdentifier:@"HLSellTimeTableViewCell"];
     [_tableView registerClass:[HLTradeDayTableCell class] forCellReuseIdentifier:@"HLTradeDayTableCell"];
