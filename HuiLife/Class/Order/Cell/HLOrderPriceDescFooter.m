@@ -167,6 +167,8 @@
 - (void)configUserPrice:(NSString *)userMoney storePrice:(NSString *)storeMoney {
     _userPriceLb.attributedText = [self attrWithMoney:userMoney];
     _storePriceLb.attributedText = [self attrWithMoney:storeMoney];
+    _storeLb.hidden = storeMoney.doubleValue <= 0;
+    _storePriceLb.hidden = storeMoney.doubleValue <= 0;
 }
 
 

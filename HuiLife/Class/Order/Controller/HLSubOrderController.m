@@ -208,24 +208,8 @@
                 [self loadDataWithDate:self.currentDate loading:YES];
             }];
             
-        }break;
-        case 5://送达
-        {
-            [HLOrderOpetionHelper hl_arrivedWithModel:layout.orderModel completion:^{
-                [HLTools showWithText:@"送达成功"];
-                [HLNotifyCenter postNotificationName:HLNewOrderClickedFunctionNotifi object:@[@"0", @"1", @"2"]];
-            }];
-            
-        }break;
-        case 4://自提
-        {
-            [HLOrderOpetionHelper hl_MentionWithModel:layout.orderModel completion:^{
-                [HLTools showWithText:@"自提成功"];
-                [HLNotifyCenter postNotificationName:HLNewOrderClickedFunctionNotifi object:@[@"0",@"1",@"2"]];
-            }];
-            
-        }break;
-            
+        }
+            break;
         case 2://打印
         {
             [HLOrderOpetionHelper hl_wifiListWithModel:layout.orderModel completion:^(NSArray * _Nonnull printers) {
@@ -236,7 +220,8 @@
                 }];
             }];
             
-        }break;
+        }
+            break;
         case 3://退款
         {
             HLScanOrderModel *model = (HLScanOrderModel *)layout.orderModel;
@@ -248,7 +233,57 @@
             refundVC.orderid = model.order_id;
             UIViewController *vc = [self fatherController];
             if (vc) [vc hl_pushToController:refundVC];
+        }
+            break;
+        case 4://自提
+        {
+            [HLOrderOpetionHelper hl_MentionWithModel:layout.orderModel completion:^{
+                [HLTools showWithText:@"自提成功"];
+                [HLNotifyCenter postNotificationName:HLNewOrderClickedFunctionNotifi object:@[@"0",@"1",@"2"]];
+            }];
+            
         }break;
+        case 5://送达
+        {
+            [HLOrderOpetionHelper hl_arrivedWithModel:layout.orderModel completion:^{
+                [HLTools showWithText:@"送达成功"];
+                [HLNotifyCenter postNotificationName:HLNewOrderClickedFunctionNotifi object:@[@"0", @"1", @"2"]];
+            }];
+            
+        }
+            break;
+        case 6: // 立即接单
+        {
+            [HLCustomAlert showNormalStyleTitle:@"" message:@"确定要接单吗？" buttonTitles:@[@"取消",@"确定"] buttonColors:@[UIColorFromRGB(0x333333),UIColorFromRGB(0xFF9900)] callBack:^(NSInteger index) {
+                if (index == 1) {
+                    [HLOrderOpetionHelper hl_wifiListWithModel:layout.orderModel completion:^(NSArray * _Nonnull printers) {
+                        [HLOrderOpetionHelper hl_acceptOrderWithModel:layout.orderModel completion:^{
+                            // 调用打印接口
+                            HLShowHint(@"接单成功", nil);
+                            [HLPrinterSettingAlertView showWithTitle:@"打印机" type:HLPrinterViewStyleDefault dataSource:printers selects:^(BOOL blueTooth, NSArray * _Nonnull selects) {
+                                [[HLBLEManager shared]printeDataWithOrderId:layout.orderModel.order_id blueTooth:blueTooth wifiSn:[self printerSnWithSelects:selects] type:1 success:^{
+                                                        
+                                }];
+                            }];
+                            [HLNotifyCenter postNotificationName:HLNewOrderClickedFunctionNotifi object:@[@"0", @"1", @"2"]];
+                        }];
+                    }];
+                }
+            }];
+        }
+            break;
+        case 7: // 拒绝接单
+        {
+            [HLCustomAlert showNormalStyleTitle:@"" message:@"要拒绝接单吗？" buttonTitles:@[@"取消",@"确定"] buttonColors:@[UIColorFromRGB(0x333333),UIColorFromRGB(0xFF9900)] callBack:^(NSInteger index) {
+                if (index == 1) {
+                    [HLOrderOpetionHelper hl_refuseOrderWithModel:layout.orderModel completion:^{
+                        HLShowHint(@"退单成功", nil);
+                        [HLNotifyCenter postNotificationName:HLNewOrderClickedFunctionNotifi object:@[@"0", @"3"]];
+                    }];
+                }
+            }];
+        }
+            break;
         default:
             break;
     }

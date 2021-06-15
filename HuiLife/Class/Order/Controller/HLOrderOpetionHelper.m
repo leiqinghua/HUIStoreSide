@@ -29,6 +29,38 @@
     [self wifiListWithOrderId:orderModel.order_id completion:completion];
 }
 
+//接单处理，立即接单
++ (void)hl_acceptOrderWithModel:(HLBaseOrderModel *)orderModel completion:(void (^)(void))completion{
+    [self handleOrderAccetpWithOrderId:orderModel.order_id type:1 completion:completion];
+}
+
+//接单处理，拒绝接单
++ (void)hl_refuseOrderWithModel:(HLBaseOrderModel *)orderModel completion:(void(^)(void))completion{
+    [self handleOrderAccetpWithOrderId:orderModel.order_id type:2 completion:completion];
+}
+
+#pragma mark - 立即接单 or 拒绝接单
+
+// type  1接单   2拒绝
++ (void)handleOrderAccetpWithOrderId:(NSString *)orderId type:(NSInteger)type completion:(void (^)(void))completion {
+    UIViewController *fatherVC = [HLTools visiableController];
+    HLLoading(fatherVC.view);
+    [XMCenter sendRequest:^(XMRequest *request) {
+        request.api = @"/MerchantSideA/takeOutOrderDeal.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{@"type":@(type), @"order_id":orderId};
+    }onSuccess:^(id responseObject) {
+        HLHideLoading(fatherVC.view);
+        // 处理数据
+        XMResult *result = (XMResult *)responseObject;
+        if (result.code == 200) {
+            if (completion) completion();
+        }
+    }onFailure:^(NSError *error) {
+        HLHideLoading(fatherVC.view);
+    }];
+}
+
 #pragma mark - 配送，送达
 //5:配送 ，6 送达
 + (void)optionDataWithOrderId:(NSString *)orderId type:(NSInteger)type completion:(void (^)(void))completion {

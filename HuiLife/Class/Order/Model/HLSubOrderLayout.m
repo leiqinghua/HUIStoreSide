@@ -50,7 +50,7 @@
 - (CGFloat)footerHight {
     HLScanOrderModel *model = (HLScanOrderModel *)self.orderModel;
     if (model.is_zd == 1 ) {
-        return FitPTScreen(83);
+        return model.s_amount.doubleValue > 0 ? FitPTScreen(83) : FitPTScreen(48);
     }
     return FitPTScreen(54);
 }

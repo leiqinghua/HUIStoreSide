@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic) NSString *s_amount;
 /// 退款原因
 @property(copy, nonatomic) NSString *return_reason;
+/// 退款原因
+@property(copy, nonatomic) NSString *reason;
 /// 退款时间
 @property(copy, nonatomic) NSString *succed_time;
 /// 部分退款
@@ -58,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString * zhuohao_people_str;
 //包装费
 @property(nonatomic, copy) NSString * pack_money;
-
+// 包装费提示
 @property(nonatomic, copy) NSString * pack_money_str;
 ///18，23 专用 按钮文案
 @property(nonatomic, copy) NSString *dispatch_state_info;
@@ -82,6 +84,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *take_away_discount_str;
 ///18，23 外卖折扣
 @property(nonatomic, copy) NSString *take_away_discount;
+
+// 0 手动接单 1 自动接单
+@property (nonatomic, assign) NSInteger take_out_handing;
+// 0 待接单 1 商家已接单/等待骑手接单 2 骑手已接单 3 取货中 5 配送中 6 配送完成
+@property (nonatomic, assign) NSInteger take_out_status;
+//0 代表商家自配送，没用到
+@property (nonatomic, assign) NSInteger take_out_type;
+
 //红包优惠
 @property(nonatomic, copy) NSString *redbag;
 //备注

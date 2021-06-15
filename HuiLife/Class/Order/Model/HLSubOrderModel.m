@@ -21,7 +21,7 @@
     if (self.is_send.integerValue == 3) {
         return @"自提人：";
     }
-    return @"收货人：";
+    return [self.state containsString:@"退款"] ? @"联系方式：" : @"收货人：";
 }
 
 - (NSAttributedString *)remarkAttr {
@@ -115,12 +115,12 @@
         return contents;
     }
     //整单退款
-    if (self.return_reason.length) {
-        [contents addObject:[NSString stringWithFormat:@"退款原因：%@", self.return_reason]];
+    if (self.reason.length) {
+        [contents addObject:[NSString stringWithFormat:@"退款原因：%@", self.reason]];
     }
     
     if (self.succed_time.length) {
-        [contents addObject:[NSString stringWithFormat:@"退款时间： %@", self.succed_time]];
+        [contents addObject:[NSString stringWithFormat:@"退款时间：%@", self.succed_time]];
     }
     
     [contents addObject:[NSString stringWithFormat:@"退款单号：%@", self.returnId]];
@@ -133,14 +133,18 @@
     if (_is_zd == 1) return nil;
     NSMutableArray *functions = [NSMutableArray array];
     if ([self.state isEqualToString:@"待处理"]) {
-        if (_is_dispatch) { //开启配送 走新的，否则保留之前
+        if(self.take_out_handing == 0 && self.take_out_status == 0){
+            [functions addObject:@{@"tipImg":@"order_accept",@"funTitle":@"立即接单"}];
+            [functions addObject:@{@"tipImg":@"order_refuse",@"funTitle":@"拒绝接单"}];
+            [functions addObject:@{@"tipImg":@"printe_tip",@"funTitle":@"打印"}];
+        } else if (_is_send.intValue == 3 && self.take_out_status == 1) {
+            [functions addObject:@{@"tipImg":@"deliever_tip",@"funTitle":@"已自提"}];
+            [functions addObject:@{@"tipImg":@"printe_tip",@"funTitle":@"打印"}];
+        } else if (_is_dispatch) { //开启配送 走新的，否则保留之前
             NSString *tipImg = _dispatch_state == 1?@"djs_grey":@"order_yjd";
             [functions addObject:@{@"tipImg":tipImg,@"funTitle":_dispatch_state_info?:@""}];
             [functions addObject:@{@"tipImg":@"printe_tip",@"funTitle":@"打印"}];
-        } else if (_is_send.intValue == 3) {
-            [functions addObject:@{@"tipImg":@"deliever_tip",@"funTitle":@"已自提"}];
-            [functions addObject:@{@"tipImg":@"printe_tip",@"funTitle":@"打印"}];
-        } else if (_is_send.intValue == 0) {
+        }  else if (_is_send.intValue == 0) {
             [functions addObject:@{@"tipImg":@"deliever_tip",@"funTitle":@"配送"}];
             [functions addObject:@{@"tipImg":@"printe_tip",@"funTitle":@"打印"}];
         } else {

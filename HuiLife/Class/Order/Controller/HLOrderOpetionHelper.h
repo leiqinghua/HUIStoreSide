@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 //打印
 + (void)hl_wifiListWithModel:(HLBaseOrderModel *)orderModel completion:(void(^)(NSArray *))completion;
 
+//接单处理，立即接单
++ (void)hl_acceptOrderWithModel:(HLBaseOrderModel *)orderModel completion:(void(^)(void ))completion;
+
+//接单处理，拒绝接单
++ (void)hl_refuseOrderWithModel:(HLBaseOrderModel *)orderModel completion:(void(^)(void ))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

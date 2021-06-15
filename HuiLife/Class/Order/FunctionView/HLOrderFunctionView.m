@@ -126,6 +126,14 @@
         return 5;
     }
     
+    if ([title isEqualToString:@" 立即接单"]) {
+        return 6;
+    }
+    
+    if ([title isEqualToString:@" 拒绝接单"]) {
+        return 7;
+    }
+    
     return 0;
 }
 
