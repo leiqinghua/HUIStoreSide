@@ -28,6 +28,8 @@
     }];
 }
 
+
+
 + (void)printDataWithOrderId:(NSString *)orderId type:(NSInteger)type success:(Success)success fail:(void(^)(void))fail {
   
     [XMCenter sendRequest:^(XMRequest *request) {
@@ -64,6 +66,70 @@
     } onFailure:^(NSError *error) {
     }];
 }
+
+//{
+//    "data": {
+//        "times": 1,
+//        "type": "23",
+//        "items": {
+//            "title": "HUI生活外卖-9",
+//            "small_title": "[外卖配送]订单号：3475834",
+//            "list": [{
+//                "店铺名称": "优思麦小馆",
+//                "下单时间": "2021-06-17 15:46:22",
+//                "配送方式": "蜂鸟配送"
+//            }, {
+//                "收货人": "张先生",
+//                "电话": "150****3930",
+//                "地址": "北京运通博奥汽车销售服务有限公司汽配室"
+//            }, {
+//                "备注": "暂无订单备注"
+//            }, {
+//                "goods": [{
+//                    "title": "拯救者",
+//                    "price": "1.00",
+//                    "num": "x1",
+//                    "prices": "1.00"
+//                }, {
+//                    "title": "安吉白茶",
+//                    "price": "0.03",
+//                    "num": "x1",
+//                    "prices": "0.03"
+//                }, {
+//                    "title": "300G红灯笼清油火锅底料",
+//                    "price": "6.80",
+//                    "num": "x1",
+//                    "prices": "6.80"
+//                }, {
+//                    "title": "天然湖盐",
+//                    "price": "1.00",
+//                    "num": "x1",
+//                    "prices": "1.00"
+//                }, {
+//                    "title": "飞利浦剃须刀 PQ190",
+//                    "price": "127.80",
+//                    "num": "x1",
+//                    "prices": "127.80"
+//                }, {
+//                    "title": "美汁源果粒橙1.8L",
+//                    "price": "11.50",
+//                    "num": "x1",
+//                    "prices": "11.50"
+//                }],
+//                "total_price": "148.13"
+//            }, {
+//                "包装费": "+ 1.00",
+//                "红包优惠": "- 3.92",
+//                "会员折扣": "- 7.22",
+//                "实付金额": "137.99"
+//            }],
+//            "qr_url": "https:\/\/hshabc.cn\/ho\/?c=3475834",
+//            "button": "HUI到家骑手取货码"
+//        }
+//    },
+//    "code": 200,
+//    "msg": "success"
+//}
 
 
 + (void)updateVersionFromServer{
