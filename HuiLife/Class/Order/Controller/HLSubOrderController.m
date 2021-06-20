@@ -214,7 +214,7 @@
         {
             [HLOrderOpetionHelper hl_wifiListWithModel:layout.orderModel completion:^(NSArray * _Nonnull printers) {
                 [HLPrinterSettingAlertView showWithTitle:@"打印机" type:HLPrinterViewStyleDefault dataSource:printers selects:^(BOOL blueTooth, NSArray * _Nonnull selects) {
-                    [[HLBLEManager shared]printeDataWithOrderId:layout.orderModel.order_id blueTooth:blueTooth wifiSn:[self printerSnWithSelects:selects] type:1 success:^{
+                    [[HLBLEManager shared] printeDataWithOrderId:layout.orderModel.order_id blueTooth:blueTooth wifiSn:[self printerSnWithSelects:selects] type:1 success:^{
                                             
                     }];
                 }];

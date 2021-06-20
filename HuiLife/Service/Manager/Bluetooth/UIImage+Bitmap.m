@@ -236,7 +236,7 @@
         return nil;
     }
 
-    NSData *strData = [info dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO];
+    NSData *strData = [info dataUsingEncoding:NSUTF8StringEncoding];
     //创建二维码滤镜
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setValue:strData forKey:@"inputMessage"];

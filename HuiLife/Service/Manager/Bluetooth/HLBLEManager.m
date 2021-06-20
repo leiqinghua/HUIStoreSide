@@ -9,6 +9,7 @@
 #import "HLBLEManager.h"
 #import "HLPrinterSetModel.h"
 #import "HLPeripheral.h"
+#import "HLOrderPrinterModel.h"
 
 //打印机的服务id
 #define kiOSServiceId1 @"18F0"
@@ -46,6 +47,8 @@ typedef void(^PrinterCallBack)(void);
 
 // 是否自动连
 @property (assign,nonatomic)BOOL autoConnect;
+
+@property (nonatomic, assign) BOOL addObserver;
 
 @end
 
@@ -309,35 +312,24 @@ static HLBLEManager * _instance;
 //打印数据
 - (void)printeDataWithOrderId:(NSString *)orderid blueTooth:(BOOL)bluetooth wifiSn:(NSString *)wifiSn type:(NSInteger)type success:(void(^)(void))success{
     _success = success;
-    
-    [HLTools printDataWithOrderId:orderid type:type success:^(NSData * _Nonnull data) {
-            [self handleDataWithData:data type:type];
+
+    [HLTools printDataWithOrderId:orderid printerSn:wifiSn mode:@"1" type:type success:^(NSDictionary * _Nonnull data) {
+        // 处理打印数据
+        [self handleDataWithData:data type:type];
     } fail:^{
-        
+            
     }];
-    
-    // 这个wifiPrintWithOrderId 安卓没有调用
-//    if (type != 1) { //自动。两个接口都调用
-//
-//        //    WiFi
-////        [HLTools wifiPrintWithOrderId:orderid wifiSn:wifiSn];
-//        return;
-//    }
-//    if (bluetooth) {
-//        [HLTools printDataWithOrderId:orderid type:type success:^(NSData * _Nonnull data) {
-////            [self handleDataWithData:data type:type];
-//        } fail:^{
-//
-//        }];
-//        return;
-//    }
 }
 
-- (void)handleDataWithData:(NSData *)data type:(NSInteger)type{
-    return;
+- (void)handleDataWithData:(NSDictionary *)dataDict type:(NSInteger)type{
+    HLOrderPrinterModel *printerModel = [HLOrderPrinterModel mj_objectWithKeyValues:dataDict];
+    
+    // 处理最后的数据
+    NSData *data = printerModel.printData;
+    
     HLAccount *account = [HLAccount shared];
     //打印连数
-    NSInteger count = account.print_count;
+    NSInteger count = printerModel.times;
     if (type == 1) {//手动
         [self startPrintWithCount:count data:data];
         _success();
@@ -406,15 +398,20 @@ static HLBLEManager * _instance;
 
 #pragma mark - KVO--
 - (void)addObserverWith:(CBPeripheral *)peripheral{
+    if (self.addObserver) {
+        return;
+    }
     [peripheral addObserver:self
                  forKeyPath:@"state"
                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                     context:nil];
+    self.addObserver = YES;
 }
 
 //移除状态监听
 - (void)removeObserveForPerpheal:(CBPeripheral *)peral{
-    if (self.curPeripheral) {
+    if (self.curPeripheral && self.addObserver) {
+        self.addObserver = NO;
         [peral removeObserver:self forKeyPath:@"state"];
     }
 }

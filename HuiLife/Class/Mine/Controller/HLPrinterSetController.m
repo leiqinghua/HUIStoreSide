@@ -144,6 +144,7 @@ HLRightSwitchViewCellDelegate
 
 - (void)didConnectSuccess:(NSNotification *)sender{
     if (!self.switchInfo.switchOn) return;
+    if (self.datasource.count < 3) return;
     //我的设备
     NSMutableArray * myDevices = self.datasource[2];
     HLPrinterInfo * info = [self modelWithPeripheral:[HLBLEManager shared].curPeripheral];

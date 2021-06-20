@@ -93,16 +93,19 @@
     if (sender.tag == 1001) {
         index = 1;
     }
-    [self hideAnimate];
     
     if (!_isSingle) {
-        self.mu_callBack(_isBlueTooth, self.selects);
-        return;
+        if(self.selects.count == 0) return;
+        if(self.mu_callBack){
+            self.mu_callBack(_isBlueTooth, self.selects);
+        }
     }
     
     if (self.callBack) {
         self.callBack(index, _defaultIndex);
     }
+    
+    [self hideAnimate];
 }
 
 -(void)alertAnimate{
@@ -395,6 +398,7 @@
     
     _button = [[UIButton alloc]init];
     _button.tag = 10000;
+    _button.userInteractionEnabled = NO;
     [_button setImage:[UIImage imageNamed:@"circle_normal"] forState:UIControlStateNormal];
     [_button setImage:[UIImage imageNamed:@"success_oriange"] forState:UIControlStateSelected];
     [self.contentView addSubview:_button];

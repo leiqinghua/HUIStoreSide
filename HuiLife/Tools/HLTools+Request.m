@@ -30,41 +30,41 @@
 
 
 
-+ (void)printDataWithOrderId:(NSString *)orderId type:(NSInteger)type success:(Success)success fail:(void(^)(void))fail {
++ (void)printDataWithOrderId:(NSString *)orderId printerSn:(NSString *)printerSn mode:(NSString *)mode type:(NSInteger)type success:(Success)success fail:(void(^)(void))fail {
   
     [XMCenter sendRequest:^(XMRequest *request) {
-        request.api = @"/MerchantSideA/PrinterProgressA.php";
+        request.api = @"/MerchantSideA/PrinterProgressV2.php";
         request.serverType = HLServerTypeNormal;
-        request.parameters = @{@"order_id":orderId};
+        request.parameters = @{@"order_id":orderId,@"mode":mode,@"printer_sn":printerSn};
     } onSuccess:^(id responseObject) {
         // 处理数据
         XMResult * result = (XMResult *)responseObject;
         if(result.code == 200){
-            //byte 数组（十进制）
-            NSString *serverStr = result.data;
-            // base64 解码
-            NSData *base64Data = [[NSData alloc]initWithBase64EncodedString:serverStr options:0];
-            NSString *base64Str = [[NSString alloc]initWithData:base64Data encoding:NSUTF8StringEncoding];
-            //json 转数组
-            NSArray *jsonArr = [base64Str mj_JSONObject];
-            NSMutableData *printeData = [[NSMutableData alloc]init];
-            //遍历大数组
-            for (NSArray *bytes in jsonArr) {
-                //每个小数组 就是小票的一行信息，转成byte 数组
-                Byte byteArr[bytes.count];
-                for (int i = 0; i < bytes.count; i ++) {
-                    unsigned long num = [bytes[i] integerValue];
-                    byteArr[i] = num;
-                }
-                // 拼接成数据,打印
-                [printeData appendBytes:byteArr length:bytes.count];
-            }
-            if (success)success(printeData);
-            return ;
+            
+//            //byte 数组（十进制）
+//            NSString *serverStr = result.data;
+//            // base64 解码
+//            NSData *base64Data = [[NSData alloc]initWithBase64EncodedString:serverStr options:0];
+//            NSString *base64Str = [[NSString alloc]initWithData:base64Data encoding:NSUTF8StringEncoding];
+//            //json 转数组
+//            NSArray *jsonArr = [base64Str mj_JSONObject];
+//            NSMutableData *printeData = [[NSMutableData alloc]init];
+//            //遍历大数组
+//            for (NSArray *bytes in jsonArr) {
+//                //每个小数组 就是小票的一行信息，转成byte 数组
+//                Byte byteArr[bytes.count];
+//                for (int i = 0; i < bytes.count; i ++) {
+//                    unsigned long num = [bytes[i] integerValue];
+//                    byteArr[i] = num;
+//                }
+//                // 拼接成数据,打印
+//                [printeData appendBytes:byteArr length:bytes.count];
+//            }
+            if (success)success(result.data);
+        }else{
+            if (fail)fail();
         }
-        if (fail)fail();
-    } onFailure:^(NSError *error) {
-    }];
+    } onFailure:^(NSError *error) {}];
 }
 
 //{

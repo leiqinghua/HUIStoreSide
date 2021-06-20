@@ -360,7 +360,6 @@
 		9D99EF4E21BD202F00B1E298 /* AppDelegate+HLState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D99EF4D21BD202F00B1E298 /* AppDelegate+HLState.m */; };
 		9DB1D62F2244C58B00B09E41 /* HLHotelCalanderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1D62E2244C58B00B09E41 /* HLHotelCalanderHeader.m */; };
 		9DB1D6322249CC8600B09E41 /* HLBaseDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1D6312249CC8600B09E41 /* HLBaseDateModel.m */; };
-		9DB1D6CA224DBAD700B09E41 /* UIImage+Bitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1D6C6224DBAD500B09E41 /* UIImage+Bitmap.m */; };
 		9DBF035621A6492B00734669 /* HLPrinterSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF035521A6492B00734669 /* HLPrinterSetModel.m */; };
 		9DBF035921A659CA00734669 /* HLPrinterSettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF035821A659CA00734669 /* HLPrinterSettingViewCell.m */; };
 		9DBF035C21A66CFB00734669 /* HLPrinterHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF035B21A66CFB00734669 /* HLPrinterHeaderView.m */; };
@@ -659,6 +658,9 @@
 		B4C5A50A22F91E76001FBBE3 /* HLBuyGoodAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50922F91E76001FBBE3 /* HLBuyGoodAddController.m */; };
 		B4C5A50D22F9206B001FBBE3 /* HLBuyGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50C22F9206B001FBBE3 /* HLBuyGoodListCell.m */; };
 		B4C5A51022F92079001FBBE3 /* HLBuyGoodListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50F22F92079001FBBE3 /* HLBuyGoodListModel.m */; };
+		B4CECAF5267DE0AE00F364CD /* HLOrderPrinterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4CECAF4267DE0AE00F364CD /* HLOrderPrinterModel.m */; };
+		B4CECAF8267DE49D00F364CD /* HLPrinterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4CECAF7267DE49D00F364CD /* HLPrinterHelper.m */; };
+		B4CECB01267DE5BD00F364CD /* UIImage+Bitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = B4CECAFF267DE5BD00F364CD /* UIImage+Bitmap.m */; };
 		B4ECD1B4266FAD4900411D75 /* HLFeeTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */; };
 		B4F126602355AB8D00B0D72B /* HLGuideMask.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F1265F2355AB8D00B0D72B /* HLGuideMask.m */; };
 		B4F126632355AF1800B0D72B /* HLGuideMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F126622355AF1800B0D72B /* HLGuideMaskView.m */; };
@@ -1377,8 +1379,6 @@
 		9DB1D62E2244C58B00B09E41 /* HLHotelCalanderHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotelCalanderHeader.m; sourceTree = "<group>"; };
 		9DB1D6302249CC8600B09E41 /* HLBaseDateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBaseDateModel.h; sourceTree = "<group>"; };
 		9DB1D6312249CC8600B09E41 /* HLBaseDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBaseDateModel.m; sourceTree = "<group>"; };
-		9DB1D6C6224DBAD500B09E41 /* UIImage+Bitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bitmap.m"; sourceTree = "<group>"; };
-		9DB1D6C8224DBAD600B09E41 /* UIImage+Bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bitmap.h"; sourceTree = "<group>"; };
 		9DBF035421A6492B00734669 /* HLPrinterSetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPrinterSetModel.h; sourceTree = "<group>"; };
 		9DBF035521A6492B00734669 /* HLPrinterSetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPrinterSetModel.m; sourceTree = "<group>"; };
 		9DBF035721A659CA00734669 /* HLPrinterSettingViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPrinterSettingViewCell.h; sourceTree = "<group>"; };
@@ -1977,6 +1977,12 @@
 		B4C5A50C22F9206B001FBBE3 /* HLBuyGoodListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyGoodListCell.m; sourceTree = "<group>"; };
 		B4C5A50E22F92079001FBBE3 /* HLBuyGoodListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyGoodListModel.h; sourceTree = "<group>"; };
 		B4C5A50F22F92079001FBBE3 /* HLBuyGoodListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyGoodListModel.m; sourceTree = "<group>"; };
+		B4CECAF3267DE0AE00F364CD /* HLOrderPrinterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLOrderPrinterModel.h; sourceTree = "<group>"; };
+		B4CECAF4267DE0AE00F364CD /* HLOrderPrinterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLOrderPrinterModel.m; sourceTree = "<group>"; };
+		B4CECAF6267DE49D00F364CD /* HLPrinterHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPrinterHelper.h; sourceTree = "<group>"; };
+		B4CECAF7267DE49D00F364CD /* HLPrinterHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPrinterHelper.m; sourceTree = "<group>"; };
+		B4CECAFF267DE5BD00F364CD /* UIImage+Bitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bitmap.m"; sourceTree = "<group>"; };
+		B4CECB00267DE5BD00F364CD /* UIImage+Bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bitmap.h"; sourceTree = "<group>"; };
 		B4ECD1B2266FAD4900411D75 /* HLFeeTableViewHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFeeTableViewHeader.h; sourceTree = "<group>"; };
 		B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFeeTableViewHeader.m; sourceTree = "<group>"; };
 		B4F1265E2355AB8D00B0D72B /* HLGuideMask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLGuideMask.h; sourceTree = "<group>"; };
@@ -2602,6 +2608,8 @@
 				94389A1923A79E0700A3EA81 /* HLOrderGoodModel.m */,
 				94389A1823A79E0700A3EA81 /* HLOrderLayoutManager.h */,
 				94389A2123A79E0700A3EA81 /* HLOrderLayoutManager.m */,
+				B4CECAF3267DE0AE00F364CD /* HLOrderPrinterModel.h */,
+				B4CECAF4267DE0AE00F364CD /* HLOrderPrinterModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3440,12 +3448,14 @@
 		9DC101A121A2AB930079EA17 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				9DB1D6C8224DBAD600B09E41 /* UIImage+Bitmap.h */,
-				9DB1D6C6224DBAD500B09E41 /* UIImage+Bitmap.m */,
+				B4CECB00267DE5BD00F364CD /* UIImage+Bitmap.h */,
+				B4CECAFF267DE5BD00F364CD /* UIImage+Bitmap.m */,
 				9DC101A321A2ABA90079EA17 /* HLBLEManager.h */,
 				9DC101A821A2ABAB0079EA17 /* HLBLEManager.m */,
 				9D98D5A021BE515B00CF5491 /* HLPeripheral.h */,
 				9D98D5A121BE515B00CF5491 /* HLPeripheral.m */,
+				B4CECAF6267DE49D00F364CD /* HLPrinterHelper.h */,
+				B4CECAF7267DE49D00F364CD /* HLPrinterHelper.m */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -5391,7 +5401,6 @@
 				94298E74251DCDC600E3288C /* HLHUIProfitInfo.m in Sources */,
 				B429ED9123795FFC00637FD5 /* HLImagePreview.m in Sources */,
 				9DE8A5E022F6BE5B0034C4AF /* UIView+ALi.m in Sources */,
-				9DB1D6CA224DBAD700B09E41 /* UIImage+Bitmap.m in Sources */,
 				9DBF036321A6A4F000734669 /* HLPrinterSettingAlertView.m in Sources */,
 				94D5B0F0249B706E0038596E /* HLScanYMGoodTableCell.m in Sources */,
 				9DED3262217D91E1007E7D75 /* HLStoreDetailModel.m in Sources */,
@@ -5417,6 +5426,7 @@
 				9D44801221A4FDAB00E4E1D6 /* HLMineModel.m in Sources */,
 				9DE8A5EB22F6BE850034C4AF /* ALiAsset.m in Sources */,
 				B419579622F97D59006AB9A5 /* HLDownSelectView.m in Sources */,
+				B4CECB01267DE5BD00F364CD /* UIImage+Bitmap.m in Sources */,
 				945A187C2519988100DE16BF /* HLHUIMainController.m in Sources */,
 				945A31C72473E0D30097464D /* HLSpecialTableHead.m in Sources */,
 				945ECD4223B5E0F200162FAA /* HLPayManage.m in Sources */,
@@ -5852,6 +5862,7 @@
 				9466A83C2318FFA600725981 /* HLFunctionController.m in Sources */,
 				B41ED7CC239F9D1C00D730D1 /* HLAlbumViewCell.m in Sources */,
 				9404C8AB23FE802000146C5E /* HLActivityMethodTableCell.m in Sources */,
+				B4CECAF8267DE49D00F364CD /* HLPrinterHelper.m in Sources */,
 				B43886922303A18A00CE25A2 /* HLSekillPromoteListCell.m in Sources */,
 				B4C5A50D22F9206B001FBBE3 /* HLBuyGoodListCell.m in Sources */,
 				9DFFC04921D31AA200C26E7B /* HLAlertView.m in Sources */,
@@ -5920,6 +5931,7 @@
 				B41ED7C9239F970000D730D1 /* HLImageAlbumController.m in Sources */,
 				941CC9B5255A45E100D16307 /* HLCompeteUpController.m in Sources */,
 				B4C5A50722F91E6C001FBBE3 /* HLBuyGoodsListController.m in Sources */,
+				B4CECAF5267DE0AE00F364CD /* HLOrderPrinterModel.m in Sources */,
 				9D0608F72105962A00644753 /* HLLBManagerController.m in Sources */,
 				9DED325F2179ADF9007E7D75 /* HLStoreModel.m in Sources */,
 				9456D8BD2431979100B2BB4C /* HLSellTimeTableViewCell.m in Sources */,

@@ -8,7 +8,7 @@
 #import "HLTools.h"
 
 NS_ASSUME_NONNULL_BEGIN
-typedef void(^Success)(NSData *);
+typedef void(^Success)(NSDictionary *);
 
 typedef void(^UpLoadImageResult)(NSDictionary *_Nullable result, NSError * _Nullable error);
 
@@ -16,7 +16,7 @@ typedef void(^UpLoadImageResult)(NSDictionary *_Nullable result, NSError * _Null
 
 //打印小票
 //type:1 手动,2 自动
-+ (void)printDataWithOrderId:(NSString *)orderId type:(NSInteger)type success:(Success)success fail:(void(^)(void))fail;
++ (void)printDataWithOrderId:(NSString *)orderId printerSn:(NSString *)printerSn mode:(NSString *)mode type:(NSInteger)type success:(Success)success fail:(void(^)(void))fail;
 
 //wifi打印
 + (void)wifiPrintWithOrderId:(NSString *)orderId wifiSn:(NSString *)wifiSn;
