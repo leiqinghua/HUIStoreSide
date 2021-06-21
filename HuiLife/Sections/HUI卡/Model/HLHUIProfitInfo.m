@@ -170,8 +170,8 @@
         limit.canInput = YES;
         limit.keyBoardType = UIKeyboardTypeDecimalPad;
         limit.cellHeight = FitPTScreen(50);
-        limit.saveKey = @"limit";
-        limit.text = info?info.limit:@"";
+        limit.saveKey = @"limitPrice";
+        limit.text = info?info.limitPrice:@"";
         [_voucherSource addObject:limit];
         
         HLRightInputTypeInfo *num = [[HLRightInputTypeInfo alloc]init];
@@ -258,8 +258,8 @@
         price.canInput = YES;
         price.keyBoardType = UIKeyboardTypeDecimalPad;
         price.cellHeight = FitPTScreen(50);
-        price.saveKey = @"limit";
-        price.text = info?info.limit:@"";
+        price.saveKey = @"limitPrice";
+        price.text = info?info.limitPrice:@"";
         [_discountSource addObject:price];
         
         HLRightInputTypeInfo *num = [[HLRightInputTypeInfo alloc]init];

@@ -36,9 +36,9 @@ PODS:
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
   - WechatOpenSDK (1.8.7.1)
-  - ZFPlayer (3.2.13):
-    - ZFPlayer/Core (= 3.2.13)
-  - ZFPlayer/Core (3.2.13)
+  - ZFPlayer (4.0.1):
+    - ZFPlayer/Core (= 4.0.1)
+  - ZFPlayer/Core (4.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2.1)
@@ -57,7 +57,7 @@ DEPENDENCIES:
   - SDVersion
   - SDWebImage/GIF
   - WechatOpenSDK
-  - ZFPlayer (~> 3.0)
+  - ZFPlayer (~> 4.0.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -71,7 +71,6 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - SDVersion
-    - ZFPlayer
   trunk:
     - AFNetworking
     - AvoidCrash
@@ -79,6 +78,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - SDWebImage
     - WechatOpenSDK
+    - ZFPlayer
 
 EXTERNAL SOURCES:
   AWSCore:
@@ -113,8 +113,8 @@ SPEC CHECKSUMS:
   SDVersion: 18f32c835c1543611fcfae3c6accd9a04b90597e
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
-  ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
+  ZFPlayer: f88787c815f7b0801279c42f131a89e2823e669e
 
-PODFILE CHECKSUM: eb52b873c8f95eac8327e151e4c8afbe13830831
+PODFILE CHECKSUM: 4aa973636a57f0e5ec451fbf6a03bf2ef573a3d2
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

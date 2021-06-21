@@ -16,7 +16,7 @@ target 'HuiLife' do
  pod 'BaiduMapKit'
  pod 'BMKLocationKit'
  pod 'IQKeyboardManager'
- pod 'ZFPlayer', '~> 3.0'
+ pod 'ZFPlayer', '~> 4.0.1'
  pod 'AvoidCrash', '~> 2.5.2' #越界处理
  pod 'AWSCore', git: 'https://github.com/ZHCliang/aws-sdk-ios.git'
  pod 'AWSS3', git: 'https://github.com/ZHCliang/aws-sdk-ios.git'

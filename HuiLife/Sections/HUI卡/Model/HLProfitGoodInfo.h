@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 //权益金额
 @property(nonatomic, copy) NSString *gainPrice;
 //权益限额
-@property(nonatomic, copy) NSString *limit;
+@property(nonatomic, copy) NSString *limitPrice;
 //权益数量
 @property(nonatomic, assign) NSInteger gainNum;
 //有效期开始
@@ -131,7 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 //折扣
 @property(nonatomic, copy) NSString * gainPrice;
 //权益限额
-@property(nonatomic, copy) NSString *limit;
+@property(nonatomic, copy) NSString *limitPrice;
 //权益数量
 @property(nonatomic, assign) NSInteger gainNum;
 //有效期开始

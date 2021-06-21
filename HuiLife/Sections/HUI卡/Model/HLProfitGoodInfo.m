@@ -232,16 +232,21 @@
 }
 
 - (NSString *)detailStr {
-    NSMutableString *text = [[NSMutableString alloc]init];
-    for (HLProfitOrderInfo *info in self.disOut) {
-        NSInteger index = [self.disOut indexOfObject:info];
-        NSInteger ys = index % 2;
+    NSMutableString *text = [[NSMutableString alloc] init];
+    NSInteger maxCount = 6;
+    NSInteger limitCount = self.disOut.count > maxCount ? maxCount : self.disOut.count;
+    for (NSInteger i = 0; i < limitCount; i++) {
+        HLProfitOrderInfo *info = self.disOut[i];
+        NSInteger ys = i % 2;
         NSString *date = [NSString stringWithFormat:@"%@-%@元%@折",info.priceStart,info.priceEnd,info.discount];
         [text appendString:date];
+        if (self.disOut.count > limitCount && i + 1 == limitCount) {
+            [text appendString:@"..."];
+        }
         if (ys != 0) [text appendString:@"\n"];
-        if (ys == 0 && index != (self.disOut.count-1)) [text appendString:@"，"];
+        if (ys == 0 && i != (limitCount-1)) [text appendString:@"，"];
     }
-    if (self.disOut.count == 1 || self.disOut.count % 2) [text appendString:@"\n"];
+    if (self.disOut.count == 1 || limitCount % 2) [text appendString:@"\n"];
     return [text copy];
 }
 
@@ -353,8 +358,8 @@
 }
 
 - (NSString *)gainName {
-    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limit];
-    if (!_limit.floatValue) {
+    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limitPrice];
+    if (!_limitPrice.floatValue) {
         priceStr = @"无限制使用";
     }
     return priceStr;
@@ -397,8 +402,8 @@
 }
 
 - (NSString *)gainName {
-    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limit];
-    if (!_limit.floatValue) {
+    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limitPrice];
+    if (!_limitPrice.floatValue) {
         priceStr = @"无限制使用";
     }
     return priceStr;

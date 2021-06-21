@@ -102,13 +102,13 @@
                 [profitJson addObject:[info mj_keyValuesWithIgnoredKeys:[HLProfitGoodInfo ignoredKeys]]];
             }
         }
-        HLLog(@"profitJson = %@",profitJson);
+//        HLLog(@"profitJson = %@",profitJson);
         
         NSString *json = [profitJson mj_JSONString];
 //        json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@""];
         [pargram setObject:json forKey:@"gain"];
         
-        HLLog(@"json = %@",json);
+//        HLLog(@"json = %@",json);
     }
     if (_cardId) [pargram setObject:_cardId forKey:@"cardId"];
     [self productWithPargrams:pargram];
