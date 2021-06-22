@@ -475,7 +475,7 @@
 {
     self = [super init];
     if (self) {
-        _discountPlace = @"10";
+        _discountPlace = @"";
         _minPlace = @"0";
         _maxPlace = @"0";
     }
@@ -483,12 +483,12 @@
 }
 
 - (BOOL)check {
-    if (_discount.floatValue > 10) {
-        [HLTools showWithText:@"最低折扣为10折"];
+    if (_discount.floatValue > 9.5) {
+        [HLTools showWithText:@"折扣不能超出9.5折"];
         return NO;
     }
     if (_discount.floatValue < 0.1) {
-        [HLTools showWithText:@"最高折扣为0.1折"];
+        [HLTools showWithText:@"折扣不能低于1折"];
         return NO;
     }
     

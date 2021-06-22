@@ -444,6 +444,8 @@
         name.leftTip = @"* 赠送金额";
         name.placeHoder = @"请输入赠送外卖红包金额";
         name.errorHint = @"请输入赠送外卖红包金额";
+        name.minInputNum = 1;
+        name.maxInputNum = 10000;
         name.needCheckParams = YES;
         name.canInput = YES;
         name.rightText = @"元";
@@ -460,7 +462,7 @@
             HLProfitRedPacketGainInfo *gainInfo = gainInfos[i];
             HLRedPacketClassInfo *classInfo = [[HLRedPacketClassInfo alloc] init];
             classInfo.leftTip = gainInfo.title;
-            classInfo.text = gainInfo.discount;
+            classInfo.text = gainInfo.discount.length == 0 ? @"1" : gainInfo.discount;
             classInfo.class_id = gainInfo.class_id;
 //            classInfo.gain_id = gainInfo.gain_id;
             classInfo.type = HLInputRedPacketClassType;

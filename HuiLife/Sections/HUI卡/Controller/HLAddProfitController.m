@@ -270,6 +270,7 @@
 - (void)selectClick:(UIButton *)sender {
     weakify(self);
     [HLSellTimeSelectView showWithTitles:self.profitNames selectIndex:_profitIndex height:FitPTScreen(40) * self.profitNames.count dependView:sender completion:^(NSInteger index){
+        self.tableView.scrollEnabled = YES;
         NSDictionary *dict = weak_self.profitTypes[index];
         weak_self.mainInfo.type = [dict[@"typeValue"] integerValue];
         // 赋值成功时也需要改变
@@ -328,13 +329,24 @@
 }
 
 - (void)cacluateOrderFooterFrame:(NSInteger)disoutCount {
-    CGFloat hight = FitPTScreen(89);
-    hight += disoutCount *FitPTScreen(50);
+    CGFloat height = FitPTScreen(89);
+    height += disoutCount *FitPTScreen(50);
+    
+    CGFloat maxHeight = self.tableView.bounds.size.height - self.tableView.tableHeaderView.bounds.size.height;
+    
+    if (height > maxHeight) {
+        self.tableView.scrollEnabled = NO;
+        height = maxHeight;
+    }else{
+        self.tableView.scrollEnabled = YES;
+    }
     
     CGRect frame = self.orderFooter.frame;
-    frame.size.height = hight;
+    frame.size.height = height;
     self.orderFooter.frame = frame;
     self.tableView.tableFooterView = self.orderFooter;
+    
+    
 }
 
 - (HLProfitGoodInfo *)createAddProfitGoodInfo {

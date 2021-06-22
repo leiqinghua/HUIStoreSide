@@ -134,6 +134,7 @@
     _rightInputV = [[HLFeeInputView alloc]init];
     _rightInputV.title = @"则享受";
     _rightInputV.tip = @"折";
+    _rightInputV.text = @"";
     _rightInputV.inputWidth = FitPTScreen(55);
     _rightInputV.delegate = self;
     
@@ -187,7 +188,7 @@
         _midInputV.text = info.priceEnd;
     }
     
-    if (info.discount.floatValue >= 0.1) {
+    if (info.discount.floatValue > 0) {
         _rightInputV.text = info.discount;
     }
 }
@@ -201,17 +202,71 @@
 #pragma mark - HLFeeInputViewDelegate
 - (void)inputView:(HLFeeInputView *)inputView editText:(NSString *)text {
     if ([inputView isEqual:_leftInputV]) {
+        if (text.length > 4) {
+            _leftInputV.text = [text substringToIndex:4];
+            text = _leftInputV.text;
+        }
         _info.priceStart = text;
         return;
     }
     if ([inputView isEqual:_midInputV]) {
+        if (text.length > 4) {
+            _midInputV.text = [text substringToIndex:4];
+            text = _midInputV.text;
+        }
         _info.priceEnd = text;
         return;
     }
+    
+    if (text.floatValue > 9.5){
+        text = @"9.5";
+        _rightInputV.text = text;
+    }
+    
     _info.discount = text;
 }
 
 - (void)inputView:(HLFeeInputView *)inputView didEndText:(UITextField *)textField {
     
 }
+
+
+- (BOOL)inputView:(HLFeeInputView *)inputView textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    if (textField.keyboardType != UIKeyboardTypeDecimalPad) {
+        return YES;
+    }
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    //限制.后面最多有1位，且不能再输入.
+    if ([textField.text rangeOfString:@"."].location != NSNotFound) {
+        //有.了 且.后面输入了1位  停止输入
+        if (toBeString.length > [toBeString rangeOfString:@"."].location+2) {
+            return NO;
+        }
+        //有.了，不允许再输入.
+        if ([string isEqualToString:@"."]) {
+            return NO;
+        }
+    }
+    
+    // 限制首位0，后面只能输入.
+    if ([textField.text isEqualToString:@"0"]) {
+        if (![string isEqualToString:@"."] && ![string isEqualToString:@""]) {
+            return NO;
+        }
+    }
+    
+    // 如果第一个输入的是点，那么直接变成 0.
+    if (textField.text.length == 0 && [string isEqualToString:@"."]) {
+        textField.text = @"0";
+    }
+    
+    //限制只能输入：1234567890.
+    NSCharacterSet * characterSet = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890."] invertedSet];
+    NSString * filtered = [[string componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
+    return [string isEqualToString:filtered];
+}
+
 @end

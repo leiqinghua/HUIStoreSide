@@ -79,7 +79,7 @@
     _textField.layer.cornerRadius = FitPTScreen(2);
     _textField.layer.borderWidth = FitPTScreen(0.5);
     _textField.layer.masksToBounds = YES;
-    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+    _textField.keyboardType = UIKeyboardTypeNumberPad;
     [_textField makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.centerV);
         make.right.equalTo(percentLab.left).offset(FitPTScreen(-10));
@@ -110,6 +110,12 @@
 }
 
 - (void)textFieldEditing:(UITextField *)sender{
+    if (sender.text.intValue > 100) {
+        sender.text = [NSString stringWithFormat:@"100"];
+    }
+    if ([sender.text isEqualToString:@"0"]) {
+        sender.text = @"";
+    }
     HLRedPacketClassInfo *info = (HLRedPacketClassInfo *)self.baseInfo;
     info.text = sender.text;
 }

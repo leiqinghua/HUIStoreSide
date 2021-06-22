@@ -59,14 +59,14 @@
 
 @implementation HLProfitDiscountView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-
-    }
-    return self;
-}
+//- (instancetype)initWithFrame:(CGRect)frame
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//
+//    }
+//    return self;
+//}
 
 - (void)buttonClick:(UIButton *)sender {
     if (![sender isEqual:_selectBtn]) {
