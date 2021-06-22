@@ -15,7 +15,7 @@
 #import "HLBaseUploadModel.h"
 #import "HLCalendarViewController.h"
 
-@interface HLAddProfitController ()<UITableViewDelegate, UITableViewDataSource, HLProfitOrderViewDelegate, HLInputImagesViewCellDelegate,HLInputDateViewCellDelegate>
+@interface HLAddProfitController ()<UITableViewDelegate, UITableViewDataSource, HLProfitOrderViewDelegate, HLInputImagesViewCellDelegate,HLInputDateViewCellDelegate,HLRightInputViewCellDelegate>
 @property(nonatomic, strong) UITableView *tableView;
 //头部 显示的 选择的 权益名称
 @property(nonatomic, strong) UILabel *typeLb;
@@ -251,7 +251,7 @@
         
         for (NSNumber *type in self.addProfitTypes) {
             if (goodInfo.gainType == type.integerValue) {
-                [HLTools showWithText:@"该类型不能重复添加"];
+                [HLTools showWithText:@"已有该类型"];
                 return;
             }
         }
@@ -343,6 +343,18 @@
         HLProfitFirstInfo *firstInfo = [[HLProfitFirstInfo alloc]init];
         firstInfo.gainType = self.mainInfo.type;
         firstInfo.disFirst = self.discountFooter.discount;
+        
+        // 这里需要判断折扣区间，应该为 1 - 9.5 之间
+        if (firstInfo.disFirst.doubleValue < 1.0 && firstInfo.disFirst.doubleValue > 0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return nil;
+        }
+        
+        if (firstInfo.disFirst.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能大于9.5折"];
+            return nil;
+        }
+        
         goodInfo = firstInfo;
     } else if (self.mainInfo.type == 2) { //外卖折扣
         HLProfitYMInfo *ymInfo = [[HLProfitYMInfo alloc]init];
@@ -366,7 +378,7 @@
         [disout addObject:downInfo];
         ymInfo.disOut = [disout copy];
         goodInfo = ymInfo;
-    } else { // 外卖红包
+    }  else { // 外卖红包
         for (HLBaseTypeInfo *info in self.mainInfo.datasource) {
             if (info.needCheckParams && ![info checkParamsIsOk]) {
                 [HLTools showWithText:info.errorHint];
@@ -385,6 +397,16 @@
     if (self.mainInfo.type == 1 || self.mainInfo.type == 3) {
         HLProfitFirstInfo *firstInfo = (HLProfitFirstInfo *)self.editProfitInfo;
         firstInfo.disFirst = self.discountFooter.discount;
+        // 这里需要判断折扣区间，应该为 1 - 9.5 之间
+        if (firstInfo.disFirst.doubleValue < 1.0 && firstInfo.disFirst.doubleValue > 0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return NO;
+        }
+        
+        if (firstInfo.disFirst.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能超出9.5折"];
+            return NO;
+        }
     // 外卖折扣
     } else if (self.mainInfo.type == 2) {
         HLProfitYMInfo *ymInfo = (HLProfitYMInfo *)self.editProfitInfo;
@@ -455,6 +477,25 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - HLRightInputViewCellDelegate
+
+- (void)inputViewCell:(HLRightInputViewCell *)cell textChanged:(HLRightInputTypeInfo *)inputInfo{
+    // 控制代金券的限额
+    if (self.mainInfo.type == 42 || self.mainInfo.type == 26) {
+        if ([inputInfo.saveKey isEqualToString:@"gainPrice"]) {
+            NSInteger index = [self.mainInfo.datasource indexOfObject:inputInfo];
+            // 获取到限额的那个info
+            HLRightInputTypeInfo *limitInfo = self.mainInfo.datasource[index + 1];
+            limitInfo.minInputNum = 0;
+            limitInfo.maxInputNum = inputInfo.text.doubleValue * 10;
+            if (limitInfo.text.doubleValue > limitInfo.maxInputNum) {
+                limitInfo.text = [NSString stringWithFormat:@"%ld",limitInfo.maxInputNum];
+            }
+            [self.tableView reloadData];
+        }
+    }
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.mainInfo.datasource.count;
@@ -472,6 +513,7 @@
             HLRightInputViewCell *cell = (HLRightInputViewCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLRightInputViewCell" indexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.baseInfo = info;
+            cell.delegate = self;
             return cell;
             
         }break;
@@ -609,7 +651,7 @@
     [self.view addSubview:bottomView];
     UIButton *addBtn = [[UIButton alloc] init];
     [bottomView addSubview:addBtn];
-    [addBtn setTitle:_editProfitInfo?@"确定修改":@"确定添加" forState:UIControlStateNormal];
+    [addBtn setTitle:_editProfitInfo?@"确认修改":@"确定添加" forState:UIControlStateNormal];
     addBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [addBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [addBtn setBackgroundImage:[UIImage imageNamed:@"button_bag"] forState:UIControlStateNormal];

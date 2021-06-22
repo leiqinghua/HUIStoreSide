@@ -87,6 +87,17 @@
 }
 
 - (void)textFieldEditing:(UITextField *)sender{
+    
+    HLRightInputTypeInfo *info = (HLRightInputTypeInfo *)self.baseInfo;
+    if (info.maxInputNum > 0 && info.minInputNum >= 0 && sender.text.length > 0) {
+        if (sender.text.doubleValue > info.maxInputNum) {
+            sender.text = [NSString stringWithFormat:@"%ld",info.maxInputNum];
+        }
+        if (sender.text.doubleValue < info.minInputNum) {
+            sender.text = [NSString stringWithFormat:@"%ld",info.minInputNum];
+        }
+    }
+    
     self.baseInfo.text = sender.text;
     if ([self.delegate respondsToSelector:@selector(inputViewCell:textChanged:)]) {
         [self.delegate inputViewCell:self textChanged:(HLRightInputTypeInfo *)self.baseInfo];

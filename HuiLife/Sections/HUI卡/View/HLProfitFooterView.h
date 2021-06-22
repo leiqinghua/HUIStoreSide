@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//折扣footer
+// 首单折扣 & 日常折扣 footer
 @interface HLProfitDiscountView : HLProfitFooterView
 
 @property(nonatomic, strong) NSArray *discounts;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//订单折扣footer
+// 订单折扣footer
 @interface HLProfitOrderView : HLProfitFooterView
 
 @property(nonatomic, strong) NSArray *orderDiscounts;
