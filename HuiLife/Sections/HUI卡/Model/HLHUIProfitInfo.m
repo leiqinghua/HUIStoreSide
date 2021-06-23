@@ -647,7 +647,7 @@
     return goodInfo;
 }
 
-- (void)configEditProfitGoodInfo {
+- (BOOL)configEditProfitGoodInfo {
     
     // 外卖红包和其他的不一样
     if (self.type == 61) {
@@ -687,6 +687,21 @@
         BOOL isOpen = [(HLProfitGiftInfo *)_editProfitInfo open];
         [(HLProfitGiftInfo *)_editProfitInfo setGainType: isOpen ? 22 : 21];
     }
+    
+    if(_type == 41 || _type == 25){ // 打折券
+        HLProfitDiscountInfo *discountGoodInfo = (HLProfitDiscountInfo *)_editProfitInfo;
+        if (discountGoodInfo.gainPrice.doubleValue < 1.0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return NO;
+        }
+        
+        if (discountGoodInfo.gainPrice.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能超出9.5折"];
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 - (NSMutableArray *)datasource {

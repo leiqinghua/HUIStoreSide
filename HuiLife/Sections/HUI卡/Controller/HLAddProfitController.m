@@ -438,7 +438,7 @@
                 return NO;
             }
         }
-        [self.mainInfo configEditProfitGoodInfo];
+        return [self.mainInfo configEditProfitGoodInfo];
     }
     return YES;
 }
