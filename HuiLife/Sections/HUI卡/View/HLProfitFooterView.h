@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HLProfitOrderViewDelegate <NSObject>
 
-- (void)orderViewAdd:(BOOL)add allSource:(NSArray *)datasource;
+- (void)orderViewAdd:(BOOL)add allSource:(NSArray *)datasource info:(HLProfitOrderInfo *)info;
 
 @end
 

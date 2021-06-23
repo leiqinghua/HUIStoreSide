@@ -91,7 +91,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSArray<HLProfitOrderInfo *> *disOut;
 
+
+
 @property(nonatomic, strong) NSAttributedString *detailAttr;
+
+/// 存储删除的id
+@property (nonatomic, strong) NSMutableArray *disOutDelArr;
+/// 上报接口数据时，记录删除的id
+@property (nonatomic, copy) NSString *disOutDel;
 
 @end
 

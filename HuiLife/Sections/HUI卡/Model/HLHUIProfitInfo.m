@@ -631,7 +631,7 @@
         }
         
         if (discountGoodInfo.gainPrice.doubleValue > 9.5) {
-            [HLTools showWithText:@"折扣不能大于9.5折"];
+            [HLTools showWithText:@"折扣不能超出9.5折"];
             return nil;
         }
     }

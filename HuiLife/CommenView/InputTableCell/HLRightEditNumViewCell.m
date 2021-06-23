@@ -24,6 +24,7 @@
     NSInteger num = [_intInput.text integerValue];
     
     if (info.text.doubleValue <= info.minNum) {
+        HLShowText(@"折扣不能低于1折");
         return;
     }
     
@@ -52,6 +53,7 @@
     NSInteger num = [_intInput.text integerValue];
     
     if (info.text.doubleValue >= info.maxNum) {
+        HLShowText(@"折扣不能超出9.5折");
         return;
     }
     

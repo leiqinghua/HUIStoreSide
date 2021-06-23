@@ -15,7 +15,7 @@
 
 //要忽略的keys
 + (NSArray *)ignoredKeys {
-    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title",@"maxPlace",@"minPlace",@"discountPlace"];
+    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title",@"disOutDelArr"];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
@@ -181,7 +181,7 @@
     if (!_disFirst.floatValue) {
         return [[NSAttributedString alloc]initWithString:@"无折扣" attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(14)]}];;
     }
-    NSString *text = [NSString stringWithFormat:@"%@折",_disFirst];
+    NSString *text = [NSString stringWithFormat:@"%.1lf折",_disFirst.doubleValue];
     NSRange disRange = [text rangeOfString:_disFirst];
     NSRange tipRange = NSMakeRange(disRange.length, 1);
     NSMutableAttributedString *mutarr = [[NSMutableAttributedString alloc]initWithString:text];
@@ -201,6 +201,15 @@
 @end
 
 @implementation HLProfitYMInfo
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.disOutDelArr = [NSMutableArray array];
+    }
+    return self;
+}
 
 //忽略互相转换的 key
 + (NSArray *)mj_ignoredPropertyNames {
@@ -230,6 +239,7 @@
     }
     return _disFirst;
 }
+
 
 - (NSString *)detailStr {
     NSMutableString *text = [[NSMutableString alloc] init];
@@ -374,8 +384,8 @@
 }
 
 - (NSAttributedString *)discountAttr {
-    NSString *text = [NSString stringWithFormat:@"%@折",_gainPrice];
-    NSRange disRange = [text rangeOfString:_gainPrice];
+    NSString *text = [NSString stringWithFormat:@"%.1lf折",_gainPrice.doubleValue];
+    NSRange disRange = [text rangeOfString:[NSString stringWithFormat:@"%.1lf",_gainPrice.doubleValue]];
     NSRange tipRange = NSMakeRange(disRange.length, 1);
     NSMutableAttributedString *mutarr = [[NSMutableAttributedString alloc]initWithString:text];
     [mutarr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(18)]} range:disRange];
@@ -476,6 +486,11 @@
         _maxPlace = @"0";
     }
     return self;
+}
+
+//忽略互相转换的 key
++ (NSArray *)mj_ignoredPropertyNames {
+    return @[@"discountPlace",@"minPlace",@"maxPlace"];
 }
 
 - (BOOL)check {

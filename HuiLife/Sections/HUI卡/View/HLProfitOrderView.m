@@ -42,13 +42,15 @@
         return;
     }
     
+    HLProfitOrderInfo *info = nil;
+    
     if (add) {
         
         if (self.datasource.count >= 2) {
             //获取最后两个,判断区间是否包含
             HLProfitOrderInfo *upInfo = self.datasource[self.datasource.count-2];
             HLProfitOrderInfo *downInfo = self.datasource.lastObject;
-            if (downInfo.priceStart.doubleValue < upInfo.priceEnd.doubleValue) {
+            if (downInfo.priceStart.doubleValue <= upInfo.priceEnd.doubleValue) {
                 [HLTools showWithText:@"价格区间填写有误"];
                 return;
             }
@@ -56,18 +58,20 @@
         
         HLProfitOrderInfo *lastInfo = self.datasource.lastObject;
         if ([lastInfo check]) {
-            HLProfitOrderInfo *info = [[HLProfitOrderInfo alloc]init];
+            info = [[HLProfitOrderInfo alloc]init];
+            info.discount = @"1";
             [self.datasource addObject:info];
             [self.tableView reloadData];
         }
         
     } else {
-        NSInteger index = [self.datasource indexOfObject:cell.info];
-        [self.datasource removeObject:cell.info];
+        info = cell.info;
+        NSInteger index = [self.datasource indexOfObject:info];
+        [self.datasource removeObject:info];
         [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     }
-    if ([self.delegate respondsToSelector:@selector(orderViewAdd:allSource:)]) {
-        [self.delegate orderViewAdd:add allSource:self.datasource];
+    if ([self.delegate respondsToSelector:@selector(orderViewAdd:allSource:info:)]) {
+        [self.delegate orderViewAdd:add allSource:self.datasource info:info];
     }
 }
 
@@ -180,17 +184,10 @@
     _leftInputV.placeHolder = info.minPlace;
     _midInputV.placeHolder = info.maxPlace;
     _rightInputV.placeHolder = info.discountPlace;
-    if (info.priceStart.integerValue) {
-        _leftInputV.text = info.priceStart;
-    }
+        _leftInputV.text = info.priceStart ?: @"";
     
-    if (info.priceEnd.integerValue) {
-        _midInputV.text = info.priceEnd;
-    }
-    
-    if (info.discount.floatValue > 0) {
-        _rightInputV.text = info.discount;
-    }
+    _midInputV.text = info.priceEnd ?: @"";
+    _rightInputV.text = info.discount ?: @"";
 }
 
 - (void)optionClick {
@@ -220,6 +217,13 @@
     
     if (text.floatValue > 9.5){
         text = @"9.5";
+        [HLTools showWithText:@"折扣不能超出9.5折"];
+        _rightInputV.text = text;
+    }
+    
+    if (text.floatValue < 1 && text.length > 0){
+        text = @"1";
+        [HLTools showWithText:@"折扣不能小于1折"];
         _rightInputV.text = text;
     }
     

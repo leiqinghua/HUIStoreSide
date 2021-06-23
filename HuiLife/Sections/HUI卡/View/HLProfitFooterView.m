@@ -88,7 +88,10 @@
     _selectBtn.selected = NO;
     [self configButton:_selectBtn];
     
-    if(self.discount.doubleValue <= 1.0) return;;
+    if(self.discount.doubleValue <= 1.0) {
+        HLShowText(@"折扣不能低于1折");
+        return;
+    }
     
     NSInteger dot = [_dotInput.text integerValue];
     NSInteger num = [_intInput.text integerValue];
@@ -113,7 +116,10 @@
     _selectBtn.selected = NO;
     [self configButton:_selectBtn];
     
-    if(self.discount.doubleValue >= 9.5) return;;
+    if(self.discount.doubleValue >= 9.5) {
+        HLShowText(@"折扣不能超出9.5折");
+        return;
+    }
     
     NSInteger dot = [_dotInput.text integerValue];
     NSInteger num = [_intInput.text integerValue];

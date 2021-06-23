@@ -18,6 +18,7 @@
 @property(nonatomic, strong) NSMutableArray *profits;
 //只限于1，2，3
 @property(nonatomic, strong) NSMutableArray *addProfitTypes;
+@property (nonatomic, strong) NSMutableArray *delGainIds;
 
 @end
 
@@ -111,6 +112,8 @@
 //        HLLog(@"json = %@",json);
     }
     if (_cardId) [pargram setObject:_cardId forKey:@"cardId"];
+    [pargram setObject:[self.delGainIds componentsJoinedByString:@","] forKey:@"gainDel"];
+    [pargram setObject:@"0.0" forKey:@"commissionPrice"];
     [self productWithPargrams:pargram];
 }
 
@@ -134,6 +137,9 @@
 - (void)giftCell:(HLProfitGoodTableCell *)cell deleteInfo:(HLProfitGoodInfo *)info {
     [HLCustomAlert showNormalStyleTitle:@"删除提示" message:@"是否确定删除权益" buttonTitles:@[@"取消",@"确定"] buttonColors:@[UIColorFromRGB(0x9A9A9A),UIColorFromRGB(0xFF9900)] callBack:^(NSInteger index) {
         if (index == 1) {
+            if (info.gainId.length > 0) {
+                [self.delGainIds addObject:info.gainId];
+            }
             [self.profits removeObject:info];
             [self.tableView reloadData];
             [self removeGainType:info.gainType];
@@ -439,6 +445,13 @@
     if (gainType == 1 || gainType == 2 || gainType == 3 || gainType == 61) {
         [self.addProfitTypes addObject:@(gainType)];
     }
+}
+
+- (NSMutableArray *)delGainIds{
+    if (!_delGainIds) {
+        _delGainIds = [NSMutableArray array];
+    }
+    return _delGainIds;
 }
 
 @end

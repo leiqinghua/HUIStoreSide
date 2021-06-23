@@ -234,7 +234,7 @@
             self.orderFooter.orderDiscounts = self.orderDiscounts;
             self.tableView.tableFooterView = self.orderFooter;
             self.orderFooter.backgroundColor = UIColor.whiteColor;
-            [self cacluateOrderFooterFrame:self.orderDiscounts.count];
+            [self cacluateOrderFooterFrame];
         }
     }onFailure:^(NSError *error) {
         HLHideLoading(self.view);
@@ -312,7 +312,7 @@
         if (_editProfitInfo) { //获取到所有订单折扣
             HLProfitYMInfo *info = (HLProfitYMInfo *)_editProfitInfo;
             self.orderFooter.orderDiscounts = info.disOut;
-            [self cacluateOrderFooterFrame:info.disOut.count];
+            [self cacluateOrderFooterFrame];
             self.tableView.tableFooterView = self.orderFooter;
             self.orderFooter.backgroundColor = UIColor.whiteColor;
         } else { //添加 ，请求默认
@@ -328,25 +328,16 @@
     self.tableView.tableFooterView = [UIView new];
 }
 
-- (void)cacluateOrderFooterFrame:(NSInteger)disoutCount {
-    CGFloat height = FitPTScreen(89);
-    height += disoutCount *FitPTScreen(50);
+- (void)cacluateOrderFooterFrame{
     
     CGFloat maxHeight = self.tableView.bounds.size.height - self.tableView.tableHeaderView.bounds.size.height;
     
-    if (height > maxHeight) {
-        self.tableView.scrollEnabled = NO;
-        height = maxHeight;
-    }else{
-        self.tableView.scrollEnabled = YES;
-    }
+    self.tableView.scrollEnabled = NO;
     
     CGRect frame = self.orderFooter.frame;
-    frame.size.height = height;
+    frame.size.height = maxHeight;
     self.orderFooter.frame = frame;
     self.tableView.tableFooterView = self.orderFooter;
-    
-    
 }
 
 - (HLProfitGoodInfo *)createAddProfitGoodInfo {
@@ -363,7 +354,7 @@
         }
         
         if (firstInfo.disFirst.doubleValue > 9.5) {
-            [HLTools showWithText:@"折扣不能大于9.5折"];
+            [HLTools showWithText:@"折扣不能超出9.5折"];
             return nil;
         }
         
@@ -449,14 +440,19 @@
         }
         [self.mainInfo configEditProfitGoodInfo];
     }
-    HLLog(@"goodInfo = %@",[_editProfitInfo mj_JSONObject]);
     return YES;
 }
 
 #pragma mark - HLProfitOrderViewDelegate
 //添加或删除
-- (void)orderViewAdd:(BOOL)add allSource:(NSArray *)datasource {
-    [self cacluateOrderFooterFrame:datasource.count];
+- (void)orderViewAdd:(BOOL)add allSource:(NSArray *)datasource info:(HLProfitOrderInfo *)info{
+    if (!add && info.id.length > 0) {
+        if (self.mainInfo.editProfitInfo) {
+            HLProfitYMInfo *ymInfo = (HLProfitYMInfo *)self.mainInfo.editProfitInfo;
+            [ymInfo.disOutDelArr addObject:info.id];
+            ymInfo.disOutDel = [ymInfo.disOutDelArr componentsJoinedByString:@","];
+        }
+    }
 }
 
 #pragma mark - HLInputImagesViewCellDelegate
@@ -503,7 +499,7 @@
             if (limitInfo.text.doubleValue > limitInfo.maxInputNum) {
                 limitInfo.text = [NSString stringWithFormat:@"%ld",limitInfo.maxInputNum];
             }
-            [self.tableView reloadData];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index + 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
     }
 }
@@ -732,3 +728,5 @@
 }
 
 @end
+
+//gain    [{"disFirst":"9.5","storeMinus":0,"takeMinus":0,"gainType":3},{"disFirst":"9.5","disOut":[{"discount":"9.5","priceEnd":"80","id":"114003","priceStart":"70"},{"discount":"9.5","priceEnd":"500","id":"114017","priceStart":"121"},{"discount":"8","priceEnd":"120","id":"114016","priceStart":"81"}],"storeMinus":0,"takeMinus":0,"gainType":2}]
