@@ -15,7 +15,7 @@
 
 //要忽略的keys
 + (NSArray *)ignoredKeys {
-    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title"];
+    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title",@"maxPlace",@"minPlace",@"discountPlace"];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
@@ -466,10 +466,6 @@
 
 
 @implementation HLProfitOrderInfo
-
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"id":@"Id"};
-}
 
 - (instancetype)init
 {

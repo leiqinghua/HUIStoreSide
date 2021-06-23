@@ -187,6 +187,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //订单折扣 的 model
 @interface HLProfitOrderInfo : NSObject
+@property (nonatomic, copy) NSString *id;
 @property(nonatomic, copy) NSString *priceStart;//价格开始
 @property(nonatomic, copy) NSString *priceEnd;//价格结束
 @property(nonatomic, copy) NSString *discount;//折扣
@@ -194,7 +195,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *discountPlace;
 @property(nonatomic, copy) NSString *minPlace;
 @property(nonatomic, copy) NSString *maxPlace;
-@property(nonatomic, copy) NSString *Id;
 
 - (BOOL)check;
 
