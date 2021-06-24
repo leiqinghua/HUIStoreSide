@@ -42,13 +42,15 @@
         return;
     }
     
+    HLProfitOrderInfo *info = nil;
+    
     if (add) {
         
         if (self.datasource.count >= 2) {
             //获取最后两个,判断区间是否包含
             HLProfitOrderInfo *upInfo = self.datasource[self.datasource.count-2];
             HLProfitOrderInfo *downInfo = self.datasource.lastObject;
-            if (downInfo.priceStart.doubleValue < upInfo.priceEnd.doubleValue) {
+            if (downInfo.priceStart.doubleValue <= upInfo.priceEnd.doubleValue) {
                 [HLTools showWithText:@"价格区间填写有误"];
                 return;
             }
@@ -56,18 +58,20 @@
         
         HLProfitOrderInfo *lastInfo = self.datasource.lastObject;
         if ([lastInfo check]) {
-            HLProfitOrderInfo *info = [[HLProfitOrderInfo alloc]init];
+            info = [[HLProfitOrderInfo alloc]init];
+            info.discount = @"1";
             [self.datasource addObject:info];
             [self.tableView reloadData];
         }
         
     } else {
-        NSInteger index = [self.datasource indexOfObject:cell.info];
-        [self.datasource removeObject:cell.info];
+        info = cell.info;
+        NSInteger index = [self.datasource indexOfObject:info];
+        [self.datasource removeObject:info];
         [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     }
-    if ([self.delegate respondsToSelector:@selector(orderViewAdd:allSource:)]) {
-        [self.delegate orderViewAdd:add allSource:self.datasource];
+    if ([self.delegate respondsToSelector:@selector(orderViewAdd:allSource:info:)]) {
+        [self.delegate orderViewAdd:add allSource:self.datasource info:info];
     }
 }
 
@@ -134,6 +138,7 @@
     _rightInputV = [[HLFeeInputView alloc]init];
     _rightInputV.title = @"则享受";
     _rightInputV.tip = @"折";
+    _rightInputV.text = @"";
     _rightInputV.inputWidth = FitPTScreen(55);
     _rightInputV.delegate = self;
     
@@ -179,17 +184,10 @@
     _leftInputV.placeHolder = info.minPlace;
     _midInputV.placeHolder = info.maxPlace;
     _rightInputV.placeHolder = info.discountPlace;
-    if (info.priceStart.integerValue) {
-        _leftInputV.text = info.priceStart;
-    }
+        _leftInputV.text = info.priceStart ?: @"";
     
-    if (info.priceEnd.integerValue) {
-        _midInputV.text = info.priceEnd;
-    }
-    
-    if (info.discount.floatValue >= 0.1) {
-        _rightInputV.text = info.discount;
-    }
+    _midInputV.text = info.priceEnd ?: @"";
+    _rightInputV.text = info.discount ?: @"";
 }
 
 - (void)optionClick {
@@ -201,17 +199,78 @@
 #pragma mark - HLFeeInputViewDelegate
 - (void)inputView:(HLFeeInputView *)inputView editText:(NSString *)text {
     if ([inputView isEqual:_leftInputV]) {
+        if (text.length > 4) {
+            _leftInputV.text = [text substringToIndex:4];
+            text = _leftInputV.text;
+        }
         _info.priceStart = text;
         return;
     }
     if ([inputView isEqual:_midInputV]) {
+        if (text.length > 4) {
+            _midInputV.text = [text substringToIndex:4];
+            text = _midInputV.text;
+        }
         _info.priceEnd = text;
         return;
     }
+    
+    if (text.floatValue > 9.5){
+        text = @"9.5";
+        [HLTools showWithText:@"折扣不能超出9.5折"];
+        _rightInputV.text = text;
+    }
+    
+    if (text.floatValue < 1 && text.length > 0){
+        text = @"1";
+        [HLTools showWithText:@"折扣不能小于1折"];
+        _rightInputV.text = text;
+    }
+    
     _info.discount = text;
 }
 
 - (void)inputView:(HLFeeInputView *)inputView didEndText:(UITextField *)textField {
     
 }
+
+
+- (BOOL)inputView:(HLFeeInputView *)inputView textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    if (textField.keyboardType != UIKeyboardTypeDecimalPad) {
+        return YES;
+    }
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    //限制.后面最多有1位，且不能再输入.
+    if ([textField.text rangeOfString:@"."].location != NSNotFound) {
+        //有.了 且.后面输入了1位  停止输入
+        if (toBeString.length > [toBeString rangeOfString:@"."].location+2) {
+            return NO;
+        }
+        //有.了，不允许再输入.
+        if ([string isEqualToString:@"."]) {
+            return NO;
+        }
+    }
+    
+    // 限制首位0，后面只能输入.
+    if ([textField.text isEqualToString:@"0"]) {
+        if (![string isEqualToString:@"."] && ![string isEqualToString:@""]) {
+            return NO;
+        }
+    }
+    
+    // 如果第一个输入的是点，那么直接变成 0.
+    if (textField.text.length == 0 && [string isEqualToString:@"."]) {
+        textField.text = @"0";
+    }
+    
+    //限制只能输入：1234567890.
+    NSCharacterSet * characterSet = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890."] invertedSet];
+    NSString * filtered = [[string componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
+    return [string isEqualToString:filtered];
+}
+
 @end

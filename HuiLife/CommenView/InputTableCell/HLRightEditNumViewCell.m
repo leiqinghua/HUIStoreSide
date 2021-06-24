@@ -8,8 +8,8 @@
 #import "HLRightEditNumViewCell.h"
 
 @interface HLRightEditNumViewCell ()
-@property(nonatomic, strong) UIButton *intBtn;
-@property(nonatomic, strong) UIButton *dotBtn;
+@property(nonatomic, strong) UITextField *intInput;
+@property(nonatomic, strong) UITextField *dotInput;
 @property(nonatomic, strong) UILabel *rightLb;
 @end
 
@@ -17,19 +17,26 @@
 
 //减
 - (void)delClick {
+    [_dotInput endEditing:YES];
+    [_intInput endEditing:YES];
     HLRightEditNumInfo *info = (HLRightEditNumInfo *)self.baseInfo;
-    NSInteger dot = [_dotBtn.titleLabel.text integerValue];
-    NSInteger num = [_intBtn.titleLabel.text integerValue];
+    NSInteger dot = [_dotInput.text integerValue];
+    NSInteger num = [_intInput.text integerValue];
+    
+    if (info.text.doubleValue <= info.minNum) {
+        HLShowText(@"折扣不能低于1折");
+        return;
+    }
+    
     if (dot > 0) {
-        if (num == info.intMin && dot == info.dotMin) return;
-        dot --;
-        [_dotBtn setTitle:[NSString stringWithFormat:@"%ld",dot] forState:UIControlStateNormal];
+        dot--;
+        _dotInput.text = [NSString stringWithFormat:@"%ld",dot];
         info.text = [NSString stringWithFormat:@"%ld.%ld",num,dot];
     } else {
-        if (num > info.intMin) {
-            num --;
-            [_dotBtn setTitle:@"9" forState:UIControlStateNormal];
-            [_intBtn setTitle:[NSString stringWithFormat:@"%ld",num] forState:UIControlStateNormal];
+        if (num > 0) {
+            num--;
+            _dotInput.text = @"9";
+            _intInput.text = [NSString stringWithFormat:@"%ld",num];
             info.text = [NSString stringWithFormat:@"%ld.%ld",num,dot];
         }
     }
@@ -37,18 +44,28 @@
 
 //加
 - (void)addClick {
+    
+    [_dotInput endEditing:YES];
+    [_intInput endEditing:YES];
+    
     HLRightEditNumInfo *info = (HLRightEditNumInfo *)self.baseInfo;
-    NSInteger dot = [_dotBtn.titleLabel.text integerValue];
-    NSInteger num = [_intBtn.titleLabel.text integerValue];
+    NSInteger dot = [_dotInput.text integerValue];
+    NSInteger num = [_intInput.text integerValue];
+    
+    if (info.text.doubleValue >= info.maxNum) {
+        HLShowText(@"折扣不能超出9.5折");
+        return;
+    }
+    
     if (dot < 9) {
-        dot ++;
-        [_dotBtn setTitle:[NSString stringWithFormat:@"%ld",dot] forState:UIControlStateNormal];
+        dot++;
+        _dotInput.text = [NSString stringWithFormat:@"%ld",dot];
         info.text = [NSString stringWithFormat:@"%ld.%ld",num,dot];
     } else {
         if (num < 9) {
-            num ++;
-            [_dotBtn setTitle:@"0" forState:UIControlStateNormal];
-            [_intBtn setTitle:[NSString stringWithFormat:@"%ld",num] forState:UIControlStateNormal];
+            num++;
+            _dotInput.text = @"0";
+            _intInput.text = [NSString stringWithFormat:@"%ld",num];
             info.text = [NSString stringWithFormat:@"%ld.%ld",num,dot];
         }
     }
@@ -63,14 +80,24 @@
         NSRange dotRange = [discountStr rangeOfString:@"."];
         dotStr = [discountStr substringFromIndex:(dotRange.location + 1)];
     }
-    [_intBtn setTitle:intStr forState:UIControlStateNormal];
-    [_dotBtn setTitle:dotStr forState:UIControlStateNormal];
+    _dotInput.text = dotStr;
+    _intInput.text = intStr;
 }
 
 - (void)setBaseInfo:(HLRightEditNumInfo *)baseInfo {
     [super setBaseInfo:baseInfo];
     _rightLb.text = baseInfo.rightTip;
     [self configDiscount:baseInfo.text];
+}
+
+- (void)inputChanged:(UITextField *)sender{
+    if (sender.text.length > 1) {
+        sender.text = [sender.text substringToIndex:1];
+    }
+    HLRightEditNumInfo *info = (HLRightEditNumInfo *)self.baseInfo;
+    NSInteger dot = [_dotInput.text integerValue];
+    NSInteger num = [_intInput.text integerValue];
+    info.text = [NSString stringWithFormat:@"%ld.%ld",num,dot];
 }
 
 - (void)initSubUI {
@@ -92,38 +119,48 @@
         make.size.equalTo(CGSizeMake(FitPTScreen(40), FitPTScreen(35)));
     }];
     
-    _dotBtn = [UIButton hl_regularWithTitle:@"1" titleColor:@"#343434" font:15 image:@""];
-    _dotBtn.backgroundColor = UIColorFromRGB(0xF2F3F5);
-    [self.contentView addSubview:_dotBtn];
-    [_dotBtn makeConstraints:^(MASConstraintMaker *make) {
+    _dotInput = [[UITextField alloc] init];
+    [self.contentView addSubview:_dotInput];
+    _dotInput.textAlignment = NSTextAlignmentCenter;
+    _dotInput.textColor = UIColorFromRGB(0x343434);
+    _dotInput.font = [UIFont systemFontOfSize:15];
+    _dotInput.keyboardType = UIKeyboardTypeNumberPad;
+    _dotInput.backgroundColor = UIColorFromRGB(0xF2F3F5);
+    [_dotInput makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(addBtn.left).offset(FitPTScreen(-1.5));
         make.centerY.equalTo(self.contentView);
         make.size.equalTo(CGSizeMake(FitPTScreen(50), FitPTScreen(35)));
     }];
+    [_dotInput addTarget:self action:@selector(inputChanged:) forControlEvents:UIControlEventEditingChanged];
     
     UILabel *dotLb = [UILabel hl_regularWithColor:@"#343434" font:13];
     dotLb.text = @".";
     [self.contentView addSubview:dotLb];
     [dotLb makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.dotBtn.left).offset(FitPTScreen(-3.5));
-        make.top.equalTo(self.dotBtn).offset(FitPTScreen(23));
+        make.right.equalTo(self.dotInput.left).offset(FitPTScreen(-3.5));
+        make.top.equalTo(self.dotInput).offset(FitPTScreen(23));
     }];
     
-    _intBtn = [UIButton hl_regularWithTitle:@"0" titleColor:@"#343434" font:15 image:@""];
-    _intBtn.backgroundColor = UIColorFromRGB(0xF2F3F5);
-    [self.contentView addSubview:_intBtn];
-    [_intBtn makeConstraints:^(MASConstraintMaker *make) {
+    _intInput = [[UITextField alloc] init];
+    [self.contentView addSubview:_intInput];
+    _intInput.textAlignment = NSTextAlignmentCenter;
+    _intInput.textColor = UIColorFromRGB(0x343434);
+    _intInput.font = [UIFont systemFontOfSize:15];
+    _intInput.backgroundColor = UIColorFromRGB(0xF2F3F5);
+    [_intInput makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(dotLb.left).offset(FitPTScreen(-3.5));
         make.centerY.equalTo(self.contentView);
         make.size.equalTo(CGSizeMake(FitPTScreen(50), FitPTScreen(35)));
     }];
+    _intInput.keyboardType = UIKeyboardTypeNumberPad;
+    [_intInput addTarget:self action:@selector(inputChanged:) forControlEvents:UIControlEventEditingChanged];
     
     UIButton *delBtn = [UIButton hl_regularWithTitle:@"-" titleColor:@"#343434" font:15 image:@""];;
     [delBtn hl_addCornerRadius:FitPTScreen(4) bounds:CGRectMake(0, 0, FitPTScreen(40), FitPTScreen(35))  byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft];
     delBtn.backgroundColor = UIColorFromRGB(0xF2F3F5);
     [self.contentView addSubview:delBtn];
     [delBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.intBtn.left).offset(FitPTScreen(-1.5));
+        make.right.equalTo(self.intInput.left).offset(FitPTScreen(-1.5));
         make.centerY.equalTo(self.contentView);
         make.size.equalTo(CGSizeMake(FitPTScreen(40), FitPTScreen(35)));
     }];

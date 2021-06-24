@@ -12,10 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HLRightEditNumInfo :HLBaseTypeInfo
 
 @property(nonatomic, copy) NSString *rightTip;
-//整数部分最小值
-@property(nonatomic, assign) NSInteger intMin;
-//小数部分最小值
-@property(nonatomic, assign) NSInteger dotMin;
+
+@property (nonatomic, assign) double maxNum;
+@property (nonatomic, assign) double minNum;
 
 @end
 

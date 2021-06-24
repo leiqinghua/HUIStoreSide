@@ -15,7 +15,7 @@
 #import "HLBaseUploadModel.h"
 #import "HLCalendarViewController.h"
 
-@interface HLAddProfitController ()<UITableViewDelegate, UITableViewDataSource, HLProfitOrderViewDelegate, HLInputImagesViewCellDelegate,HLInputDateViewCellDelegate>
+@interface HLAddProfitController ()<UITableViewDelegate, UITableViewDataSource, HLProfitOrderViewDelegate, HLInputImagesViewCellDelegate,HLInputDateViewCellDelegate,HLRightInputViewCellDelegate>
 @property(nonatomic, strong) UITableView *tableView;
 //头部 显示的 选择的 权益名称
 @property(nonatomic, strong) UILabel *typeLb;
@@ -234,7 +234,7 @@
             self.orderFooter.orderDiscounts = self.orderDiscounts;
             self.tableView.tableFooterView = self.orderFooter;
             self.orderFooter.backgroundColor = UIColor.whiteColor;
-            [self cacluateOrderFooterFrame:self.orderDiscounts.count];
+            [self cacluateOrderFooterFrame];
         }
     }onFailure:^(NSError *error) {
         HLHideLoading(self.view);
@@ -251,7 +251,7 @@
         
         for (NSNumber *type in self.addProfitTypes) {
             if (goodInfo.gainType == type.integerValue) {
-                [HLTools showWithText:@"该类型不能重复添加"];
+                [HLTools showWithText:@"已有该类型"];
                 return;
             }
         }
@@ -270,6 +270,7 @@
 - (void)selectClick:(UIButton *)sender {
     weakify(self);
     [HLSellTimeSelectView showWithTitles:self.profitNames selectIndex:_profitIndex height:FitPTScreen(40) * self.profitNames.count dependView:sender completion:^(NSInteger index){
+        self.tableView.scrollEnabled = YES;
         NSDictionary *dict = weak_self.profitTypes[index];
         weak_self.mainInfo.type = [dict[@"typeValue"] integerValue];
         // 赋值成功时也需要改变
@@ -311,7 +312,7 @@
         if (_editProfitInfo) { //获取到所有订单折扣
             HLProfitYMInfo *info = (HLProfitYMInfo *)_editProfitInfo;
             self.orderFooter.orderDiscounts = info.disOut;
-            [self cacluateOrderFooterFrame:info.disOut.count];
+            [self cacluateOrderFooterFrame];
             self.tableView.tableFooterView = self.orderFooter;
             self.orderFooter.backgroundColor = UIColor.whiteColor;
         } else { //添加 ，请求默认
@@ -327,12 +328,14 @@
     self.tableView.tableFooterView = [UIView new];
 }
 
-- (void)cacluateOrderFooterFrame:(NSInteger)disoutCount {
-    CGFloat hight = FitPTScreen(89);
-    hight += disoutCount *FitPTScreen(50);
+- (void)cacluateOrderFooterFrame{
+    
+    CGFloat maxHeight = self.tableView.bounds.size.height - self.tableView.tableHeaderView.bounds.size.height;
+    
+    self.tableView.scrollEnabled = NO;
     
     CGRect frame = self.orderFooter.frame;
-    frame.size.height = hight;
+    frame.size.height = maxHeight;
     self.orderFooter.frame = frame;
     self.tableView.tableFooterView = self.orderFooter;
 }
@@ -343,6 +346,18 @@
         HLProfitFirstInfo *firstInfo = [[HLProfitFirstInfo alloc]init];
         firstInfo.gainType = self.mainInfo.type;
         firstInfo.disFirst = self.discountFooter.discount;
+        
+        // 这里需要判断折扣区间，应该为 1 - 9.5 之间
+        if (firstInfo.disFirst.doubleValue < 1.0 && firstInfo.disFirst.doubleValue > 0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return nil;
+        }
+        
+        if (firstInfo.disFirst.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能超出9.5折"];
+            return nil;
+        }
+        
         goodInfo = firstInfo;
     } else if (self.mainInfo.type == 2) { //外卖折扣
         HLProfitYMInfo *ymInfo = [[HLProfitYMInfo alloc]init];
@@ -366,7 +381,7 @@
         [disout addObject:downInfo];
         ymInfo.disOut = [disout copy];
         goodInfo = ymInfo;
-    } else { // 外卖红包
+    }  else { // 外卖红包
         for (HLBaseTypeInfo *info in self.mainInfo.datasource) {
             if (info.needCheckParams && ![info checkParamsIsOk]) {
                 [HLTools showWithText:info.errorHint];
@@ -385,6 +400,16 @@
     if (self.mainInfo.type == 1 || self.mainInfo.type == 3) {
         HLProfitFirstInfo *firstInfo = (HLProfitFirstInfo *)self.editProfitInfo;
         firstInfo.disFirst = self.discountFooter.discount;
+        // 这里需要判断折扣区间，应该为 1 - 9.5 之间
+        if (firstInfo.disFirst.doubleValue < 1.0 && firstInfo.disFirst.doubleValue > 0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return NO;
+        }
+        
+        if (firstInfo.disFirst.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能超出9.5折"];
+            return NO;
+        }
     // 外卖折扣
     } else if (self.mainInfo.type == 2) {
         HLProfitYMInfo *ymInfo = (HLProfitYMInfo *)self.editProfitInfo;
@@ -413,16 +438,21 @@
                 return NO;
             }
         }
-        [self.mainInfo configEditProfitGoodInfo];
+        return [self.mainInfo configEditProfitGoodInfo];
     }
-    HLLog(@"goodInfo = %@",[_editProfitInfo mj_JSONObject]);
     return YES;
 }
 
 #pragma mark - HLProfitOrderViewDelegate
 //添加或删除
-- (void)orderViewAdd:(BOOL)add allSource:(NSArray *)datasource {
-    [self cacluateOrderFooterFrame:datasource.count];
+- (void)orderViewAdd:(BOOL)add allSource:(NSArray *)datasource info:(HLProfitOrderInfo *)info{
+    if (!add && info.id.length > 0) {
+        if (self.mainInfo.editProfitInfo) {
+            HLProfitYMInfo *ymInfo = (HLProfitYMInfo *)self.mainInfo.editProfitInfo;
+            [ymInfo.disOutDelArr addObject:info.id];
+            ymInfo.disOutDel = [ymInfo.disOutDelArr componentsJoinedByString:@","];
+        }
+    }
 }
 
 #pragma mark - HLInputImagesViewCellDelegate
@@ -455,6 +485,25 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - HLRightInputViewCellDelegate
+
+- (void)inputViewCell:(HLRightInputViewCell *)cell textChanged:(HLRightInputTypeInfo *)inputInfo{
+    // 控制代金券的限额
+    if (self.mainInfo.type == 42 || self.mainInfo.type == 26) {
+        if ([inputInfo.saveKey isEqualToString:@"gainPrice"]) {
+            NSInteger index = [self.mainInfo.datasource indexOfObject:inputInfo];
+            // 获取到限额的那个info
+            HLRightInputTypeInfo *limitInfo = self.mainInfo.datasource[index + 1];
+            limitInfo.minInputNum = 0;
+            limitInfo.maxInputNum = inputInfo.text.doubleValue * 10;
+            if (limitInfo.text.doubleValue > limitInfo.maxInputNum) {
+                limitInfo.text = [NSString stringWithFormat:@"%ld",limitInfo.maxInputNum];
+            }
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index + 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.mainInfo.datasource.count;
@@ -472,6 +521,7 @@
             HLRightInputViewCell *cell = (HLRightInputViewCell *)[tableView hl_dequeueReusableCellWithIdentifier:@"HLRightInputViewCell" indexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.baseInfo = info;
+            cell.delegate = self;
             return cell;
             
         }break;
@@ -609,7 +659,7 @@
     [self.view addSubview:bottomView];
     UIButton *addBtn = [[UIButton alloc] init];
     [bottomView addSubview:addBtn];
-    [addBtn setTitle:_editProfitInfo?@"确定修改":@"确定添加" forState:UIControlStateNormal];
+    [addBtn setTitle:_editProfitInfo?@"确认修改":@"确定添加" forState:UIControlStateNormal];
     addBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
     [addBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [addBtn setBackgroundImage:[UIImage imageNamed:@"button_bag"] forState:UIControlStateNormal];
@@ -678,3 +728,5 @@
 }
 
 @end
+
+//gain    [{"disFirst":"9.5","storeMinus":0,"takeMinus":0,"gainType":3},{"disFirst":"9.5","disOut":[{"discount":"9.5","priceEnd":"80","id":"114003","priceStart":"70"},{"discount":"9.5","priceEnd":"500","id":"114017","priceStart":"121"},{"discount":"8","priceEnd":"120","id":"114016","priceStart":"81"}],"storeMinus":0,"takeMinus":0,"gainType":2}]

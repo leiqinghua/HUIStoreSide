@@ -92,6 +92,8 @@
         num.errorHint = @"请输入体验卡次数";
         num.needCheckParams = YES;
         num.canInput = YES;
+        num.maxInputNum = 100;
+        num.minInputNum = 1;
         num.keyBoardType = UIKeyboardTypeNumberPad;
         num.cellHeight = FitPTScreen(50);
         num.saveKey = @"gainNum";
@@ -157,6 +159,8 @@
         price.placeHoder = @"使用时优惠的金额";
         price.needCheckParams = YES;
         price.canInput = YES;
+        price.maxInputNum = 10000;
+        price.minInputNum = 0;
         price.keyBoardType = UIKeyboardTypeDecimalPad;
         price.cellHeight = FitPTScreen(50);
         price.saveKey = @"gainPrice";
@@ -168,10 +172,13 @@
         limit.rightText = @"元";
         limit.placeHoder = @"满多少元可使用券，可不填";
         limit.canInput = YES;
+        limit.maxInputNum = 100000;
+        limit.minInputNum = 0;
+        limit.canInputZero = YES;
         limit.keyBoardType = UIKeyboardTypeDecimalPad;
         limit.cellHeight = FitPTScreen(50);
-        limit.saveKey = @"limit";
-        limit.text = info?info.limit:@"";
+        limit.saveKey = @"limitPrice";
+        limit.text = info?info.limitPrice:@"";
         [_voucherSource addObject:limit];
         
         HLRightInputTypeInfo *num = [[HLRightInputTypeInfo alloc]init];
@@ -179,6 +186,8 @@
         num.placeHoder = @"请输入要赠送的数量";
         num.errorHint = @"请输入要赠送的数量";
         num.canInput = YES;
+        num.maxInputNum = 100;
+        num.minInputNum = 1;
         num.needCheckParams = YES;
         num.keyBoardType = UIKeyboardTypeNumberPad;
         num.cellHeight = FitPTScreen(50);
@@ -244,10 +253,11 @@
         numInfo.needCheckParams = YES;
         numInfo.type = HLInputCellRightEditNum;
         numInfo.rightTip = @"折";
-        numInfo.intMin = 0;
-        numInfo.dotMin = 1;
+        numInfo.minNum = 1.0;
+        numInfo.maxNum = 9.5;
+        
         numInfo.saveKey = @"gainPrice";
-        numInfo.text = info?info.gainPrice:@"0.1";
+        numInfo.text = info?info.gainPrice:@"1.0";
         numInfo.cellHeight = FitPTScreen(65);
         [_discountSource addObject:numInfo];
         
@@ -256,10 +266,13 @@
         price.rightText = @"元";
         price.placeHoder = @"满多少元可使用券，可不填";
         price.canInput = YES;
+        price.canInputZero = YES;
+        price.minInputNum = 0;
+        price.maxInputNum = 10000;
         price.keyBoardType = UIKeyboardTypeDecimalPad;
         price.cellHeight = FitPTScreen(50);
-        price.saveKey = @"limit";
-        price.text = info?info.limit:@"";
+        price.saveKey = @"limitPrice";
+        price.text = info?info.limitPrice:@"";
         [_discountSource addObject:price];
         
         HLRightInputTypeInfo *num = [[HLRightInputTypeInfo alloc]init];
@@ -267,6 +280,8 @@
         num.placeHoder = @"请输入要赠送的数量";
         num.errorHint = @"请输入要赠送的数量";
         num.canInput = YES;
+        num.minInputNum = 1;
+        num.maxInputNum = 100;
         num.needCheckParams = YES;
         num.keyBoardType = UIKeyboardTypeNumberPad;
         num.cellHeight = FitPTScreen(50);
@@ -343,6 +358,8 @@
         price.errorHint = @"请输入商品价值多少钱";
         price.canInput = YES;
         price.needCheckParams = YES;
+        price.minInputNum = 1;
+        price.maxInputNum = 10000;
         price.keyBoardType = UIKeyboardTypeDecimalPad;
         price.cellHeight = FitPTScreen(50);
         price.saveKey = @"gainPrice";
@@ -365,6 +382,8 @@
         num.errorHint = @"请输入要赠送的数量";
         num.canInput = YES;
         num.needCheckParams = YES;
+        num.minInputNum = 1;
+        num.maxInputNum = 100;
         num.keyBoardType = UIKeyboardTypeNumberPad;
         num.cellHeight = FitPTScreen(50);
         num.saveKey = @"gainNum";
@@ -425,6 +444,8 @@
         name.leftTip = @"* 赠送金额";
         name.placeHoder = @"请输入赠送外卖红包金额";
         name.errorHint = @"请输入赠送外卖红包金额";
+        name.minInputNum = 1;
+        name.maxInputNum = 10000;
         name.needCheckParams = YES;
         name.canInput = YES;
         name.rightText = @"元";
@@ -441,7 +462,7 @@
             HLProfitRedPacketGainInfo *gainInfo = gainInfos[i];
             HLRedPacketClassInfo *classInfo = [[HLRedPacketClassInfo alloc] init];
             classInfo.leftTip = gainInfo.title;
-            classInfo.text = gainInfo.discount;
+            classInfo.text = gainInfo.discount.length == 0 ? @"1" : gainInfo.discount;
             classInfo.class_id = gainInfo.class_id;
 //            classInfo.gain_id = gainInfo.gain_id;
             classInfo.type = HLInputRedPacketClassType;
@@ -601,6 +622,20 @@
             }
         }
     }
+    
+    if(_type == 41 || _type == 25){ // 打折券
+        HLProfitDiscountInfo *discountGoodInfo = (HLProfitDiscountInfo *)goodInfo;
+        if (discountGoodInfo.gainPrice.doubleValue < 1.0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return nil;
+        }
+        
+        if (discountGoodInfo.gainPrice.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能超出9.5折"];
+            return nil;
+        }
+    }
+    
     // 设置类型
     goodInfo.gainType = _type;
     // 如果是 21 或者 22，区分是首单还是月月
@@ -612,7 +647,7 @@
     return goodInfo;
 }
 
-- (void)configEditProfitGoodInfo {
+- (BOOL)configEditProfitGoodInfo {
     
     // 外卖红包和其他的不一样
     if (self.type == 61) {
@@ -652,6 +687,21 @@
         BOOL isOpen = [(HLProfitGiftInfo *)_editProfitInfo open];
         [(HLProfitGiftInfo *)_editProfitInfo setGainType: isOpen ? 22 : 21];
     }
+    
+    if(_type == 41 || _type == 25){ // 打折券
+        HLProfitDiscountInfo *discountGoodInfo = (HLProfitDiscountInfo *)_editProfitInfo;
+        if (discountGoodInfo.gainPrice.doubleValue < 1.0) {
+            [HLTools showWithText:@"折扣不能低于1折"];
+            return NO;
+        }
+        
+        if (discountGoodInfo.gainPrice.doubleValue > 9.5) {
+            [HLTools showWithText:@"折扣不能超出9.5折"];
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 - (NSMutableArray *)datasource {
