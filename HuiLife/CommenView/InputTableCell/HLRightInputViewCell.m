@@ -87,6 +87,17 @@
 }
 
 - (void)textFieldEditing:(UITextField *)sender{
+    
+    HLRightInputTypeInfo *info = (HLRightInputTypeInfo *)self.baseInfo;
+    if (info.maxInputNum > 0 && info.minInputNum >= 0 && sender.text.length > 0) {
+        if (sender.text.doubleValue > info.maxInputNum) {
+            sender.text = [NSString stringWithFormat:@"%ld",info.maxInputNum];
+        }
+        if (sender.text.doubleValue < info.minInputNum) {
+            sender.text = [NSString stringWithFormat:@"%ld",info.minInputNum];
+        }
+    }
+    
     self.baseInfo.text = sender.text;
     if ([self.delegate respondsToSelector:@selector(inputViewCell:textChanged:)]) {
         [self.delegate inputViewCell:self textChanged:(HLRightInputTypeInfo *)self.baseInfo];
@@ -134,7 +145,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    if (textField.keyboardType != UIKeyboardTypeDecimalPad) {
+    if (textField.keyboardType != UIKeyboardTypeDecimalPad && textField.keyboardType != UIKeyboardTypeNumberPad) {
         return YES;
     }
     
@@ -170,7 +181,8 @@
     }
     
     //限制只能输入：1234567890.
-    NSCharacterSet * characterSet = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890."] invertedSet];
+    
+    NSCharacterSet * characterSet = [[NSCharacterSet characterSetWithCharactersInString:textField.keyboardType == UIKeyboardTypeNumberPad ? @"1234567890" : @"1234567890."] invertedSet];
     NSString * filtered = [[string componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
     return [string isEqualToString:filtered];
 }

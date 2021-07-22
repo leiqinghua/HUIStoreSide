@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 //创建要添加的模型
 - (HLProfitGoodInfo *)createProfitGoodInfo;
 //获取编辑后的 模型
-- (void)configEditProfitGoodInfo;
+- (BOOL)configEditProfitGoodInfo;
 
 
 

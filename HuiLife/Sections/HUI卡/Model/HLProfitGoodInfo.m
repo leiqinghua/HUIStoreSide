@@ -15,7 +15,7 @@
 
 //要忽略的keys
 + (NSArray *)ignoredKeys {
-    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title"];
+    return @[@"discountAttr",@"cellHight",@"detailStr",@"gainTypeName",@"detailAttr",@"gainPriceAttr",@"title",@"disOutDelArr"];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
@@ -181,7 +181,7 @@
     if (!_disFirst.floatValue) {
         return [[NSAttributedString alloc]initWithString:@"无折扣" attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(14)]}];;
     }
-    NSString *text = [NSString stringWithFormat:@"%@折",_disFirst];
+    NSString *text = [NSString stringWithFormat:@"%.1lf折",_disFirst.doubleValue];
     NSRange disRange = [text rangeOfString:_disFirst];
     NSRange tipRange = NSMakeRange(disRange.length, 1);
     NSMutableAttributedString *mutarr = [[NSMutableAttributedString alloc]initWithString:text];
@@ -201,6 +201,15 @@
 @end
 
 @implementation HLProfitYMInfo
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.disOutDelArr = [NSMutableArray array];
+    }
+    return self;
+}
 
 //忽略互相转换的 key
 + (NSArray *)mj_ignoredPropertyNames {
@@ -231,17 +240,23 @@
     return _disFirst;
 }
 
+
 - (NSString *)detailStr {
-    NSMutableString *text = [[NSMutableString alloc]init];
-    for (HLProfitOrderInfo *info in self.disOut) {
-        NSInteger index = [self.disOut indexOfObject:info];
-        NSInteger ys = index % 2;
+    NSMutableString *text = [[NSMutableString alloc] init];
+    NSInteger maxCount = 6;
+    NSInteger limitCount = self.disOut.count > maxCount ? maxCount : self.disOut.count;
+    for (NSInteger i = 0; i < limitCount; i++) {
+        HLProfitOrderInfo *info = self.disOut[i];
+        NSInteger ys = i % 2;
         NSString *date = [NSString stringWithFormat:@"%@-%@元%@折",info.priceStart,info.priceEnd,info.discount];
         [text appendString:date];
+        if (self.disOut.count > limitCount && i + 1 == limitCount) {
+            [text appendString:@"..."];
+        }
         if (ys != 0) [text appendString:@"\n"];
-        if (ys == 0 && index != (self.disOut.count-1)) [text appendString:@"，"];
+        if (ys == 0 && i != (limitCount-1)) [text appendString:@"，"];
     }
-    if (self.disOut.count == 1 || self.disOut.count % 2) [text appendString:@"\n"];
+    if (self.disOut.count == 1 || limitCount % 2) [text appendString:@"\n"];
     return [text copy];
 }
 
@@ -353,8 +368,8 @@
 }
 
 - (NSString *)gainName {
-    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limit];
-    if (!_limit.floatValue) {
+    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limitPrice];
+    if (!_limitPrice.floatValue) {
         priceStr = @"无限制使用";
     }
     return priceStr;
@@ -369,8 +384,8 @@
 }
 
 - (NSAttributedString *)discountAttr {
-    NSString *text = [NSString stringWithFormat:@"%@折",_gainPrice];
-    NSRange disRange = [text rangeOfString:_gainPrice];
+    NSString *text = [NSString stringWithFormat:@"%.1lf折",_gainPrice.doubleValue];
+    NSRange disRange = [text rangeOfString:[NSString stringWithFormat:@"%.1lf",_gainPrice.doubleValue]];
     NSRange tipRange = NSMakeRange(disRange.length, 1);
     NSMutableAttributedString *mutarr = [[NSMutableAttributedString alloc]initWithString:text];
     [mutarr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(18)]} range:disRange];
@@ -397,8 +412,8 @@
 }
 
 - (NSString *)gainName {
-    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limit];
-    if (!_limit.floatValue) {
+    NSString *priceStr = [NSString stringWithFormat:@"满%@元使用",_limitPrice];
+    if (!_limitPrice.floatValue) {
         priceStr = @"无限制使用";
     }
     return priceStr;
@@ -462,28 +477,29 @@
 
 @implementation HLProfitOrderInfo
 
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"id":@"Id"};
-}
-
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _discountPlace = @"10";
+        _discountPlace = @"";
         _minPlace = @"0";
         _maxPlace = @"0";
     }
     return self;
 }
 
+//忽略互相转换的 key
++ (NSArray *)mj_ignoredPropertyNames {
+    return @[@"discountPlace",@"minPlace",@"maxPlace"];
+}
+
 - (BOOL)check {
-    if (_discount.floatValue > 10) {
-        [HLTools showWithText:@"最低折扣为10折"];
+    if (_discount.floatValue > 9.5) {
+        [HLTools showWithText:@"折扣不能超出9.5折"];
         return NO;
     }
     if (_discount.floatValue < 0.1) {
-        [HLTools showWithText:@"最高折扣为0.1折"];
+        [HLTools showWithText:@"折扣不能低于1折"];
         return NO;
     }
     

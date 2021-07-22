@@ -91,7 +91,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSArray<HLProfitOrderInfo *> *disOut;
 
+
+
 @property(nonatomic, strong) NSAttributedString *detailAttr;
+
+/// 存储删除的id
+@property (nonatomic, strong) NSMutableArray *disOutDelArr;
+/// 上报接口数据时，记录删除的id
+@property (nonatomic, copy) NSString *disOutDel;
 
 @end
 
@@ -113,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
 //权益金额
 @property(nonatomic, copy) NSString *gainPrice;
 //权益限额
-@property(nonatomic, copy) NSString *limit;
+@property(nonatomic, copy) NSString *limitPrice;
 //权益数量
 @property(nonatomic, assign) NSInteger gainNum;
 //有效期开始
@@ -131,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 //折扣
 @property(nonatomic, copy) NSString * gainPrice;
 //权益限额
-@property(nonatomic, copy) NSString *limit;
+@property(nonatomic, copy) NSString *limitPrice;
 //权益数量
 @property(nonatomic, assign) NSInteger gainNum;
 //有效期开始
@@ -187,6 +194,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //订单折扣 的 model
 @interface HLProfitOrderInfo : NSObject
+@property (nonatomic, copy) NSString *id;
 @property(nonatomic, copy) NSString *priceStart;//价格开始
 @property(nonatomic, copy) NSString *priceEnd;//价格结束
 @property(nonatomic, copy) NSString *discount;//折扣
@@ -194,7 +202,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *discountPlace;
 @property(nonatomic, copy) NSString *minPlace;
 @property(nonatomic, copy) NSString *maxPlace;
-@property(nonatomic, copy) NSString *Id;
 
 - (BOOL)check;
 

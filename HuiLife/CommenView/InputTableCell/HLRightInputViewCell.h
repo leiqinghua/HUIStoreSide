@@ -33,6 +33,10 @@
 
 @property (nonatomic, assign) BOOL rightClick;
 
+/// 最大输入值
+@property (nonatomic, assign) NSInteger maxInputNum;
+@property (nonatomic, assign) NSInteger minInputNum;
+
 @end
 
 
