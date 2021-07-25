@@ -11,6 +11,7 @@
 #import "HLSuccessView.h"
 #import "HLAreaSelectView.h"
 #import "HLCityJsonManager.h"
+#import "HLTypeSelectView.h"
 
 @interface HLNewRegisterController ()<UITableViewDelegate,UITableViewDataSource,HLRegisterViewCellDelegate>
 
@@ -29,6 +30,9 @@
 
 /// 缓存的地区数据
 @property (nonatomic, copy) NSArray *cacheAreaArr;
+
+/// 缓存的 type 数据
+@property (nonatomic, copy) NSArray <HLTypeModel *>*cacheTypeArr;
 
 @end
 
@@ -115,7 +119,44 @@
         }
     }];
     
+    // 加载分类数据
+    [self loadShopTypeDataWithFinishBlock:^(NSArray *models) {
+        
+    }];
 }
+
+- (void)loadShopTypeDataWithFinishBlock:(void(^)(NSArray *models))finish{
+    
+    if (self.cacheTypeArr.count > 0) {
+        if (finish) {
+            finish(self.cacheTypeArr);
+        }
+        return;
+    }
+    
+//    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest *request) {
+        request.api = @"/MerchantSideA/HuiCardSpreadBusClassN.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{};
+    } onSuccess:^(id responseObject) {
+        HLHideLoading(self.view);
+        // 处理数据
+        XMResult * result = (XMResult *)responseObject;
+        if(result.code == 200){
+            self.cacheTypeArr = [HLTypeModel mj_objectArrayWithKeyValuesArray:result.data];
+            if (finish) {
+                finish(self.cacheTypeArr);
+            }
+        }
+    } onFailure:^(NSError *error) {
+        HLHideLoading(self.view);
+    }];
+}
+
+//https://sapi.51huilife.cn/HuiLife_Api/MerchantSideA/HuiCardSpreadBusClassN.php
+
+//https://sapi.51huilife.cn/HuiLife_Api/MerchantSideA/HuiCardSpreadBusClassN.php
 
 
 /// 构建底部的view
@@ -188,6 +229,15 @@
             [HLAreaSelectView showCurrentSelectArea:@"" areas:cityData type:1 callBack:^(NSString *province, NSString *city, NSString *area, NSString *proId, NSString *cityId, NSString *areaId) {
                 model.text = [NSString stringWithFormat:@"%@-%@-%@",province,city,area];
                 model.pargram = @{@"country_code":areaId};
+                [self.tableView reloadData];
+            }];
+        }];
+    }else if([model.leftText isEqualToString:@"店铺类型"]){
+        
+        [self loadShopTypeDataWithFinishBlock:^(NSArray *models) {
+            [HLTypeSelectView showSelectViewWithArray:models selectBlock:^(NSString * _Nonnull oneTitle, NSString * _Nonnull twoTitle, NSString * _Nonnull oneId, NSString * _Nonnull twoId) {
+                model.text = [NSString stringWithFormat:@"%@-%@",oneTitle,twoTitle];
+                model.pargram = @{@"class_id":oneId,@"sub_class_id":twoId};
                 [self.tableView reloadData];
             }];
         }];
@@ -340,6 +390,15 @@
         city.needCheckParams = YES;
         _city = city;
         
+        HLInfoModel *type = [[HLInfoModel alloc]init];
+        type.leftPic = @"store_locate";
+        type.leftText = @"店铺类型";
+        type.placeHolder = @"请选择店铺类型";
+        type.canInput = false;
+        type.showArrow = YES;
+        type.errorHint = @"请选择店铺类型";
+        type.needCheckParams = YES;
+        
         HLInfoModel * phone = [[HLInfoModel alloc]init];
         phone.leftPic = @"store_phone";
         phone.leftText = @"手机号";
@@ -380,7 +439,7 @@
         modifyPass.errorHint = @"请再次输入账户密码";
         modifyPass.needCheckParams = YES;
         modifyPass.entry = YES;
-        _datasource = @[name,city,phone,yzm,pass,modifyPass];
+        _datasource = @[name,city,type,phone,yzm,pass,modifyPass];
     }
     return _datasource;
 }

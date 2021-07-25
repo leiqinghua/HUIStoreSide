@@ -646,6 +646,8 @@
 		B4AE255122F6C7ED001109E9 /* HLVoucherMarketAddHead.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AE255022F6C7ED001109E9 /* HLVoucherMarketAddHead.m */; };
 		B4AE255422F6D8A5001109E9 /* HLVoucherCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AE255322F6D8A5001109E9 /* HLVoucherCodeController.m */; };
 		B4AE255722F6DC72001109E9 /* HLVoucherCodeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AE255622F6DC72001109E9 /* HLVoucherCodeViewCell.m */; };
+		B4AFFC4B26ADA23A00079467 /* HLTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AFFC4A26ADA23A00079467 /* HLTypeModel.m */; };
+		B4AFFC4E26ADA31900079467 /* HLTypeSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AFFC4D26ADA31900079467 /* HLTypeSelectView.m */; };
 		B4BD0E69231FCDB900E47517 /* HLVoucherSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BD0E68231FCDB900E47517 /* HLVoucherSearchView.m */; };
 		B4BD0E6C231FDB0600E47517 /* HLHeXiaoPassSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BD0E6B231FDB0600E47517 /* HLHeXiaoPassSetController.m */; };
 		B4BE413E2319061800B2AEA2 /* HLStoreBuyMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BE413D2319061800B2AEA2 /* HLStoreBuyMainController.m */; };
@@ -1953,6 +1955,10 @@
 		B4AE255322F6D8A5001109E9 /* HLVoucherCodeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVoucherCodeController.m; sourceTree = "<group>"; };
 		B4AE255522F6DC72001109E9 /* HLVoucherCodeViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVoucherCodeViewCell.h; sourceTree = "<group>"; };
 		B4AE255622F6DC72001109E9 /* HLVoucherCodeViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVoucherCodeViewCell.m; sourceTree = "<group>"; };
+		B4AFFC4926ADA23A00079467 /* HLTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTypeModel.h; sourceTree = "<group>"; };
+		B4AFFC4A26ADA23A00079467 /* HLTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTypeModel.m; sourceTree = "<group>"; };
+		B4AFFC4C26ADA31900079467 /* HLTypeSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTypeSelectView.h; sourceTree = "<group>"; };
+		B4AFFC4D26ADA31900079467 /* HLTypeSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTypeSelectView.m; sourceTree = "<group>"; };
 		B4BD0E67231FCDB900E47517 /* HLVoucherSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVoucherSearchView.h; sourceTree = "<group>"; };
 		B4BD0E68231FCDB900E47517 /* HLVoucherSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVoucherSearchView.m; sourceTree = "<group>"; };
 		B4BD0E6A231FDB0600E47517 /* HLHeXiaoPassSetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHeXiaoPassSetController.h; sourceTree = "<group>"; };
@@ -4064,6 +4070,7 @@
 		9DFDF2DA20FC8D2F0081BC46 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				B4AFFC4826ADA22600079467 /* Model */,
 				9DFDF2DE20FC90A80081BC46 /* View */,
 				9DFDF2DB20FC90930081BC46 /* HLLoginController.h */,
 				9DFDF2DC20FC90930081BC46 /* HLLoginController.m */,
@@ -4092,6 +4099,8 @@
 				949CDF822315134900BDB144 /* HLRegisterViewCell.m */,
 				9466A82D23161ABB00725981 /* HLSuccessView.h */,
 				9466A82E23161ABB00725981 /* HLSuccessView.m */,
+				B4AFFC4C26ADA31900079467 /* HLTypeSelectView.h */,
+				B4AFFC4D26ADA31900079467 /* HLTypeSelectView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4928,6 +4937,15 @@
 			children = (
 				B483DC5923162EB1004EDA63 /* HLCaseListModel.h */,
 				B483DC5A23162EB1004EDA63 /* HLCaseListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B4AFFC4826ADA22600079467 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B4AFFC4926ADA23A00079467 /* HLTypeModel.h */,
+				B4AFFC4A26ADA23A00079467 /* HLTypeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5816,6 +5834,7 @@
 				9DE8A5DF22F6BE5B0034C4AF /* NSString+ALi.m in Sources */,
 				9D0608F42105835800644753 /* HLServiceDescripController.m in Sources */,
 				098529842630305C00D376C3 /* HLSetStoreModel.m in Sources */,
+				B4AFFC4E26ADA31900079467 /* HLTypeSelectView.m in Sources */,
 				9DE8A5D322F594920034C4AF /* HLMutableImageCell.m in Sources */,
 				94389A7323A79E0800A3EA81 /* HLOrderTitleView.m in Sources */,
 				943899E023A7923700A3EA81 /* HLBaseCollectionCell.m in Sources */,
@@ -5881,6 +5900,7 @@
 				B429ED8823795FFC00637FD5 /* CALayer+JPExtension.m in Sources */,
 				9DE8A68922FE56BE0034C4AF /* HLAlertAction.m in Sources */,
 				9DE8A67322FD1FF70034C4AF /* HLCardPromotionController.m in Sources */,
+				B4AFFC4B26ADA23A00079467 /* HLTypeModel.m in Sources */,
 				9DBF036F21A806DA00734669 /* HLNextAddPrinterController.m in Sources */,
 				B48E535722FD6C12006BFA58 /* HLSendOrderCodeListCell.m in Sources */,
 				B417A85B22FA647700011595 /* HLHotSekillDetailViewCell.m in Sources */,

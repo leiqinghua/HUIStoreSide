@@ -40,7 +40,7 @@
     _leftImgV = [[UIImageView alloc]init];
     [self.contentView addSubview:_leftImgV];
     [_leftImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(FitPTScreen(31));
+        make.left.equalTo(FitPTScreen(16));
         make.top.equalTo(FitPTScreen(27));
     }];
     
@@ -60,7 +60,7 @@
     _textField.tintColor = UIColorFromRGB(0xff8717);
     [self.contentView addSubview:_textField];
     [_textField makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(FitPTScreen(-27));
+        make.right.equalTo(FitPTScreen(-16));
         make.centerY.equalTo(self.leftLb);
         make.width.equalTo(FitPTScreen(150));
         make.height.equalTo(FitPTScreen(40));
