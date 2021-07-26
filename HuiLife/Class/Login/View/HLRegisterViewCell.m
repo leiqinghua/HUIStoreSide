@@ -39,9 +39,11 @@
 -(void)initView{
     _leftImgV = [[UIImageView alloc]init];
     [self.contentView addSubview:_leftImgV];
+    _leftImgV.contentMode = UIViewContentModeScaleAspectFit;
     [_leftImgV makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(FitPTScreen(16));
         make.top.equalTo(FitPTScreen(27));
+        make.size.equalTo(CGSizeMake(FitPTScreen(13), FitPTScreen(13)));
     }];
     
     _leftLb = [[UILabel alloc]init];

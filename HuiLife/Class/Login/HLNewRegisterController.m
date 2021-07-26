@@ -391,7 +391,7 @@
         _city = city;
         
         HLInfoModel *type = [[HLInfoModel alloc]init];
-        type.leftPic = @"store_locate";
+        type.leftPic = @"register_shop_type";
         type.leftText = @"店铺类型";
         type.placeHolder = @"请选择店铺类型";
         type.canInput = false;
