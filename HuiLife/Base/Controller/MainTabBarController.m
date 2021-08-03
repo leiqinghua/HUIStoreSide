@@ -38,13 +38,12 @@
     
     if (iOS13Later) {
            //未选中下的颜色(ios10以后才有)
-              UITabBar.appearance.unselectedItemTintColor = UIColorFromRGB(0x222222);
-              //选中下的颜色(代替selectedImageTintColor)
-              UITabBar.appearance.tintColor = UIColorFromRGB(0xFF8301);
-       }
-    HLNavigationController * orderNavi = [self controllerWithRoot:[HLNewOrderViewController new] normalImg:@"order_normal" selectImg:@"order_select" title:@"订单"];
+      UITabBar.appearance.unselectedItemTintColor = UIColorFromRGB(0x222222);
+      //选中下的颜色(代替selectedImageTintColor)
+      UITabBar.appearance.tintColor = UIColorFromRGB(0xFF8301);
+    }
     
-//    HLNavigationController * hotNavi = [self controllerWithRoot:[HLHotMainViewController new] normalImg:@"hot_normal" selectImg:@"hot_select" title:@"爆客推广"];
+    HLNavigationController * orderNavi = [self controllerWithRoot:[HLNewOrderViewController new] normalImg:@"order_normal" selectImg:@"order_select" title:@"订单"];
     
     HLNavigationController * homeNavi = [self controllerWithRoot:[HomeViewController new] normalImg:@"ht_normal" selectImg:@"ht_select" title:@"管理"];
     
@@ -57,7 +56,7 @@
     if ([[NSUserDefaults standardUserDefaults]boolForKey:Is_have_message]) {
         [self.tabBar showBadgeOnItemIndex:3];
     }
-//    默认打开爆客
+    // 默认打开管理
     [self setSelectedIndex:1];
 }
 
@@ -76,6 +75,7 @@
 }
 
 #pragma mark - Event
+
 - (void)storeProfitNotifiction:(NSNotification *)sender {
     HLNavigationController *navi = (HLNavigationController *)self.viewControllers.firstObject;
     HLNewOrderViewController *orderVC = (HLNewOrderViewController *)navi.viewControllers.firstObject;
@@ -88,6 +88,7 @@
     [self setSelectedIndex:0];
 }
 #pragma -UITabBarControllerDelegate
+
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
     if ([item.title isEqualToString:@"消息"]) {
         if ([self.tabBar isHaveBadge:2]) {
@@ -99,8 +100,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
-
 
 @end

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 
-//修改状态栏的颜色
+/// 修改状态栏的颜色
 -(void)hl_setStatuBarBackgroundColor:(UIColor *)color;
 
 /// 黑色提示框
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 隐藏loading
 - (void)hl_hideLoading;
 
-//恢复网络后回调方法(由子类实现)
+///恢复网络后回调方法(由子类实现)
 - (void)hl_resetNetworkForAction;
 
 - (void)hl_goback;
