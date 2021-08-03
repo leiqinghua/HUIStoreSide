@@ -124,6 +124,7 @@
     }else{
         self.progress = mainModel.progress;
     }
+    _videoBg.hidden = mainModel.video_duration.length == 0;
 }
 
 -(void)setProgress:(CGFloat)progress{
@@ -136,9 +137,4 @@
     
 }
 
-
-//-(void)setState:(NSString *)state{
-//    _state = state;
-//    _progressLb.text = state;
-//}
 @end

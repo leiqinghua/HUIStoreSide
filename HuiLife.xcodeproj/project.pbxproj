@@ -7,10 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090069462639498F0065C6E4 /* HLPushHistorySectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 090069452639498F0065C6E4 /* HLPushHistorySectionHeader.m */; };
 		096747422605D06C0025E6DF /* HLBuyCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747412605D06C0025E6DF /* HLBuyCardViewController.m */; };
 		096747492605D1FF0025E6DF /* HLBuyCardListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */; };
 		0970E643260A2B330013941A /* HLRedPacketClassViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */; };
+		097C41E22636662100D4C70E /* HLPushListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E12636662100D4C70E /* HLPushListViewController.m */; };
+		097C41E5263666A400D4C70E /* HLPushListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E4263666A400D4C70E /* HLPushListViewCell.m */; };
+		097C41E8263666D900D4C70E /* HLPushListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41E7263666D900D4C70E /* HLPushListModel.m */; };
+		097C41EB2636A2BC00D4C70E /* HLPushAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C41EA2636A2BC00D4C70E /* HLPushAddViewController.m */; };
+		097C42132636CFED00D4C70E /* HLPushHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C42122636CFEC00D4C70E /* HLPushHistoryViewController.m */; };
+		097C42162636D0AA00D4C70E /* HLPushHistoryHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */; };
+		097C42192636D0FA00D4C70E /* HLPushHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 097C42182636D0FA00D4C70E /* HLPushHistoryModel.m */; };
+		098529812630253900D376C3 /* HLSetShopControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529802630253900D376C3 /* HLSetShopControlView.m */; };
+		098529842630305C00D376C3 /* HLSetStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529832630305C00D376C3 /* HLSetStoreModel.m */; };
+		098529872630360A00D376C3 /* HLSetShopControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 098529862630360A00D376C3 /* HLSetShopControlCell.m */; };
 		09874913260605810043F2BB /* HLBuyCardBottomBuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */; };
+		0992DD712632B3A200F94DC5 /* HLVideoProductSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD702632B3A200F94DC5 /* HLVideoProductSelectController.m */; };
+		0992DD742632B76F00F94DC5 /* HLVideoProductListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD732632B76F00F94DC5 /* HLVideoProductListController.m */; };
+		0992DD772632C1B900F94DC5 /* HLVideoProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD762632C1B900F94DC5 /* HLVideoProductModel.m */; };
+		0992DD7A2632C23100F94DC5 /* HLVideoProductViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0992DD792632C23100F94DC5 /* HLVideoProductViewCell.m */; };
+		099466052635536200F3A641 /* HLVideoMarketPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 099466042635536200F3A641 /* HLVideoMarketPlayController.m */; };
 		09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */; };
 		09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */; };
 		2EED5CF4837C6B90C4C61C3D /* libPods-HuiLife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71912A473F109382F72211E1 /* libPods-HuiLife.a */; };
@@ -599,6 +615,10 @@
 		B472579C23151B0B00BB1A3A /* HLMatterNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = B472579B23151B0B00BB1A3A /* HLMatterNoteController.m */; };
 		B472579F2315253B00BB1A3A /* HLMatterNoteLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B472579E2315253B00BB1A3A /* HLMatterNoteLayout.m */; };
 		B47257A2231527B900BB1A3A /* HLMatterNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B47257A1231527B900BB1A3A /* HLMatterNoteCell.m */; };
+		B47721F52630636100998C26 /* HLVideoMarketHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721F42630636100998C26 /* HLVideoMarketHomeController.m */; };
+		B47721F8263063DA00998C26 /* HLVideoMarketListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721F7263063DA00998C26 /* HLVideoMarketListCell.m */; };
+		B47721FB2630645900998C26 /* HLVideoMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721FA2630645900998C26 /* HLVideoMarketModel.m */; };
+		B47721FE2630648500998C26 /* HLVideoMarketAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47721FD2630648500998C26 /* HLVideoMarketAddController.m */; };
 		B483DC5223161A89004EDA63 /* HLCollegeControlController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483DC5123161A89004EDA63 /* HLCollegeControlController.m */; };
 		B483DC5523161AA5004EDA63 /* HLCollegeCaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483DC5423161AA5004EDA63 /* HLCollegeCaseController.m */; };
 		B483DC5823161AB7004EDA63 /* HLCollegeFindController.m in Sources */ = {isa = PBXBuildFile; fileRef = B483DC5723161AB7004EDA63 /* HLCollegeFindController.m */; };
@@ -690,14 +710,46 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		090069442639498F0065C6E4 /* HLPushHistorySectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistorySectionHeader.h; sourceTree = "<group>"; };
+		090069452639498F0065C6E4 /* HLPushHistorySectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistorySectionHeader.m; sourceTree = "<group>"; };
 		096747402605D06C0025E6DF /* HLBuyCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardViewController.h; sourceTree = "<group>"; };
 		096747412605D06C0025E6DF /* HLBuyCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardViewController.m; sourceTree = "<group>"; };
 		096747472605D1FF0025E6DF /* HLBuyCardListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardListViewCell.h; sourceTree = "<group>"; };
 		096747482605D1FF0025E6DF /* HLBuyCardListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardListViewCell.m; sourceTree = "<group>"; };
 		0970E641260A2B330013941A /* HLRedPacketClassViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLRedPacketClassViewCell.h; sourceTree = "<group>"; };
 		0970E642260A2B330013941A /* HLRedPacketClassViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLRedPacketClassViewCell.m; sourceTree = "<group>"; };
+		097C41E02636662100D4C70E /* HLPushListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListViewController.h; sourceTree = "<group>"; };
+		097C41E12636662100D4C70E /* HLPushListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListViewController.m; sourceTree = "<group>"; };
+		097C41E3263666A400D4C70E /* HLPushListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListViewCell.h; sourceTree = "<group>"; };
+		097C41E4263666A400D4C70E /* HLPushListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListViewCell.m; sourceTree = "<group>"; };
+		097C41E6263666D900D4C70E /* HLPushListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushListModel.h; sourceTree = "<group>"; };
+		097C41E7263666D900D4C70E /* HLPushListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushListModel.m; sourceTree = "<group>"; };
+		097C41E92636A2BC00D4C70E /* HLPushAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushAddViewController.h; sourceTree = "<group>"; };
+		097C41EA2636A2BC00D4C70E /* HLPushAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushAddViewController.m; sourceTree = "<group>"; };
+		097C42112636CFEC00D4C70E /* HLPushHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistoryViewController.h; sourceTree = "<group>"; };
+		097C42122636CFEC00D4C70E /* HLPushHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistoryViewController.m; sourceTree = "<group>"; };
+		097C42142636D0AA00D4C70E /* HLPushHistoryHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistoryHeadView.h; sourceTree = "<group>"; };
+		097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistoryHeadView.m; sourceTree = "<group>"; };
+		097C42172636D0FA00D4C70E /* HLPushHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPushHistoryModel.h; sourceTree = "<group>"; };
+		097C42182636D0FA00D4C70E /* HLPushHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPushHistoryModel.m; sourceTree = "<group>"; };
+		0985297F2630253900D376C3 /* HLSetShopControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetShopControlView.h; sourceTree = "<group>"; };
+		098529802630253900D376C3 /* HLSetShopControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSetShopControlView.m; sourceTree = "<group>"; };
+		098529822630305C00D376C3 /* HLSetStoreModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetStoreModel.h; sourceTree = "<group>"; };
+		098529832630305C00D376C3 /* HLSetStoreModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSetStoreModel.m; sourceTree = "<group>"; };
+		098529852630360A00D376C3 /* HLSetShopControlCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSetShopControlCell.h; sourceTree = "<group>"; };
+		098529862630360A00D376C3 /* HLSetShopControlCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSetShopControlCell.m; sourceTree = "<group>"; };
 		09874911260605810043F2BB /* HLBuyCardBottomBuyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardBottomBuyView.h; sourceTree = "<group>"; };
 		09874912260605810043F2BB /* HLBuyCardBottomBuyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardBottomBuyView.m; sourceTree = "<group>"; };
+		0992DD6F2632B3A200F94DC5 /* HLVideoProductSelectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoProductSelectController.h; sourceTree = "<group>"; };
+		0992DD702632B3A200F94DC5 /* HLVideoProductSelectController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoProductSelectController.m; sourceTree = "<group>"; };
+		0992DD722632B76F00F94DC5 /* HLVideoProductListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoProductListController.h; sourceTree = "<group>"; };
+		0992DD732632B76F00F94DC5 /* HLVideoProductListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoProductListController.m; sourceTree = "<group>"; };
+		0992DD752632C1B900F94DC5 /* HLVideoProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoProductModel.h; sourceTree = "<group>"; };
+		0992DD762632C1B900F94DC5 /* HLVideoProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoProductModel.m; sourceTree = "<group>"; };
+		0992DD782632C23100F94DC5 /* HLVideoProductViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoProductViewCell.h; sourceTree = "<group>"; };
+		0992DD792632C23100F94DC5 /* HLVideoProductViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoProductViewCell.m; sourceTree = "<group>"; };
+		099466032635536200F3A641 /* HLVideoMarketPlayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketPlayController.h; sourceTree = "<group>"; };
+		099466042635536200F3A641 /* HLVideoMarketPlayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketPlayController.m; sourceTree = "<group>"; };
 		09A14A4F2605E7BD00171F0D /* HLBuyCardPackageViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageViewCell.h; sourceTree = "<group>"; };
 		09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageViewCell.m; sourceTree = "<group>"; };
 		09A14A562605EB1C00171F0D /* HLBuyCardPackageItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageItemView.h; sourceTree = "<group>"; };
@@ -1835,6 +1887,14 @@
 		B472579E2315253B00BB1A3A /* HLMatterNoteLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLMatterNoteLayout.m; sourceTree = "<group>"; };
 		B47257A0231527B900BB1A3A /* HLMatterNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLMatterNoteCell.h; sourceTree = "<group>"; };
 		B47257A1231527B900BB1A3A /* HLMatterNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLMatterNoteCell.m; sourceTree = "<group>"; };
+		B47721F32630636100998C26 /* HLVideoMarketHomeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketHomeController.h; sourceTree = "<group>"; };
+		B47721F42630636100998C26 /* HLVideoMarketHomeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketHomeController.m; sourceTree = "<group>"; };
+		B47721F6263063DA00998C26 /* HLVideoMarketListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketListCell.h; sourceTree = "<group>"; };
+		B47721F7263063DA00998C26 /* HLVideoMarketListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketListCell.m; sourceTree = "<group>"; };
+		B47721F92630645900998C26 /* HLVideoMarketModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketModel.h; sourceTree = "<group>"; };
+		B47721FA2630645900998C26 /* HLVideoMarketModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketModel.m; sourceTree = "<group>"; };
+		B47721FC2630648500998C26 /* HLVideoMarketAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVideoMarketAddController.h; sourceTree = "<group>"; };
+		B47721FD2630648500998C26 /* HLVideoMarketAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVideoMarketAddController.m; sourceTree = "<group>"; };
 		B483DC5023161A89004EDA63 /* HLCollegeControlController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLCollegeControlController.h; sourceTree = "<group>"; };
 		B483DC5123161A89004EDA63 /* HLCollegeControlController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLCollegeControlController.m; sourceTree = "<group>"; };
 		B483DC5323161AA5004EDA63 /* HLCollegeCaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLCollegeCaseController.h; sourceTree = "<group>"; };
@@ -2005,6 +2065,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		097C40E92636639B00D4C70E /* 我的推送 */ = {
+			isa = PBXGroup;
+			children = (
+				097C40EC263663B600D4C70E /* Model */,
+				097C40EB263663AE00D4C70E /* View */,
+				097C40EA263663A500D4C70E /* Controller */,
+			);
+			path = "我的推送";
+			sourceTree = "<group>";
+		};
+		097C40EA263663A500D4C70E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				097C41E02636662100D4C70E /* HLPushListViewController.h */,
+				097C41E12636662100D4C70E /* HLPushListViewController.m */,
+				097C41E92636A2BC00D4C70E /* HLPushAddViewController.h */,
+				097C41EA2636A2BC00D4C70E /* HLPushAddViewController.m */,
+				097C42112636CFEC00D4C70E /* HLPushHistoryViewController.h */,
+				097C42122636CFEC00D4C70E /* HLPushHistoryViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		097C40EB263663AE00D4C70E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				097C41E3263666A400D4C70E /* HLPushListViewCell.h */,
+				097C41E4263666A400D4C70E /* HLPushListViewCell.m */,
+				097C42142636D0AA00D4C70E /* HLPushHistoryHeadView.h */,
+				097C42152636D0AA00D4C70E /* HLPushHistoryHeadView.m */,
+				090069442639498F0065C6E4 /* HLPushHistorySectionHeader.h */,
+				090069452639498F0065C6E4 /* HLPushHistorySectionHeader.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		097C40EC263663B600D4C70E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				097C41E6263666D900D4C70E /* HLPushListModel.h */,
+				097C41E7263666D900D4C70E /* HLPushListModel.m */,
+				097C42172636D0FA00D4C70E /* HLPushHistoryModel.h */,
+				097C42182636D0FA00D4C70E /* HLPushHistoryModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2BDFA2F11497C2FC7CA27385 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2323,6 +2430,8 @@
 		9427E2CD20F6525100F5AC43 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				097C40E92636639B00D4C70E /* 我的推送 */,
+				B47721EF2630631600998C26 /* 短视频营销 */,
 				946AC12825621D3200A545D0 /* 红包推广 */,
 				941CC9A9255A307600D16307 /* 竞业管理 */,
 				945A1876251997E600DE16BF /* HUI卡 */,
@@ -3509,6 +3618,8 @@
 				9DE8A5C922F57C880034C4AF /* HLBaseInputModel.m */,
 				94B28A84230528E5009D651A /* HLMarketMainModel.h */,
 				94B28A85230528E5009D651A /* HLMarketMainModel.m */,
+				098529822630305C00D376C3 /* HLSetStoreModel.h */,
+				098529832630305C00D376C3 /* HLSetStoreModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3538,6 +3649,10 @@
 				B4A3A1882340C1C800737280 /* HLAddressListCell.m */,
 				94295FD8234F2AC300203C74 /* HLSetVideoTableCell.h */,
 				94295FD9234F2AC300203C74 /* HLSetVideoTableCell.m */,
+				0985297F2630253900D376C3 /* HLSetShopControlView.h */,
+				098529802630253900D376C3 /* HLSetShopControlView.m */,
+				098529852630360A00D376C3 /* HLSetShopControlCell.h */,
+				098529862630360A00D376C3 /* HLSetShopControlCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4706,6 +4821,55 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B47721EF2630631600998C26 /* 短视频营销 */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F22630632E00998C26 /* Model */,
+				B47721F12630632700998C26 /* View */,
+				B47721F02630632000998C26 /* Controller */,
+			);
+			path = "短视频营销";
+			sourceTree = "<group>";
+		};
+		B47721F02630632000998C26 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F32630636100998C26 /* HLVideoMarketHomeController.h */,
+				B47721F42630636100998C26 /* HLVideoMarketHomeController.m */,
+				099466032635536200F3A641 /* HLVideoMarketPlayController.h */,
+				099466042635536200F3A641 /* HLVideoMarketPlayController.m */,
+				B47721FC2630648500998C26 /* HLVideoMarketAddController.h */,
+				B47721FD2630648500998C26 /* HLVideoMarketAddController.m */,
+				0992DD6F2632B3A200F94DC5 /* HLVideoProductSelectController.h */,
+				0992DD702632B3A200F94DC5 /* HLVideoProductSelectController.m */,
+				0992DD722632B76F00F94DC5 /* HLVideoProductListController.h */,
+				0992DD732632B76F00F94DC5 /* HLVideoProductListController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B47721F12630632700998C26 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F6263063DA00998C26 /* HLVideoMarketListCell.h */,
+				B47721F7263063DA00998C26 /* HLVideoMarketListCell.m */,
+				0992DD782632C23100F94DC5 /* HLVideoProductViewCell.h */,
+				0992DD792632C23100F94DC5 /* HLVideoProductViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B47721F22630632E00998C26 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B47721F92630645900998C26 /* HLVideoMarketModel.h */,
+				B47721FA2630645900998C26 /* HLVideoMarketModel.m */,
+				0992DD752632C1B900F94DC5 /* HLVideoProductModel.h */,
+				0992DD762632C1B900F94DC5 /* HLVideoProductModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B483DC4C23161A5E004EDA63 /* College(商家学院) */ = {
 			isa = PBXGroup;
 			children = (
@@ -5278,6 +5442,7 @@
 				9465AB7424C9562900FF0981 /* HLOrderQrcodeView.m in Sources */,
 				943899E923A79A3500A3EA81 /* UILabel+HLExtension.m in Sources */,
 				B4175B1922F7D4520079909F /* HLVoucherCodeInfo.m in Sources */,
+				098529872630360A00D376C3 /* HLSetShopControlCell.m in Sources */,
 				B417A86722FAA18200011595 /* HLHotSekillImageModel.m in Sources */,
 				9DF7AC34210C18B5004C90DC /* JYEqualCellSpaceFlowLayout.m in Sources */,
 				B4175B2B22F7FCDE0079909F /* MMScanView.m in Sources */,
@@ -5290,6 +5455,7 @@
 				B472579F2315253B00BB1A3A /* HLMatterNoteLayout.m in Sources */,
 				B415FC212317A18100F4331D /* HLPlayManager.m in Sources */,
 				9DE8A66C22FD080B0034C4AF /* AppDelegate+Network.m in Sources */,
+				099466052635536200F3A641 /* HLVideoMarketPlayController.m in Sources */,
 				B41ED7BF239F8B4700D730D1 /* HLImagePickerConfig.m in Sources */,
 				94536FAA238BB8AE00DE1A89 /* HLDisplayCollectionCell.m in Sources */,
 				B438868F2303A10D00CE25A2 /* HLSekillPromoteListModel.m in Sources */,
@@ -5332,6 +5498,7 @@
 				B4AE254E22F6BDEB001109E9 /* HLRightImageViewCell.m in Sources */,
 				B4FCAA6322F43BFC0053EA41 /* HLVoucherMarketAddController.m in Sources */,
 				9DE70D352101802300B52862 /* HLYGManagerController.m in Sources */,
+				097C42192636D0FA00D4C70E /* HLPushHistoryModel.m in Sources */,
 				B42AA17B23603005000BBF97 /* HLHotBuyListModel.m in Sources */,
 				9456D8C32431BD4600B2BB4C /* HLTradeTimeTableCell.m in Sources */,
 				B4239A0523CF04EF00CF0B2C /* HLPickUpMoneyViewCell.m in Sources */,
@@ -5372,6 +5539,7 @@
 				B431840D23507E910080B21C /* HLCardProductController.m in Sources */,
 				946B8A2D25060D2700436B3A /* HLExportViewController.m in Sources */,
 				946471192563BFEE002C2218 /* HLDayDealGoodInfo.m in Sources */,
+				097C41EB2636A2BC00D4C70E /* HLPushAddViewController.m in Sources */,
 				B4F126672355B1D300B0D72B /* HLGuideLayout.m in Sources */,
 				9D6372BA2148F56800F791C1 /* UITabBar+HLBadge.m in Sources */,
 				9D6372C8214920A600F791C1 /* HLMessageDetailViewCell.m in Sources */,
@@ -5392,6 +5560,7 @@
 				9DFDF2EF20FDD8620081BC46 /* HLForgetAdminNumController.m in Sources */,
 				9D8A448E22278DE000D6DCC4 /* LZAddressPickerView.m in Sources */,
 				9D56695323040ACE00B97EA6 /* HLGroupViewController.m in Sources */,
+				0992DD772632C1B900F94DC5 /* HLVideoProductModel.m in Sources */,
 				B428FE1B22FE61B700256258 /* HLSendOrderCodeInputInfo.m in Sources */,
 				B4FCAA6022F435EE0053EA41 /* NSObject+HLExtension.m in Sources */,
 				B47257932314FFDC00BB1A3A /* HLMatterHeadView.m in Sources */,
@@ -5405,6 +5574,7 @@
 				9DBF036621A7B08700734669 /* HLBlueToothSetingController.m in Sources */,
 				9DFDF2E720FD886B0081BC46 /* HLListView.m in Sources */,
 				94341D23235715B800152C26 /* HLOPtionDescController.m in Sources */,
+				B47721FB2630645900998C26 /* HLVideoMarketModel.m in Sources */,
 				9DE8A5A822F52B9C0034C4AF /* HLMarketController.m in Sources */,
 				B417CF1C22FAD7450057A513 /* HLAreaSelectView.m in Sources */,
 				9D56694C2302B40D00B97EA6 /* HLStoreSelectViewCell.m in Sources */,
@@ -5415,6 +5585,7 @@
 				9D70348B22F1264A003B14FD /* HLBaseViewController.m in Sources */,
 				94695065255BD48E00BE8774 /* HLCompeteUpCollectionCell.m in Sources */,
 				9D6372BF2148FDDC00F791C1 /* HLMessageHeaderView.m in Sources */,
+				090069462639498F0065C6E4 /* HLPushHistorySectionHeader.m in Sources */,
 				9DE8A64E22FBD6040034C4AF /* HLAddCardController.m in Sources */,
 				B415FC202317A18100F4331D /* ZFAVPlayerManager.m in Sources */,
 				9DBF035621A6492B00734669 /* HLPrinterSetModel.m in Sources */,
@@ -5434,6 +5605,7 @@
 				94389A5C23A79E0800A3EA81 /* HLSubOrderLayout.m in Sources */,
 				94695068255BDCBE00BE8774 /* HLCompeteDownController.m in Sources */,
 				9470F1F0237AA31F004EF76F /* HLCardPromoteType.m in Sources */,
+				097C42132636CFED00D4C70E /* HLPushHistoryViewController.m in Sources */,
 				9DBF035C21A66CFB00734669 /* HLPrinterHeaderView.m in Sources */,
 				9D25F0EA2238D40200577ADE /* UITableViewCell+HLConfiger.m in Sources */,
 				943DB909242355F900301CBA /* HLHotListModel.m in Sources */,
@@ -5495,6 +5667,7 @@
 				9466A82F23161ABB00725981 /* HLSuccessView.m in Sources */,
 				945A18A5251C849000DE16BF /* HLAddProfitController.m in Sources */,
 				9DE8A66622FD06FF0034C4AF /* XMRequest.m in Sources */,
+				097C42162636D0AA00D4C70E /* HLPushHistoryHeadView.m in Sources */,
 				9456D8C62431D2EF00B2BB4C /* HLSellModel.m in Sources */,
 				B4176A7122F9538600CF277F /* HLHotSekillGoodModel.m in Sources */,
 				9DEC532A219D6CCE00CB0D5C /* HLFilterView.m in Sources */,
@@ -5502,6 +5675,7 @@
 				9456D8C024319EBE00B2BB4C /* HLTradeDayTableCell.m in Sources */,
 				B4166EB22327433A009371CE /* HLWithDrawalMainController.m in Sources */,
 				945A31AC24725EED0097464D /* HLDeliveryFeeSetController.m in Sources */,
+				098529812630253900D376C3 /* HLSetShopControlView.m in Sources */,
 				B42AA17523602E55000BBF97 /* HLHotBuyImageController.m in Sources */,
 				9DE8A62C22F94B660034C4AF /* HLRuleDescTableCell.m in Sources */,
 				94547A4923FA79A80019B9DD /* HLHotMainViewController.m in Sources */,
@@ -5532,6 +5706,7 @@
 				9D61568F21783A39005B96E2 /* HLStaffModel.m in Sources */,
 				B4BE4144231906B200B2AEA2 /* HLStoreMoneyFootView.m in Sources */,
 				943DB9062423077300301CBA /* HLHotClass.m in Sources */,
+				0992DD7A2632C23100F94DC5 /* HLVideoProductViewCell.m in Sources */,
 				94389A6E23A79E0800A3EA81 /* HLRefundReasonView.m in Sources */,
 				9D804C5A21A5563D00677C51 /* HLBuniessAlertView.m in Sources */,
 				B4AE255722F6DC72001109E9 /* HLVoucherCodeViewCell.m in Sources */,
@@ -5540,6 +5715,7 @@
 				9D6372B72148EDB100F791C1 /* HLMessageViewController.m in Sources */,
 				B4933D5F236963F500546093 /* HLHotBuyKindModel.m in Sources */,
 				9D6372C52149117900F791C1 /* HLMessageDetailController.m in Sources */,
+				097C41E22636662100D4C70E /* HLPushListViewController.m in Sources */,
 				9D25F13722438FD800577ADE /* HLCalanderWeekView.m in Sources */,
 				B47257992315071E00BB1A3A /* HLMatterMainInfo.m in Sources */,
 				B4239A0823CF04FC00CF0B2C /* HLPickUpGoodViewCell.m in Sources */,
@@ -5578,6 +5754,7 @@
 				B4176A6E22F9536700CF277F /* HLHotSekillListViewCell.m in Sources */,
 				B4495A31231D1BD6004D3798 /* HLVoucherBankSelectCell.m in Sources */,
 				946328372533401A00C08740 /* HLExportRecordCell.m in Sources */,
+				0992DD742632B76F00F94DC5 /* HLVideoProductListController.m in Sources */,
 				9464711625637E86002C2218 /* HLDayDealGoodTableCell.m in Sources */,
 				94389A7223A79E0800A3EA81 /* HLTKResonView.m in Sources */,
 				9DFFC05521D3332700C26E7B /* HLFinanceButton.m in Sources */,
@@ -5585,14 +5762,17 @@
 				942960F723570ABD00203C74 /* HLHelpCenterController.m in Sources */,
 				945A189C251B411400DE16BF /* HLHUIAddController.m in Sources */,
 				B41ED7C3239F8BF500D730D1 /* HLImagePickerManager.m in Sources */,
+				B47721F52630636100998C26 /* HLVideoMarketHomeController.m in Sources */,
 				941F89002591FD48005AD408 /* HLReviewCheckController.m in Sources */,
 				9464711C25650C07002C2218 /* HLRedBagInfo.m in Sources */,
 				B4495A2E231D1B9F004D3798 /* HLVoucherBankInfo.m in Sources */,
 				9465AB7A24CADE6A00FF0981 /* HLAccount.m in Sources */,
+				097C41E8263666D900D4C70E /* HLPushListModel.m in Sources */,
 				946D4DAA2374126200ECEF41 /* HLCalculateDiscountView.m in Sources */,
 				B4495A28231D13C9004D3798 /* HLVoucherBankQueryController.m in Sources */,
 				946AC134256255D700A545D0 /* HLRedBagAddController.m in Sources */,
 				B4F1266A2355D0FC00B0D72B /* HLHomeGuideInfo.m in Sources */,
+				097C41E5263666A400D4C70E /* HLPushListViewCell.m in Sources */,
 				9DFFC02E21CCBCBC00C26E7B /* HLCalendarHearder.m in Sources */,
 				943DB903242302D300301CBA /* HLHotControllerHelper.m in Sources */,
 				9432DB602300675A007E403E /* HLMineFooterView.m in Sources */,
@@ -5629,12 +5809,14 @@
 				9D44801521A4FEDD00E4E1D6 /* HLMineHeaderView.m in Sources */,
 				9DE8A5DF22F6BE5B0034C4AF /* NSString+ALi.m in Sources */,
 				9D0608F42105835800644753 /* HLServiceDescripController.m in Sources */,
+				098529842630305C00D376C3 /* HLSetStoreModel.m in Sources */,
 				9DE8A5D322F594920034C4AF /* HLMutableImageCell.m in Sources */,
 				94389A7323A79E0800A3EA81 /* HLOrderTitleView.m in Sources */,
 				943899E023A7923700A3EA81 /* HLBaseCollectionCell.m in Sources */,
 				9D56694923029AEB00B97EA6 /* HLCustomField.m in Sources */,
 				9473CB8B2508DC9400306B72 /* HLCustomerInfo.m in Sources */,
 				945A1896251AEEA000DE16BF /* HLHUIMainTableCell.m in Sources */,
+				0992DD712632B3A200F94DC5 /* HLVideoProductSelectController.m in Sources */,
 				B47257962315067900BB1A3A /* HLMatterItemViewCell.m in Sources */,
 				9D56693D23010E0400B97EA6 /* HLPrinterModelViewCell.m in Sources */,
 				ABE6359E2153594C00F20CCA /* HLAreaCache.m in Sources */,
@@ -5659,6 +5841,7 @@
 				9DE8A62622F916970034C4AF /* HLRuleDescViewCell.m in Sources */,
 				B415FC292317A18100F4331D /* ZFPlayerControlView.m in Sources */,
 				9DFFBFFA21CC92B400C26E7B /* NSDate+HLCalendar.m in Sources */,
+				B47721FE2630648500998C26 /* HLVideoMarketAddController.m in Sources */,
 				B42EBCFF23A0FB8B00EA2A1F /* HLImageRequestOperation.m in Sources */,
 				B428FE2222FE6AE700256258 /* HLPayPromoteController.m in Sources */,
 				B41E38D5230252590014DECF /* HLBaseUploadModel.m in Sources */,
@@ -5736,6 +5919,7 @@
 				B4FCAA5D22F4317E0053EA41 /* HLVoucherMarketFuncCell.m in Sources */,
 				B483DC5223161A89004EDA63 /* HLCollegeControlController.m in Sources */,
 				9DB1D6322249CC8600B09E41 /* HLBaseDateModel.m in Sources */,
+				B47721F8263063DA00998C26 /* HLVideoMarketListCell.m in Sources */,
 				9DE8A5A122F4455D0034C4AF /* HLHomeHeaderView.m in Sources */,
 				B41ED7C9239F970000D730D1 /* HLImageAlbumController.m in Sources */,
 				941CC9B5255A45E100D16307 /* HLCompeteUpController.m in Sources */,
@@ -6010,7 +6194,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuiLife/HuiLife.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = KCP6438BT4;
@@ -6028,7 +6212,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6047,7 +6231,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuiLife/HuiLife.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = KCP6438BT4;
@@ -6065,7 +6249,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6135,7 +6319,7 @@
 				CODE_SIGN_ENTITLEMENTS = HLNotificationExtension/HLNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6153,7 +6337,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
@@ -6172,7 +6356,7 @@
 				CODE_SIGN_ENTITLEMENTS = HLNotificationExtension/HLNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KCP6438BT4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6190,7 +6374,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;

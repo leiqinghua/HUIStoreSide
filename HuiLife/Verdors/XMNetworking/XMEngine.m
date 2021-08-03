@@ -574,6 +574,7 @@ static OSStatus XMExtractIdentityAndTrustFromPKCS12(CFDataRef inPKCS12Data, CFSt
         _securitySessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:nil];
         _securitySessionManager.responseSerializer = self.afHTTPResponseSerializer;
         _securitySessionManager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+        [_securitySessionManager.securityPolicy setValidatesDomainName:NO];
         _securitySessionManager.operationQueue.maxConcurrentOperationCount = 5;
         _securitySessionManager.completionQueue = xm_request_completion_callback_queue();
     }

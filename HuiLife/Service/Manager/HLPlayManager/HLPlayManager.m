@@ -8,17 +8,14 @@
 
 #import "HLPlayManager.h"
 
-#import <ZFPlayer/ZFPlayer.h>
-#import "ZFAVPlayerManager.h"
-#import "ZFPlayerControlView.h"
+
 #import "UIImageView+ZFCache.h"
 #import "ZFUtilities.h"
 
 @interface HLPlayManager ()
 
-@property (nonatomic, strong) ZFPlayerController *player;
+
 @property (nonatomic, strong) UIImageView *containerView;
-@property (nonatomic, strong) ZFPlayerControlView *controlView;
 
 @property (nonatomic, copy) NSString *videoUrl;
 @property (nonatomic, copy) NSString *preImgUrl;

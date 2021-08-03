@@ -47,7 +47,7 @@
     HLBaseUploadModel *imageModel = [[HLBaseUploadModel alloc] init];
     imageModel.image = image;
     imageModel.saveName = @"ul";
-    imageModel.postParams = @{@"type" : @"1"};
+    imageModel.postParams = @{@"type" : @"1",@"storeId":self.storeId?:@""};
     imageModel.uploadedImgUrlKey = @"imgPath";
     imageModel.requestApi = @"/MerchantSide/UploadImage.php?dev=1";
     return imageModel;
@@ -59,7 +59,7 @@
     }
     HLBaseUploadModel *imageModel = [[HLBaseUploadModel alloc] init];
     imageModel.saveName = @"ul";
-    imageModel.postParams = @{@"type" : @"1"};
+    imageModel.postParams = @{@"type" : @"1",@"storeId":self.storeId?:@""};
     imageModel.uploadedImgUrlKey = @"imgPath";
     imageModel.requestApi = @"/MerchantSide/UploadImage.php?dev=1";
     imageModel.imgUrl = pic;
@@ -109,7 +109,7 @@
     [XMCenter sendRequest:^(XMRequest *request) {
         request.api = @"/MerchantSide/UpdateStoreAlbum.php?dev=1";
         request.serverType = HLServerTypeNormal;
-        request.parameters = @{@"logo":logo?:@"",@"album":[album mj_JSONString]};
+        request.parameters = @{@"logo":logo?:@"",@"album":[album mj_JSONString],@"storeId":self.storeId?:@""};
     } onSuccess:^(id responseObject) {
         HLHideLoading(self.view);
         XMResult * result = (XMResult *)responseObject;
@@ -140,7 +140,9 @@
     [self initCancel];
     [self creatFootView];
     
-    _singleImgModel = [self imageModelWithData:@{@"id":@"",@"imgPath":_storePic} pic:_storePic];
+    if (_storePic.length > 0) {
+        _singleImgModel = [self imageModelWithData:@{@"id":@"",@"imgPath":_storePic} pic:_storePic];
+    }
     
     [self loadDefaultDatas];
     
@@ -337,11 +339,12 @@
 }
 
 -(void)loadDefaultDatas{
+//https://sapi.51huilife.cn/HuiLife_Api/MerchantSide/BusinessAlbum.php?dev=1
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest *request) {
         request.api = @"/MerchantSide/BusinessAlbum.php?dev=1";
         request.serverType = HLServerTypeNormal;
-        request.parameters = @{};
+        request.parameters = @{@"storeId":self.storeId?:@""};
     } onSuccess:^(id responseObject) {
         HLHideLoading(self.view);
         // 处理数据

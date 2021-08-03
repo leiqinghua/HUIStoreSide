@@ -71,7 +71,7 @@
 //设置
 - (void)setBtnClick {
 //#if DEBUG
-//    [HLTools pushAppPageLink:@"HLRedBagListController" params:@{} needBack:NO];
+//    [HLTools pushAppPageLink:@"HLPushListViewController" params:@{} needBack:NO];
 //#else
     HLSetViewController *setVC = [[HLSetViewController alloc] init];
     [self hl_pushToController:setVC];

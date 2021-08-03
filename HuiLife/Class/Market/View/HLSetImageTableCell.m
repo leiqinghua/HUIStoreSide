@@ -66,7 +66,6 @@
     _numLb = [[UILabel alloc]init];
     _numLb.textColor = UIColorFromRGB(0xFFFFFF);
     _numLb.font = [UIFont systemFontOfSize:FitPTScreen(11)];
-    _numLb.text = @"2";
     _numLb.layer.cornerRadius = 8;
     _numLb.layer.masksToBounds = YES;
     _numLb.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
@@ -90,8 +89,9 @@
 
 -(void)setMainModel:(HLSetModel *)mainModel{
     _mainModel = mainModel;
-    [_imgV sd_setImageWithURL:[NSURL URLWithString:mainModel.pic] placeholderImage:[UIImage imageNamed:@"logo_list_default"]];
     _numLb.text = [NSString stringWithFormat:@"%ld",mainModel.imageCnt];
+    _numLb.hidden = mainModel.imageCnt == 0;
+    [_imgV sd_setImageWithURL:[NSURL URLWithString:mainModel.pic] placeholderImage:[UIImage imageNamed:@"logo_list_default"]];
 }
 
 

@@ -132,7 +132,7 @@
     [saveButton setBackgroundImage:[UIImage imageNamed:@"voucher_bottom_btn"] forState:UIControlStateNormal];
     [saveButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(FitPTScreen(0));
+        make.top.equalTo(FitPTScreen(-10));
         make.width.equalTo(FitPTScreen(307));
         make.height.equalTo(FitPTScreen(72));
     }];
@@ -298,7 +298,7 @@
         if(result.code == 200){
             NSDictionary * dict = result.data;
             if (dict.count) {
-                if (dict[@"areaId"]) {
+                if(dict[@"areaId"]){
                     self.city.text = [NSString stringWithFormat:@"%@-%@-%@",dict[@"province"],dict[@"city"],dict[@"area"]];
                     self.city.pargram = @{@"country_code":dict[@"areaId"]?:@""};
                 }
