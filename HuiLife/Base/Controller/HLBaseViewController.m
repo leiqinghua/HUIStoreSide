@@ -10,9 +10,9 @@
 
 @interface HLBaseViewController ()
 
-@property(nonatomic,strong)UIButton * backBtn;
+@property(nonatomic,strong) UIButton *backBtn;
 
-@property(nonatomic,strong)UIView * backView;
+@property(nonatomic,strong) UIView *backView;
 
 @property (strong, nonatomic) HLNetWorkFailView *failView;
 
@@ -32,17 +32,6 @@
     }
     // 页面进入时，改变状态栏类型
     [self setNeedsStatusBarAppearanceUpdate];
-    
-}
-
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return self.statusBarStyle;
-}
-
-/// 改变状态栏的样式
-- (void)hl_resetStatusBarStyle:(UIStatusBarStyle)barStyle{
-    self.statusBarStyle = barStyle;
-    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewDidLoad {
@@ -56,27 +45,18 @@
     self.view.backgroundColor = UIColor.whiteColor;
 }
 
-- (void)initBackButton {
-    _backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 40)];
-    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:_backView];
-    self.navigationItem.leftBarButtonItem = left;
-    
-    _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
-    _backBtn.center = CGPointMake(5, CGRectGetMaxY(_backView.bounds)/2);
-    [_backView addSubview:_backBtn];
-    _backBtn.userInteractionEnabled = false;
-    [_backBtn setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
-   
-    UITapGestureRecognizer *backRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hl_goback)];
-    [_backView addGestureRecognizer:backRecognizer];
+#pragma mark - Override
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return self.statusBarStyle;
 }
 
+#pragma mark - Public Method
 
-- (void)hl_goback{
-    [self.view endEditing:YES];
-    if (self.navigationController && self.navigationController.viewControllers.count >1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+/// 改变状态栏的样式
+- (void)hl_resetStatusBarStyle:(UIStatusBarStyle)barStyle{
+    self.statusBarStyle = barStyle;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 -(void)hl_hideBack:(BOOL)hide{
@@ -87,7 +67,6 @@
     [_backBtn setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
 }
 
-#pragma mark - publick
 /// 展示网络请求失败的页面
 - (void)hl_showNetFail:(CGRect)frame callBack:(HLNetClickCallBack)callBack{
     if (!_failView) {
@@ -153,7 +132,6 @@
     
 }
 
-
 /// 跳转回栈中指定类型的vc，如果没有，则跳转回上一个页面
 - (void)hl_popToControllerWithClassName:(NSArray *)classNameArr{
     for (UIViewController *controller in self.navigationController.viewControllers) {
@@ -168,6 +146,30 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - Private Methods
+
+/// 返回按钮
+- (void)initBackButton {
+    _backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 40)];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:_backView];
+    self.navigationItem.leftBarButtonItem = left;
+    
+    _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+    _backBtn.center = CGPointMake(5, CGRectGetMaxY(_backView.bounds)/2);
+    [_backView addSubview:_backBtn];
+    _backBtn.userInteractionEnabled = false;
+    [_backBtn setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
+   
+    UITapGestureRecognizer *backRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hl_goback)];
+    [_backView addGestureRecognizer:backRecognizer];
+}
+
+- (void)hl_goback{
+    [self.view endEditing:YES];
+    if (self.navigationController && self.navigationController.viewControllers.count >1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 
 @end

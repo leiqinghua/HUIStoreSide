@@ -88,10 +88,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AWSCore:
-    :commit: 765e017b82538fca9a6a29bc8e946e6c7c6e9177
+    :commit: 4201e5ef57dafd9565176557bbad02c057ca1648
     :git: https://github.com/ZHCliang/aws-sdk-ios.git
   AWSS3:
-    :commit: 765e017b82538fca9a6a29bc8e946e6c7c6e9177
+    :commit: 4201e5ef57dafd9565176557bbad02c057ca1648
     :git: https://github.com/ZHCliang/aws-sdk-ios.git
 
 SPEC CHECKSUMS:
