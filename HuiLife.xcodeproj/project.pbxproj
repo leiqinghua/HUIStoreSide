@@ -66,7 +66,6 @@
 		9422011D2327476300E0FBAD /* HLWXAuthoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9422011C2327476300E0FBAD /* HLWXAuthoView.m */; };
 		942201202327578B00E0FBAD /* HLWithDrawDealController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9422011F2327578B00E0FBAD /* HLWithDrawDealController.m */; };
 		9425E15623069D420025C639 /* HLProduceReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E15523069D420025C639 /* HLProduceReviewController.m */; };
-		9425E159230792070025C639 /* HLCardListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E158230792070025C639 /* HLCardListModel.m */; };
 		9425E15C23091F370025C639 /* HLEditPromoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E15B23091F370025C639 /* HLEditPromoteController.m */; };
 		9425E15F230AA98E0025C639 /* HLDishesWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E15E230AA98E0025C639 /* HLDishesWebController.m */; };
 		9425E16B230D1C3C0025C639 /* HLHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E16A230D1C3C0025C639 /* HLHomeModel.m */; };
@@ -209,8 +208,6 @@
 		9465AB7A24CADE6A00FF0981 /* HLAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465AB7924CADE6A00FF0981 /* HLAccount.m */; };
 		9466780E249C4F0F007A6C3E /* HLScanYMMainInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466780D249C4F0F007A6C3E /* HLScanYMMainInfo.m */; };
 		9466A82F23161ABB00725981 /* HLSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A82E23161ABB00725981 /* HLSuccessView.m */; };
-		9466A8332316616F00725981 /* HLCollegeFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A8322316616F00725981 /* HLCollegeFindViewCell.m */; };
-		9466A83623166A7C00725981 /* HLCollegeDesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A83523166A7C00725981 /* HLCollegeDesViewCell.m */; };
 		9466A83C2318FFA600725981 /* HLFunctionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A83B2318FFA600725981 /* HLFunctionController.m */; };
 		9466A84123190A1400725981 /* HLFunctionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A84023190A1400725981 /* HLFunctionModel.m */; };
 		9466A84423190A2E00725981 /* HLFunctionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A84323190A2E00725981 /* HLFunctionViewCell.m */; };
@@ -558,6 +555,9 @@
 		B41ED7C3239F8BF500D730D1 /* HLImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B41ED7C2239F8BF500D730D1 /* HLImagePickerManager.m */; };
 		B41ED7C9239F970000D730D1 /* HLImageAlbumController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41ED7C8239F970000D730D1 /* HLImageAlbumController.m */; };
 		B41ED7CC239F9D1C00D730D1 /* HLAlbumViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B41ED7CB239F9D1C00D730D1 /* HLAlbumViewCell.m */; };
+		B4235E6A26BAE7980009DC03 /* HLCollegeFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4235E6726BAE7980009DC03 /* HLCollegeFindViewCell.m */; };
+		B4235E6B26BAE7980009DC03 /* HLCollegeDesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4235E6926BAE7980009DC03 /* HLCollegeDesViewCell.m */; };
+		B4235E6F26BAE8360009DC03 /* HLCardListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4235E6D26BAE8360009DC03 /* HLCardListModel.m */; };
 		B42399FF23CF011A00CF0B2C /* HLOrderPickupDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B42399FE23CF011A00CF0B2C /* HLOrderPickupDetailController.m */; };
 		B4239A0223CF017100CF0B2C /* HLPickUpDetailHead.m in Sources */ = {isa = PBXBuildFile; fileRef = B4239A0123CF017100CF0B2C /* HLPickUpDetailHead.m */; };
 		B4239A0523CF04EF00CF0B2C /* HLPickUpMoneyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4239A0423CF04EF00CF0B2C /* HLPickUpMoneyViewCell.m */; };
@@ -834,8 +834,6 @@
 		9422011F2327578B00E0FBAD /* HLWithDrawDealController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLWithDrawDealController.m; sourceTree = "<group>"; };
 		9425E15423069D420025C639 /* HLProduceReviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLProduceReviewController.h; sourceTree = "<group>"; };
 		9425E15523069D420025C639 /* HLProduceReviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLProduceReviewController.m; sourceTree = "<group>"; };
-		9425E157230792070025C639 /* HLCardListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HLCardListModel.h; path = "HuiLife/Sections/Ticket(代金券)/Controller/HLCardListModel.h"; sourceTree = SOURCE_ROOT; };
-		9425E158230792070025C639 /* HLCardListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HLCardListModel.m; path = "HuiLife/Sections/Ticket(代金券)/Controller/HLCardListModel.m"; sourceTree = SOURCE_ROOT; };
 		9425E15A23091F370025C639 /* HLEditPromoteController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLEditPromoteController.h; sourceTree = "<group>"; };
 		9425E15B23091F370025C639 /* HLEditPromoteController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLEditPromoteController.m; sourceTree = "<group>"; };
 		9425E15D230AA98E0025C639 /* HLDishesWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLDishesWebController.h; sourceTree = "<group>"; };
@@ -1123,10 +1121,6 @@
 		9466780D249C4F0F007A6C3E /* HLScanYMMainInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLScanYMMainInfo.m; sourceTree = "<group>"; };
 		9466A82D23161ABB00725981 /* HLSuccessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSuccessView.h; sourceTree = "<group>"; };
 		9466A82E23161ABB00725981 /* HLSuccessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSuccessView.m; sourceTree = "<group>"; };
-		9466A8312316616F00725981 /* HLCollegeFindViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HLCollegeFindViewCell.h; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeFindViewCell.h"; sourceTree = SOURCE_ROOT; };
-		9466A8322316616F00725981 /* HLCollegeFindViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HLCollegeFindViewCell.m; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeFindViewCell.m"; sourceTree = SOURCE_ROOT; };
-		9466A83423166A7C00725981 /* HLCollegeDesViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HLCollegeDesViewCell.h; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeDesViewCell.h"; sourceTree = SOURCE_ROOT; };
-		9466A83523166A7C00725981 /* HLCollegeDesViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HLCollegeDesViewCell.m; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeDesViewCell.m"; sourceTree = SOURCE_ROOT; };
 		9466A83A2318FFA600725981 /* HLFunctionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFunctionController.h; sourceTree = "<group>"; };
 		9466A83B2318FFA600725981 /* HLFunctionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFunctionController.m; sourceTree = "<group>"; };
 		9466A83F23190A1400725981 /* HLFunctionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFunctionModel.h; sourceTree = "<group>"; };
@@ -1778,6 +1772,12 @@
 		B41ED7C8239F970000D730D1 /* HLImageAlbumController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLImageAlbumController.m; sourceTree = "<group>"; };
 		B41ED7CA239F9D1C00D730D1 /* HLAlbumViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLAlbumViewCell.h; sourceTree = "<group>"; };
 		B41ED7CB239F9D1C00D730D1 /* HLAlbumViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLAlbumViewCell.m; sourceTree = "<group>"; };
+		B4235E6626BAE7980009DC03 /* HLCollegeFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCollegeFindViewCell.h; sourceTree = "<group>"; };
+		B4235E6726BAE7980009DC03 /* HLCollegeFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLCollegeFindViewCell.m; sourceTree = "<group>"; };
+		B4235E6826BAE7980009DC03 /* HLCollegeDesViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCollegeDesViewCell.h; sourceTree = "<group>"; };
+		B4235E6926BAE7980009DC03 /* HLCollegeDesViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLCollegeDesViewCell.m; sourceTree = "<group>"; };
+		B4235E6D26BAE8360009DC03 /* HLCardListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HLCardListModel.m; path = "HuiLife/Modules/Ticket(代金券)/Controller/HLCardListModel.m"; sourceTree = SOURCE_ROOT; };
+		B4235E6E26BAE8360009DC03 /* HLCardListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HLCardListModel.h; path = "HuiLife/Modules/Ticket(代金券)/Controller/HLCardListModel.h"; sourceTree = SOURCE_ROOT; };
 		B42399FD23CF011A00CF0B2C /* HLOrderPickupDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLOrderPickupDetailController.h; sourceTree = "<group>"; };
 		B42399FE23CF011A00CF0B2C /* HLOrderPickupDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLOrderPickupDetailController.m; sourceTree = "<group>"; };
 		B4239A0023CF017100CF0B2C /* HLPickUpDetailHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPickUpDetailHead.h; sourceTree = "<group>"; };
@@ -2469,7 +2469,7 @@
 				9DE8A66D22FD1DBA0034C4AF /* Promotion(推广) */,
 				B40EFCE622FC212900296DDA /* SendOrder(点单外送) */,
 				9DE8A64222FBBEAD0034C4AF /* Card(卡营销) */,
-				B4176A5C22F9525700CF277F /* HotSekill(爆款秒杀) */,
+				B4176A5C22F9525700CF277F /* HotSekill(限时抢购) */,
 				B4C5A50122F91DD7001FBBE3 /* BuyGoods(加购商品) */,
 				9DE8A60E22F7DAD20034C4AF /* Ticket(代金券) */,
 				B4FCAA5122F427F20053EA41 /* Vouchers(买单营销) */,
@@ -2989,10 +2989,10 @@
 		945BD875255103C500EAD145 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9466A8312316616F00725981 /* HLCollegeFindViewCell.h */,
-				9466A8322316616F00725981 /* HLCollegeFindViewCell.m */,
-				9466A83423166A7C00725981 /* HLCollegeDesViewCell.h */,
-				9466A83523166A7C00725981 /* HLCollegeDesViewCell.m */,
+				B4235E6826BAE7980009DC03 /* HLCollegeDesViewCell.h */,
+				B4235E6926BAE7980009DC03 /* HLCollegeDesViewCell.m */,
+				B4235E6626BAE7980009DC03 /* HLCollegeFindViewCell.h */,
+				B4235E6726BAE7980009DC03 /* HLCollegeFindViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3839,7 +3839,7 @@
 		9DE8A64222FBBEAD0034C4AF /* Card(卡营销) */ = {
 			isa = PBXGroup;
 			children = (
-				9DE8A64522FBBEDA0034C4AF /* Model */,
+				B4235E6C26BAE82D0009DC03 /* Model */,
 				9DE8A64422FBBED20034C4AF /* Controller */,
 				9DE8A64322FBBEC70034C4AF /* View */,
 			);
@@ -3866,15 +3866,6 @@
 				B431840C23507E910080B21C /* HLCardProductController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		9DE8A64522FBBEDA0034C4AF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9425E157230792070025C639 /* HLCardListModel.h */,
-				9425E158230792070025C639 /* HLCardListModel.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9DE8A65822FD06FE0034C4AF /* XMNetworking */ = {
@@ -4436,14 +4427,14 @@
 			path = HLTimeSelectView;
 			sourceTree = "<group>";
 		};
-		B4176A5C22F9525700CF277F /* HotSekill(爆款秒杀) */ = {
+		B4176A5C22F9525700CF277F /* HotSekill(限时抢购) */ = {
 			isa = PBXGroup;
 			children = (
 				B4176A5E22F9526100CF277F /* Controller */,
 				B4176A5D22F9526100CF277F /* Model */,
 				B4176A5F22F9526100CF277F /* View */,
 			);
-			path = "HotSekill(爆款秒杀)";
+			path = "HotSekill(限时抢购)";
 			sourceTree = "<group>";
 		};
 		B4176A5D22F9526100CF277F /* Model */ = {
@@ -4580,6 +4571,15 @@
 				9D70349D22F1389A003B14FD /* HLAudioPlayManager.m */,
 			);
 			path = HLAudioPlayManager;
+			sourceTree = "<group>";
+		};
+		B4235E6C26BAE82D0009DC03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B4235E6E26BAE8360009DC03 /* HLCardListModel.h */,
+				B4235E6D26BAE8360009DC03 /* HLCardListModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B42399F923CF00F300CF0B2C /* PickUpOrder(商超自提核单) */ = {
@@ -5647,6 +5647,7 @@
 				9D70348B22F1264A003B14FD /* HLBaseViewController.m in Sources */,
 				94695065255BD48E00BE8774 /* HLCompeteUpCollectionCell.m in Sources */,
 				9D6372BF2148FDDC00F791C1 /* HLMessageHeaderView.m in Sources */,
+				B4235E6F26BAE8360009DC03 /* HLCardListModel.m in Sources */,
 				090069462639498F0065C6E4 /* HLPushHistorySectionHeader.m in Sources */,
 				9DE8A64E22FBD6040034C4AF /* HLAddCardController.m in Sources */,
 				B415FC202317A18100F4331D /* ZFAVPlayerManager.m in Sources */,
@@ -5678,13 +5679,13 @@
 				B4F126602355AB8D00B0D72B /* HLGuideMask.m in Sources */,
 				9D95262F220029740047D74A /* JZLocationConverter.m in Sources */,
 				9468CE0225206D6900C9ADA1 /* HLPickImageViewCell.m in Sources */,
-				9466A8332316616F00725981 /* HLCollegeFindViewCell.m in Sources */,
 				B48E535422FD6A0C006BFA58 /* HLSendOrderCodeController.m in Sources */,
 				9DE8A62022F813EB0034C4AF /* HLAddTicketController.m in Sources */,
 				9D99EF4E21BD202F00B1E298 /* AppDelegate+HLState.m in Sources */,
 				94389A6023A79E0800A3EA81 /* HLOrderGoodModel.m in Sources */,
 				9464711325637C3B002C2218 /* HLDayDealGoodController.m in Sources */,
 				B4C5A51022F92079001FBBE3 /* HLBuyGoodListModel.m in Sources */,
+				B4235E6A26BAE7980009DC03 /* HLCollegeFindViewCell.m in Sources */,
 				B4175B2F22F803510079909F /* HLVoucherMarketInfo.m in Sources */,
 				945A31CD2473E8280097464D /* HLSpecialPeron.m in Sources */,
 				9D6372D3214A12A700F791C1 /* NJKWebViewProgressView.m in Sources */,
@@ -5746,7 +5747,6 @@
 				9DFEC62121FD8A2600FAC93B /* HLLocationManager.m in Sources */,
 				9DFDF2F220FDEAE20081BC46 /* HLHowFindPassController.m in Sources */,
 				94536FA7238BB67000DE1A89 /* HLDisplaySubController.m in Sources */,
-				9466A83623166A7C00725981 /* HLCollegeDesViewCell.m in Sources */,
 				942922AD236AE7A9009C7E58 /* HLScanViewController.m in Sources */,
 				940995A42521D76B00EC61CC /* HLDeliveryWayTableCell.m in Sources */,
 				9D99EF4B21BCF67F00B1E298 /* UIView+HLExtension.m in Sources */,
@@ -5755,7 +5755,6 @@
 				AB06C92A2150E67B0017995A /* HLMessageListModel.m in Sources */,
 				9DE8A66322FD06FF0034C4AF /* XMResult.m in Sources */,
 				9422011D2327476300E0FBAD /* HLWXAuthoView.m in Sources */,
-				9425E159230792070025C639 /* HLCardListModel.m in Sources */,
 				9DB1D62F2244C58B00B09E41 /* HLHotelCalanderHeader.m in Sources */,
 				9DFDF29820F84B6A0081BC46 /* UIColor+Common.m in Sources */,
 				9DFEC62721FDB5CB00FAC93B /* HLAboutUsTableViewCell.m in Sources */,
@@ -6064,6 +6063,7 @@
 				9403CCB02100EB9B001AD3B1 /* HLSelectTimeCell.m in Sources */,
 				946B8A332506403500436B3A /* HLMonthCardTableCell.m in Sources */,
 				B4154DCC231F8F36003C2821 /* HLVoucherQueryInfo.m in Sources */,
+				B4235E6B26BAE7980009DC03 /* HLCollegeDesViewCell.m in Sources */,
 				94389A7123A79E0800A3EA81 /* HLTKReasonViewCell.m in Sources */,
 				94389A5123A79E0800A3EA81 /* HLOrderPriceDescView.m in Sources */,
 				B48E534E22FD5E31006BFA58 /* HLSendOrderRewardController.m in Sources */,

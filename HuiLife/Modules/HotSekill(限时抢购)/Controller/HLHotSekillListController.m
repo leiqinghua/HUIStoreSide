@@ -23,6 +23,18 @@
 
 @implementation HLHotSekillListController
 
+#pragma mark - Life Cycle
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        // 默认是 normal
+        self.type = HLHotSekillTypeNormal;
+    }
+    return self;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hl_setTitle:@"限时抢购"];
@@ -42,6 +54,8 @@
     
     [HLNotifyCenter addObserver:self selector:@selector(reloadListData) name:@"hotSekillListReloadData" object:nil];
 }
+
+#pragma mark - Methods
 
 - (void)reloadListData{
     self.page = 1;
