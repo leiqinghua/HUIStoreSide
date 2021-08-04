@@ -272,15 +272,12 @@
 /// @param sender 按钮
 - (void)scanBtnClick:(UIButton *)sender {
     
-    //#if DEBUG
-    //    [HLTools pushAppPageLink:@"HLMemberChangeController" params:nil needBack:false];
-    //#else
     weakify(self);
     MMScanViewController *scan = [[MMScanViewController alloc] initWithQrType:MMScanTypeQrCode onFinish:^(NSString *result, NSError *error) {
         [weak_self scanOrderWithUrl:result];
     }];
     [self.navigationController pushViewController:scan animated:YES];
-    //#endif
+
 }
 
 - (void)changeTitleNumbers:(NSNotification *)sender {

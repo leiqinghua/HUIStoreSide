@@ -2376,11 +2376,9 @@
 				9D25F0F4223B448C00577ADE /* Base */,
 				9427E2CB20F651D800F5AC43 /* Verdors */,
 				9D7034A022F13917003B14FD /* Manager */,
-				9466A83023165ED300725981 /* baseModel */,
 				9D7034A122F139F6003B14FD /* CommenView */,
-				9427E2CC20F651ED00F5AC43 /* Class */,
-				9427E2CD20F6525100F5AC43 /* Sections */,
-				9DC555DF20F6EE5200AFA604 /* Tools */,
+				9427E2CC20F651ED00F5AC43 /* Tabbar */,
+				9427E2CD20F6525100F5AC43 /* Modules */,
 				9DC555E220F6EFF300AFA604 /* Category */,
 				9DC555ED20F7201100AFA604 /* Resource */,
 				9427E25E20F4DC4E00F5AC43 /* Main.storyboard */,
@@ -2430,24 +2428,24 @@
 			path = Verdors;
 			sourceTree = "<group>";
 		};
-		9427E2CC20F651ED00F5AC43 /* Class */ = {
+		9427E2CC20F651ED00F5AC43 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				943899EB23A79E0700A3EA81 /* Order */,
-				94547A4323FA76D80019B9DD /* Hot */,
-				9DE8A5A222F52B530034C4AF /* Market */,
-				9DE70D3021017FE800B52862 /* Staff */,
-				9DFDF2DA20FC8D2F0081BC46 /* Login */,
-				9D6372B42148ED5B00F791C1 /* Message */,
-				9DC555D720F6EB8000AFA604 /* Home */,
-				9DC555DA20F6EC6600AFA604 /* Mine */,
+				943899EB23A79E0700A3EA81 /* Order(订单) */,
+				9DFDF2DA20FC8D2F0081BC46 /* Login(登录) */,
+				9D6372B42148ED5B00F791C1 /* Message(消息) */,
+				9DC555D720F6EB8000AFA604 /* Home(管理) */,
+				9DC555DA20F6EC6600AFA604 /* Mine(设置) */,
 			);
-			path = Class;
+			path = Tabbar;
 			sourceTree = "<group>";
 		};
-		9427E2CD20F6525100F5AC43 /* Sections */ = {
+		9427E2CD20F6525100F5AC43 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9DE8A5A222F52B530034C4AF /* Market(推广工具) */,
+				9DE70D3021017FE800B52862 /* Staff(员工管理) */,
+				94547A4323FA76D80019B9DD /* Hot(爆客推广) */,
 				097C40E92636639B00D4C70E /* 我的推送 */,
 				B47721EF2630631600998C26 /* 短视频营销 */,
 				946AC12825621D3200A545D0 /* 红包推广 */,
@@ -2478,7 +2476,7 @@
 				9DFFC04A21D3247E00C26E7B /* Finance（财务） */,
 				9D298B9A213638700066DD5F /* DishesManage(菜品管理) */,
 			);
-			path = Sections;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		942960F3235709C000203C74 /* HelpCenter */ = {
@@ -2524,7 +2522,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		943899EB23A79E0700A3EA81 /* Order */ = {
+		943899EB23A79E0700A3EA81 /* Order(订单) */ = {
 			isa = PBXGroup;
 			children = (
 				943899EC23A79E0700A3EA81 /* Controller */,
@@ -2533,7 +2531,7 @@
 				94389A2623A79E0700A3EA81 /* View */,
 				94389A3923A79E0700A3EA81 /* FunctionView */,
 			);
-			path = Order;
+			path = "Order(订单)";
 			sourceTree = "<group>";
 		};
 		943899EC23A79E0700A3EA81 /* Controller */ = {
@@ -2735,14 +2733,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		94547A4323FA76D80019B9DD /* Hot */ = {
+		94547A4323FA76D80019B9DD /* Hot(爆客推广) */ = {
 			isa = PBXGroup;
 			children = (
 				94547A4623FA77170019B9DD /* Model */,
 				94547A4523FA76FB0019B9DD /* Controller */,
 				94547A4423FA76F20019B9DD /* View */,
 			);
-			path = Hot;
+			path = "Hot(爆客推广)";
 			sourceTree = "<group>";
 		};
 		94547A4423FA76F20019B9DD /* View */ = {
@@ -3019,13 +3017,13 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		9466A83023165ED300725981 /* baseModel */ = {
+		9466A83023165ED300725981 /* BaseInfoModel */ = {
 			isa = PBXGroup;
 			children = (
 				949CDF8523152B9D00BDB144 /* HLInfoModel.h */,
 				949CDF8623152B9D00BDB144 /* HLInfoModel.m */,
 			);
-			path = baseModel;
+			path = BaseInfoModel;
 			sourceTree = "<group>";
 		};
 		9466A83D231909DE00725981 /* Model */ = {
@@ -3166,6 +3164,7 @@
 		9D25F0F4223B448C00577ADE /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				9466A83023165ED300725981 /* BaseInfoModel */,
 				D2C5BFA926B973490066C419 /* Controller */,
 				D2C5BFA826B9733C0066C419 /* Cell */,
 			);
@@ -3280,14 +3279,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9D6372B42148ED5B00F791C1 /* Message */ = {
+		9D6372B42148ED5B00F791C1 /* Message(消息) */ = {
 			isa = PBXGroup;
 			children = (
 				AB06C9272150E66F0017995A /* Model */,
 				9D6372BC2148FA6B00F791C1 /* Controller */,
 				9D6372BB2148FA6200F791C1 /* View */,
 			);
-			path = Message;
+			path = "Message(消息)";
 			sourceTree = "<group>";
 		};
 		9D6372BB2148FA6200F791C1 /* View */ = {
@@ -3341,12 +3340,11 @@
 		9D7034A022F13917003B14FD /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				9437C503250F5ED50048AFB7 /* HLFileManager.h */,
-				9437C504250F5ED50048AFB7 /* HLFileManager.m */,
-				94295FDB2350770D00203C74 /* HLJDAPIManager.h */,
-				94295FDC2350770D00203C74 /* HLJDAPIManager.m */,
-				9D70349C22F13899003B14FD /* HLAudioPlayManager.h */,
-				9D70349D22F1389A003B14FD /* HLAudioPlayManager.m */,
+				ABE6359B2153594100F20CCA /* HLAreaCache */,
+				9DC555DF20F6EE5200AFA604 /* Tools */,
+				B4235E6526BAE5360009DC03 /* HLAudioPlayManager */,
+				B4235E6426BAE5240009DC03 /* HLNetwork */,
+				B4235E6326BAE5010009DC03 /* HLFileManager */,
 				B415FC002317A18000F4331D /* HLPlayManager */,
 				B41E38D0230252040014DECF /* ImagesUpLoad */,
 				9DC101A121A2AB930079EA17 /* Bluetooth */,
@@ -3456,7 +3454,7 @@
 			path = Bluetooth;
 			sourceTree = "<group>";
 		};
-		9DC555D720F6EB8000AFA604 /* Home */ = {
+		9DC555D720F6EB8000AFA604 /* Home(管理) */ = {
 			isa = PBXGroup;
 			children = (
 				941E2B8824F7BA72009F1FD3 /* HX(核销) */,
@@ -3464,17 +3462,17 @@
 				9DC555DD20F6ECCC00AFA604 /* View */,
 				9DC555DB20F6ECAF00AFA604 /* Controller */,
 			);
-			path = Home;
+			path = "Home(管理)";
 			sourceTree = "<group>";
 		};
-		9DC555DA20F6EC6600AFA604 /* Mine */ = {
+		9DC555DA20F6EC6600AFA604 /* Mine(设置) */ = {
 			isa = PBXGroup;
 			children = (
 				9DFDF28D20F83BCA0081BC46 /* View */,
 				9DFDF28B20F83BB70081BC46 /* Model */,
 				9DFDF28920F83BA20081BC46 /* Controller */,
 			);
-			path = Mine;
+			path = "Mine(设置)";
 			sourceTree = "<group>";
 		};
 		9DC555DB20F6ECAF00AFA604 /* Controller */ = {
@@ -3510,7 +3508,6 @@
 		9DC555DF20F6EE5200AFA604 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				ABE6359B2153594100F20CCA /* HLAreaCache */,
 				9D0CD5C9210E9AF200C06620 /* HLTools.h */,
 				9D0CD5CA210E9AF200C06620 /* HLTools.m */,
 				9DE8A59322F3DAD00034C4AF /* HLTools+DeviceInfo.h */,
@@ -3573,14 +3570,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		9DE70D3021017FE800B52862 /* Staff */ = {
+		9DE70D3021017FE800B52862 /* Staff(员工管理) */ = {
 			isa = PBXGroup;
 			children = (
 				9D61568C21781F3D005B96E2 /* Model */,
 				9DE70D322101800C00B52862 /* Controller */,
 				9DE70D312101800100B52862 /* Subview */,
 			);
-			path = Staff;
+			path = "Staff(员工管理)";
 			sourceTree = "<group>";
 		};
 		9DE70D312101800100B52862 /* Subview */ = {
@@ -3619,14 +3616,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		9DE8A5A222F52B530034C4AF /* Market */ = {
+		9DE8A5A222F52B530034C4AF /* Market(推广工具) */ = {
 			isa = PBXGroup;
 			children = (
 				9DE8A5A522F52B780034C4AF /* Controller */,
 				9DE8A5A422F52B6D0034C4AF /* View */,
 				9DE8A5A322F52B610034C4AF /* Model */,
 			);
-			path = Market;
+			path = "Market(推广工具)";
 			sourceTree = "<group>";
 		};
 		9DE8A5A322F52B610034C4AF /* Model */ = {
@@ -4057,7 +4054,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		9DFDF2DA20FC8D2F0081BC46 /* Login */ = {
+		9DFDF2DA20FC8D2F0081BC46 /* Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
 				B4AFFC4826ADA22600079467 /* Model */,
@@ -4073,7 +4070,7 @@
 				949CDF7E2315123700BDB144 /* HLNewRegisterController.h */,
 				949CDF7F2315123700BDB144 /* HLNewRegisterController.m */,
 			);
-			path = Login;
+			path = "Login(登录)";
 			sourceTree = "<group>";
 		};
 		9DFDF2DE20FC90A80081BC46 /* View */ = {
@@ -4556,6 +4553,33 @@
 				B41ED7C2239F8BF500D730D1 /* HLImagePickerManager.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		B4235E6326BAE5010009DC03 /* HLFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				9437C503250F5ED50048AFB7 /* HLFileManager.h */,
+				9437C504250F5ED50048AFB7 /* HLFileManager.m */,
+			);
+			path = HLFileManager;
+			sourceTree = "<group>";
+		};
+		B4235E6426BAE5240009DC03 /* HLNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				94295FDB2350770D00203C74 /* HLJDAPIManager.h */,
+				94295FDC2350770D00203C74 /* HLJDAPIManager.m */,
+			);
+			path = HLNetwork;
+			sourceTree = "<group>";
+		};
+		B4235E6526BAE5360009DC03 /* HLAudioPlayManager */ = {
+			isa = PBXGroup;
+			children = (
+				9D70349C22F13899003B14FD /* HLAudioPlayManager.h */,
+				9D70349D22F1389A003B14FD /* HLAudioPlayManager.m */,
+			);
+			path = HLAudioPlayManager;
 			sourceTree = "<group>";
 		};
 		B42399F923CF00F300CF0B2C /* PickUpOrder(商超自提核单) */ = {

@@ -58,6 +58,15 @@
     if ([deviceModel isEqualToString:@"iPhone11,2"])   return @"iPhone XS";
     if ([deviceModel isEqualToString:@"iPhone11,6"])   return @"iPhone XS Max";
     if ([deviceModel isEqualToString:@"iPhone11,4"])   return @"iPhone XS Max";
+    if ([deviceModel isEqualToString:@"iPhone12,1"])   return @"iPhone 11";
+    if ([deviceModel isEqualToString:@"iPhone12,3"])   return @"iPhone 11 Pro";
+    if ([deviceModel isEqualToString:@"iPhone12,5"])   return @"iPhone 11 Pro Max";
+    if ([deviceModel isEqualToString:@"iPhone12,8"])   return @"iPhone SE2";
+    if ([deviceModel isEqualToString:@"iPhone13,1"])   return @"iPhone 12 mini";
+    if ([deviceModel isEqualToString:@"iPhone13,2"])   return @"iPhone 12";
+    if ([deviceModel isEqualToString:@"iPhone13,3"])   return @"iPhone 12 Pro";
+    if ([deviceModel isEqualToString:@"iPhone13,4"])   return @"iPhone 12 Pro Max";
+    
     if ([deviceModel isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
     if ([deviceModel isEqualToString:@"iPod2,1"])      return @"iPod Touch 2G";
     if ([deviceModel isEqualToString:@"iPod3,1"])      return @"iPod Touch 3G";
