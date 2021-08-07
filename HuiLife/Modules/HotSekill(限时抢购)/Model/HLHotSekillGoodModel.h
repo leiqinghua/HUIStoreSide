@@ -11,8 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HLHotSekillGoodModel : NSObject
 
+// id
 @property (nonatomic, copy) NSString *Id;
-
+// 
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *priceTitle;
@@ -26,18 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger usedCnt;
 @property (nonatomic, assign) NSInteger hitsCnt;
 
-// 上架的状态具体分为这四种（1未开售 2已过期 3已售完 4销售中） 5已下架
+// 上架的状态具体分为这四种（1未开售 2已过期 3已售完 4销售中） 5已下架 6未通过
 @property (nonatomic, copy) NSString *state;
 @property (nonatomic, assign) NSInteger stateCode;
+
+// 被拒原因
+@property (nonatomic, copy) NSString *reason;
 
 // 1 上架  2 下架
 @property (nonatomic, assign) NSInteger upOrDown;
 
 // 是否已经开始推广了
 @property (nonatomic, assign) BOOL isSelected;
-
-///
-@property (nonatomic, strong) NSAttributedString *priceAttr;
 
 /// 自己加的，标明是否选中
 @property (nonatomic, assign) BOOL userSelect;
@@ -50,6 +51,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString * wechatMoments;
 
 @property(nonatomic,copy)NSString * friendCircle;
+
+/// 普通秒杀类型价格展示  售价 17
+@property (nonatomic, strong) NSAttributedString *priceAttr;
+
+/// 非普通秒杀类型价格展示  价值 17
+@property (nonatomic, strong) NSAttributedString *noNormalTypePriceAttr;
+
 @end
 
 NS_ASSUME_NONNULL_END

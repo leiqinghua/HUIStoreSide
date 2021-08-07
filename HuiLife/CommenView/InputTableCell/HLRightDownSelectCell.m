@@ -69,6 +69,15 @@
 
 @implementation HLDownSelectInfo
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.selectSubInfoId = -1;
+    }
+    return self;
+}
+
 -(NSArray *)titles{
     if (!_titles.count) {
         NSMutableArray *mArr = [NSMutableArray array];
@@ -78,6 +87,24 @@
         _titles = [mArr copy];
     }
     return _titles;
+}
+
+- (void)resetSelectSubInfo{
+    
+    __block HLDownSelectSubInfo *selectInfo = nil;
+    [self.subInfos enumerateObjectsUsingBlock:^(HLDownSelectSubInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.Id.intValue == self.selectSubInfoId) {
+            selectInfo = obj;
+            *stop = YES;
+        }
+    }];
+    
+    if (selectInfo) {
+        self.selectSubInfo = selectInfo;
+    }else{
+        self.selectSubInfo = self.subInfos.firstObject;
+        self.selectSubInfoId = self.selectSubInfo.Id.integerValue;
+    }
 }
 
 -(BOOL)checkParamsIsOk{

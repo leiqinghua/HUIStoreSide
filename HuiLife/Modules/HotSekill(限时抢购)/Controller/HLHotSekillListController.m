@@ -19,6 +19,9 @@
 
 @property (nonatomic, strong) UIView *placeView; // 占位图
 
+@property (nonatomic, strong) UIView *reasonView;   // 驳回原因展示视图
+@property (nonatomic, strong) UILabel *reasonLab;   // 驳回原因
+
 @end
 
 @implementation HLHotSekillListController
@@ -30,7 +33,7 @@
     self = [super init];
     if (self) {
         // 默认是 normal
-        self.type = HLHotSekillTypeNormal;
+        self.type = @"10";
     }
     return self;
 }
@@ -65,13 +68,23 @@
 /// 加载数据
 - (void)loadGoodsList{
     
-    NSString *api = self.selectBlock ? @"/MerchantSide/HotSeckillListPL.php" : @"/MerchantSide/HotSeckillList.php";
-    
+    // 是否为选择商品
+    BOOL isSelectGoods = self.selectBlock != nil;
+    NSString *api = @"";
+    NSDictionary *params = @{};
+    if (isSelectGoods) {
+        api = @"/MerchantSide/HotSeckillListPL.php";
+        params = @{@"page":@(_page)};
+    }else{
+        api = @"/MerchantSide/HotSeckillList.php";
+        params = @{@"page":@(_page),@"type":self.type};
+    }
+        
     HLLoading(self.view);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api = api;
         request.serverType = HLServerTypeNormal;
-        request.parameters = @{@"page":@(_page)};
+        request.parameters = params;
     } onSuccess:^(XMResult *  _Nullable responseObject) {
         [self.tableView endRefresh];
         HLHideLoading(self.view);
@@ -138,11 +151,31 @@
         
     }else{
         HLHotSekillInputController *addGoods = [[HLHotSekillInputController alloc] init];
+        addGoods.isEdit = NO;
+        addGoods.sekillType = self.sekillType;
         [self.navigationController pushViewController:addGoods animated:YES];
     }
 }
 
+- (HLHotSekillType)sekillType{
+    return self.type.integerValue;
+}
+
 #pragma mark - HLHotSekillListViewCellDelegate
+
+/// 点击原因
+- (void)listViewCell:(HLHotSekillListViewCell *)cell reasonClick:(HLHotSekillGoodModel *)goodModel{
+    if (goodModel.reason.length == 0) {
+        return;
+    }
+    [self.view addSubview:self.reasonView];
+    self.reasonLab.text = goodModel.reason;
+}
+
+/// 隐藏理由视图
+- (void)hideReasonView{
+    [self.reasonView removeFromSuperview];
+}
 
 /// 点击更多按钮
 - (void)listViewCell:(HLHotSekillListViewCell *)cell moreBtnClick:(HLHotSekillGoodModel *)goodModel{
@@ -150,7 +183,7 @@
     // 判断是否是上架还是
     BOOL showUp = goodModel.upOrDown == 2;
     NSString *upStateStr = showUp ? @"上架" : @"下架";
-    [HLBottomControlView showControlViewWithItemTitles:@[@"微信朋友圈",@"微信好友",@"生成展架",@"二维码下载",upStateStr] callBack:^(HLControlType type) {
+    [HLBottomControlView showControlViewWithItemTitles:@[@"微信朋友圈",@"微信好友",@"生成展架",@"二维码下载",upStateStr,@"修改"] callBack:^(HLControlType type) {
         if (type == HLControlTypeStateDown || type == HLControlTypeStateUp) {
             [self changeUpStatesWithGoodModel:goodModel cell:cell];
             return;
@@ -174,6 +207,15 @@
         
         if (type == HLControlTypeDisplay) {
             [self createDisplayWithId:goodModel.Id display:goodModel.displayRack];
+        }
+        
+        // 修改
+        if (type == HLControlTypeEditCard){
+            HLHotSekillInputController *editGoods = [[HLHotSekillInputController alloc] init];
+            editGoods.isEdit = YES;
+            editGoods.editId = goodModel.Id;
+            editGoods.sekillType = self.sekillType;
+            [self.navigationController pushViewController:editGoods animated:YES];
         }
     }];
 }
@@ -267,6 +309,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HLHotSekillListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HLHotSekillListViewCell" forIndexPath:indexPath];
     cell.showSelectView = self.selectBlock != nil;
+    cell.sekillType = self.sekillType;
     cell.goodModel = self.dataSource[indexPath.row];
     cell.delegate = self;
     return cell;
@@ -310,6 +353,8 @@
     }];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
 }
+
+#pragma mark - Getter
 
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -383,5 +428,59 @@
     }
     return _dataSource;
 }
+
+- (UIView *)reasonView{
+    if (!_reasonView) {
+        
+        _reasonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+        _reasonView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5];
+        
+        CGFloat contentWidth = FitPTScreen(260);
+        CGFloat contentHeight = FitPTScreen(160);
+        UIView *contentV = [[UIView alloc] initWithFrame:CGRectMake((ScreenW - contentWidth)/2, (ScreenH - contentHeight)/2, contentWidth, contentHeight)];
+        contentV.backgroundColor = UIColor.whiteColor;
+        contentV.layer.cornerRadius = FitPTScreen(10);
+        contentV.layer.masksToBounds = YES;
+        [_reasonView addSubview:contentV];
+        
+        UILabel *tipLab = [[UILabel alloc] init];
+        [contentV addSubview:tipLab];
+        tipLab.text = @"驳回说明";
+        tipLab.textAlignment = NSTextAlignmentCenter;
+        tipLab.textColor = UIColorFromRGB(0x999999);
+        tipLab.font = [UIFont systemFontOfSize:FitPTScreen(12)];
+        [tipLab makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.equalTo(FitPTScreen(0));
+            make.height.equalTo(FitPTScreen(45));
+        }];
+        
+        UIButton *okBtn = [[UIButton alloc] init];
+        [contentV addSubview:okBtn];
+        [okBtn setTitle:@"知道了" forState:UIControlStateNormal];
+        okBtn.backgroundColor = UIColorFromRGB(0xFF9900);
+        [okBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        okBtn.titleLabel.font = [UIFont systemFontOfSize:FitPTScreen(14)];
+        [okBtn makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(0);
+            make.height.equalTo(FitPTScreen(45));
+        }];
+        [okBtn addTarget:self action:@selector(hideReasonView) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.reasonLab = [[UILabel alloc] init];
+        [contentV addSubview:self.reasonLab];
+        self.reasonLab.textColor = UIColorFromRGB(0x333333);
+        self.reasonLab.numberOfLines = 3;
+        self.reasonLab.textAlignment = NSTextAlignmentCenter;
+        self.reasonLab.font = [UIFont systemFontOfSize:FitPTScreen(14)];
+        [self.reasonLab makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(tipLab.bottom).offset(FitPTScreen(0));
+            make.left.equalTo(FitPTScreen(12));
+            make.right.equalTo(FitPTScreen(-12));
+            make.bottom.equalTo(okBtn.top).offset(FitPTScreen(-13));
+        }];
+    }
+    return _reasonView;
+}
+
 
 @end

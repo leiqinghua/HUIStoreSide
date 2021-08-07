@@ -36,7 +36,7 @@
     [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor = UIColor.whiteColor;
     AdjustsScrollViewInsetNever(self, self.collectionView);
-    [self creatFootViewWithButtonTitle:@"确定上传"];
+    [self creatFootViewWithButtonTitle:@"完成发布"];
     
     [self loadImageResizeScale];
 }
@@ -115,8 +115,7 @@
        if ([responseObject code] == 200) {
            HLShowText(@"保存成功");
            [HLNotifyCenter postNotificationName:@"hotSekillListReloadData" object:nil];
-           [HLNotifyCenter postNotificationName:@"dayDealListReloadData" object:nil];
-           [self hl_popToControllerWithClassName:@[@"HLHotSekillListController",@"HLDayDealGoodController"]];
+           [self hl_popToControllerWithClassName:@[@"HLHotSekillListController"]];
        }
    } onFailure:^(NSError * _Nullable error) {
        HLHideLoading(self.view);

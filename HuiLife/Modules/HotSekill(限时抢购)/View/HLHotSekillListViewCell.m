@@ -18,6 +18,8 @@
 @property (nonatomic, strong) UILabel *priceTipLab;
 @property (nonatomic, strong) UILabel *priceLab;
 @property (nonatomic, strong) UILabel *orinalPriceLab;
+@property (nonatomic, strong) UIView *reasonBgView;
+@property (nonatomic, strong) UIButton *reasonBtn;
 
 @property (nonatomic, strong) UILabel *effectLab;
 
@@ -26,6 +28,7 @@
 @property (nonatomic, strong) UILabel *bottomThreeLab;
 
 @property (nonatomic, strong) UILabel *selectLab;
+
 
 @end
 
@@ -87,6 +90,25 @@
         make.centerY.equalTo(_goodImgV.top).offset(FitPTScreen(-1));
     }];
     _stateLab.transform = CGAffineTransformRotate(_stateLab.transform, -M_PI_4);
+    
+    _reasonBgView = [[UIView alloc] init];
+    _reasonBgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    [_mainView addSubview:_reasonBgView];
+    _reasonBgView.layer.cornerRadius = FitPTScreen(8);
+    _reasonBgView.layer.masksToBounds = YES;
+    [_reasonBgView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.goodImgV);
+    }];
+    [_reasonBgView hl_addTarget:self action:@selector(reasonClick)];
+    
+    _reasonBtn = [[UIButton alloc] init];
+    _reasonBtn.userInteractionEnabled = NO;
+    [_reasonBgView addSubview:_reasonBtn];
+    [_reasonBtn setBackgroundImage:[UIImage imageNamed:@"video_wenhao"] forState:UIControlStateNormal];
+    [_reasonBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(28);
+        make.center.equalTo(self.reasonBgView);
+    }];
     
     _goodNameLab = [[UILabel alloc] init];
     [_mainView addSubview:_goodNameLab];
@@ -209,16 +231,33 @@
     }
 }
 
+- (void)reasonClick{
+    if (self.delegate) {
+        [self.delegate listViewCell:self reasonClick:self.goodModel];
+    }
+}
+
 -(void)setGoodModel:(HLHotSekillGoodModel *)goodModel{
     _goodModel = goodModel;
     [_goodImgV sd_setImageWithURL:[NSURL URLWithString:goodModel.pic] placeholderImage:[UIImage imageNamed:@"logo_list_default"]];
     _goodNameLab.text = goodModel.title;
-    _priceLab.attributedText = goodModel.priceAttr;
     _orinalPriceLab.text = [NSString stringWithFormat:@"原价: %.2lf",goodModel.orgPrice];
+
+    if (self.sekillType == HLHotSekillTypeNormal || self.sekillType == HLHotSekillType40) {
+        _orinalPriceLab.hidden = NO;
+        _priceTipLab.text = @"售价";
+        _priceLab.attributedText = goodModel.priceAttr;
+    }else{
+        _orinalPriceLab.hidden = YES;
+        _priceTipLab.text = @"价值";
+        _priceLab.attributedText = goodModel.noNormalTypePriceAttr;
+    }
     
-    //1未开售 2已过期 3已售完 4销售中 5已下架
+    //1未开售 2已过期 3已售完 4销售中 5已下架 6未通过
     _stateImgV.image = goodModel.stateCode != 4 ? [UIImage imageNamed:@"tag_down"] : [UIImage imageNamed:@"tag_saling2"];
     _stateLab.text = goodModel.stateCode == 4 ? @"" : goodModel.state;
+    
+    _reasonBgView.hidden = goodModel.stateCode != 6;
     
     _bottomOneLab.text = [NSString stringWithFormat:@"订单数: %ld",goodModel.orderCnt];
     _bottomTwoLab.text = [NSString stringWithFormat:@"使用数: %ld",goodModel.usedCnt];

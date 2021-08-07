@@ -637,6 +637,7 @@
 		B48E535A22FD6C3D006BFA58 /* HLSendOrderCodeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535922FD6C3C006BFA58 /* HLSendOrderCodeInfo.m */; };
 		B48E535D22FD76F6006BFA58 /* HLSendOrderCodeAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535C22FD76F6006BFA58 /* HLSendOrderCodeAddController.m */; };
 		B4933D5F236963F500546093 /* HLHotBuyKindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4933D5E236963F500546093 /* HLHotBuyKindModel.m */; };
+		B4A3918026BED3DD00E6E332 /* HLHotSekillInputController+SubType.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */; };
 		B4A3A17D2340C05B00737280 /* HLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A17C2340C05B00737280 /* HLLocationViewController.m */; };
 		B4A3A1802340C11900737280 /* HLAddressSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A17F2340C11900737280 /* HLAddressSearchView.m */; };
 		B4A3A1852340C1A300737280 /* HLAddressPOIInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A1812340C1A300737280 /* HLAddressPOIInfo.m */; };
@@ -1937,6 +1938,9 @@
 		B48E535C22FD76F6006BFA58 /* HLSendOrderCodeAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSendOrderCodeAddController.m; sourceTree = "<group>"; };
 		B4933D5D236963F500546093 /* HLHotBuyKindModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotBuyKindModel.h; sourceTree = "<group>"; };
 		B4933D5E236963F500546093 /* HLHotBuyKindModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotBuyKindModel.m; sourceTree = "<group>"; };
+		B4A3917726BEB55300E6E332 /* HLHotSekillDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillDef.h; sourceTree = "<group>"; };
+		B4A3917E26BED3DD00E6E332 /* HLHotSekillInputController+SubType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLHotSekillInputController+SubType.h"; sourceTree = "<group>"; };
+		B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HLHotSekillInputController+SubType.m"; sourceTree = "<group>"; };
 		B4A3A17B2340C05B00737280 /* HLLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLLocationViewController.h; sourceTree = "<group>"; };
 		B4A3A17C2340C05B00737280 /* HLLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLLocationViewController.m; sourceTree = "<group>"; };
 		B4A3A17E2340C11900737280 /* HLAddressSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLAddressSearchView.h; sourceTree = "<group>"; };
@@ -4430,6 +4434,7 @@
 		B4176A5C22F9525700CF277F /* HotSekill(限时抢购) */ = {
 			isa = PBXGroup;
 			children = (
+				B4A3917626BEB54000E6E332 /* Other */,
 				B4176A5E22F9526100CF277F /* Controller */,
 				B4176A5D22F9526100CF277F /* Model */,
 				B4176A5F22F9526100CF277F /* View */,
@@ -4457,6 +4462,8 @@
 				B4176A6122F9527600CF277F /* HLHotSekillListController.m */,
 				B4176A6322F9529D00CF277F /* HLHotSekillInputController.h */,
 				B4176A6422F9529D00CF277F /* HLHotSekillInputController.m */,
+				B4A3917E26BED3DD00E6E332 /* HLHotSekillInputController+SubType.h */,
+				B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */,
 				B4176A6622F952A900CF277F /* HLHotSekillDetailController.h */,
 				B4176A6722F952A900CF277F /* HLHotSekillDetailController.m */,
 				B4176A6922F952B400CF277F /* HLHotSekillImageController.h */,
@@ -4953,6 +4960,14 @@
 				B483DC5A23162EB1004EDA63 /* HLCaseListModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B4A3917626BEB54000E6E332 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				B4A3917726BEB55300E6E332 /* HLHotSekillDef.h */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		B4AFFC4826ADA22600079467 /* Model */ = {
@@ -5481,6 +5496,7 @@
 				B4F126632355AF1800B0D72B /* HLGuideMaskView.m in Sources */,
 				9425E16B230D1C3C0025C639 /* HLHomeModel.m in Sources */,
 				B4FCAA5A22F42D110053EA41 /* HLVoucherMarketHead.m in Sources */,
+				B4A3918026BED3DD00E6E332 /* HLHotSekillInputController+SubType.m in Sources */,
 				9D44801221A4FDAB00E4E1D6 /* HLMineModel.m in Sources */,
 				9DE8A5EB22F6BE850034C4AF /* ALiAsset.m in Sources */,
 				B419579622F97D59006AB9A5 /* HLDownSelectView.m in Sources */,

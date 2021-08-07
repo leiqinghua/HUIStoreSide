@@ -7,15 +7,9 @@
 
 #import "HLBaseViewController.h"
 #import "HLHotSekillListViewCell.h"
+#import "HLHotSekillDef.h"
 
-typedef void(^HLHotSekillSelectBlock)(HLHotSekillGoodModel *goodModel);
-
-typedef enum : NSUInteger {
-    HLHotSekillTypeNormal = 10, // 到店活动套餐抢购
-    HLHotSekillType20 = 20,     // 亿元券对换
-    HLHotSekillType30 = 30,     // 新人引流到店
-    HLHotSekillType40 = 40,     // 签约爆客推广
-} HLHotSekillType;
+typedef void(^HLHotSekillSelectBlock)(HLHotSekillGoodModel * _Nullable goodModel);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) HLHotSekillSelectBlock selectBlock;
 
 /// 类型
-@property (nonatomic, assign) HLHotSekillType  type;
+@property (nonatomic, copy) NSString *type;
 
 /// 不知道干啥的，安卓有
 @property (nonatomic, assign) NSInteger from;

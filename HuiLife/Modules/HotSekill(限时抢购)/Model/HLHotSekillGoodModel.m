@@ -23,5 +23,15 @@
     return _priceAttr;
 }
 
+- (NSAttributedString *)noNormalTypePriceAttr{
+    if (!_noNormalTypePriceAttr) {
+        NSString *allStr = [NSString stringWithFormat:@"¥%@",[NSString hl_stringWithNoZeroMoney:_orgPrice]];
+        NSMutableAttributedString *moneyAttr = [[NSMutableAttributedString alloc] initWithString:allStr attributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xFF4040),NSFontAttributeName:[UIFont boldSystemFontOfSize:FitPTScreen(20)]}];
+        [moneyAttr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FitPTScreen(15)] range:[allStr rangeOfString:@"¥"]];
+        _noNormalTypePriceAttr = moneyAttr;
+    }
+    return _noNormalTypePriceAttr;
+}
+
 
 @end

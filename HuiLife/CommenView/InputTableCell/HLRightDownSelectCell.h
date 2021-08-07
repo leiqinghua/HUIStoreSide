@@ -13,9 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray <HLDownSelectSubInfo *>*subInfos;
 @property (nonatomic, copy) NSArray *titles;
+/// 下拉时选择
 @property (nonatomic, strong) HLDownSelectSubInfo *selectSubInfo;
 
+/// 编辑时赋值，然后根据 id，设置 selectSubInfo
+@property (nonatomic, assign) NSInteger selectSubInfoId;
+
 - (void)buildParams;
+
+- (void)resetSelectSubInfo;
 
 @end
 

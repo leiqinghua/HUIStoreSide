@@ -97,8 +97,13 @@
         HLShowHint(@"敬请期待", self.view);
         return;
     }
-    
+#if DEBUG
+    [HLTools pushAppPageLink:model.iosArdess params:model.androidParam needBack:false];
+#else
     [HLTools pushAppPageLink:model.iosArdess params:model.iosParam needBack:false];
+
+#endif
+    
 }
 
 -(void)loadData{

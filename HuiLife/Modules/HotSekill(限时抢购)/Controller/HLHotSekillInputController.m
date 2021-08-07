@@ -6,32 +6,20 @@
 //
 
 #import "HLHotSekillInputController.h"
-#import "HLRightInputViewCell.h"
-#import "HLInputDateViewCell.h"
-#import "HLRightDownSelectCell.h"
-#import "HLDownSelectView.h"
-#import "HLHotSekillDetailController.h"
-#import "HLCalendarViewController.h"
-#import "HLTimeSingleSelectView.h"
-#import "HLInputUseDescViewCell.h"
-
-NSString * const kOrinalLeftTip = @"*原价";
-NSString * const kSaleLeftTip = @"*售价";
-NSString * const kSumNumLeftTip = @"*提供数量";
-NSString * const kLimitNumLeftTip = @"*限购数量";
-NSString * const kfyLeftTip = @"*跨店分佣";
+#import "HLHotSekillInputController+SubType.h"
 
 @interface HLHotSekillInputController () <UITableViewDelegate,UITableViewDataSource,HLRightDownSelectCellDelegate,HLRightInputViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, copy) NSArray *dataSource;
 
 @property(nonatomic, strong) NSString *fyMoney;
 
 @end
 
 @implementation HLHotSekillInputController
+
+#pragma mark - Life Cycle
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -49,6 +37,45 @@ NSString * const kfyLeftTip = @"*跨店分佣";
     
     // 加载可以选择的两项数据
     [self loadDownSelectData];
+    
+    // 如果是编辑，则拉取详情
+    if (self.isEdit) {
+        [self loadEditDetailData];
+    }
+}
+
+#pragma mark - Methods
+
+- (void)hl_goback{
+    NSString *message = self.isEdit ? @"确定要退出商品编辑吗？" : @"确定要退出商品发布吗？";
+    [HLCustomAlert showNormalStyleTitle:@"温馨提示" message:message buttonTitles:@[@"确定",@"取消"] buttonColors:@[UIColorFromRGB(0xFF9900),UIColorFromRGB(0x666666)] callBack:^(NSInteger index) {
+        if (index == 0) {
+            [super hl_goback];
+        }
+    }];
+}
+
+/// 编辑时拉取详情
+- (void)loadEditDetailData{
+    HLLoading(self.view);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api = @"/MerchantSide/SeckillInfo.php";
+        request.serverType = HLServerTypeNormal;
+        request.parameters = @{@"bid":self.editId ?: @"",@"type":@(self.sekillType)};
+    } onSuccess:^(XMResult *  _Nullable responseObject) {
+        HLHideLoading(self.view);
+        if ([responseObject code] == 200) {
+            // 数据回显
+            if (self.sekillType == HLHotSekillTypeNormal || self.sekillType == HLHotSekillType40) {
+                [self handleNormalAnd40EditData:responseObject.data];
+            }else{
+                [self handle20And30EditData:responseObject.data];
+            }
+            [self.tableView reloadData];
+        }
+    } onFailure:^(NSError * _Nullable error) {
+        HLHideLoading(self.view);
+    }];
 }
 
 /// 加载可以选择的两项数据
@@ -66,15 +93,19 @@ NSString * const kfyLeftTip = @"*跨店分佣";
             NSArray *needOrderSubInfos = [HLDownSelectSubInfo mj_objectArrayWithKeyValuesArray:responseObject.data[@"booking"]];
             NSArray *personNumSubInfos = [HLDownSelectSubInfo mj_objectArrayWithKeyValuesArray:responseObject.data[@"peoType"]];
             
-            HLDownSelectInfo *orderTimeInfo = self.dataSource[4];
-            orderTimeInfo.subInfos = needOrderSubInfos;
-            orderTimeInfo.selectSubInfo = orderTimeInfo.subInfos.firstObject;
-            [orderTimeInfo buildParams];
-            
-            HLDownSelectInfo *presonNumInfo = self.dataSource[5];
-            presonNumInfo.subInfos = personNumSubInfos;
-            presonNumInfo.selectSubInfo = presonNumInfo.subInfos.firstObject;
-            [presonNumInfo buildParams];
+            for (HLBaseTypeInfo *info in self.dataSource) {
+                if ([info.leftTip containsString:@"是否提前预约"]) {
+                    HLDownSelectInfo *orderTimeInfo = (HLDownSelectInfo *)info;
+                    orderTimeInfo.subInfos = needOrderSubInfos;
+                    [orderTimeInfo resetSelectSubInfo];
+                    [orderTimeInfo buildParams];
+                }else if([info.leftTip containsString:@"适用人数"]){
+                    HLDownSelectInfo *presonNumInfo = (HLDownSelectInfo *)info;
+                    presonNumInfo.subInfos = personNumSubInfos;
+                    [presonNumInfo resetSelectSubInfo];
+                    [presonNumInfo buildParams];
+                }
+            }
             
             [self.tableView reloadData];
         }
@@ -86,12 +117,8 @@ NSString * const kfyLeftTip = @"*跨店分佣";
 /// 保存信息
 - (void)saveButtonClick{
     
+    // 构建参数
     NSMutableDictionary *mParams = [NSMutableDictionary dictionary];
-    HLBaseTypeInfo *orinalInfo = nil; // 原价
-    HLBaseTypeInfo *saleInfo = nil;   // 售价
-    HLBaseTypeInfo *sumNumInfo = nil; // 总共的数量
-    HLBaseTypeInfo *limitNumInfo = nil;   // 限购的数量
-    HLBaseTypeInfo *fyInfo = nil;   //分销佣金
     for (HLBaseTypeInfo *info in self.dataSource) {
         if (info.needCheckParams && ![info checkParamsIsOk]) {
             HLShowHint(info.errorHint, self.view);
@@ -103,51 +130,43 @@ NSString * const kfyLeftTip = @"*跨店分佣";
                 [mParams setValue:info.text forKey:info.saveKey];
             }
         }
-        
-        if ([info.leftTip isEqualToString:kOrinalLeftTip]) {orinalInfo = info;}
-        if ([info.leftTip isEqualToString:kSaleLeftTip]) {saleInfo = info;}
-        if ([info.leftTip isEqualToString:kSumNumLeftTip]) {sumNumInfo = info;}
-        if ([info.leftTip isEqualToString:kLimitNumLeftTip]) {limitNumInfo = info;}
-        if ([info.leftTip isEqualToString:kfyLeftTip]) {fyInfo = info;}
     }
     
-    // 额外增加的判断
-    if (orinalInfo.text.doubleValue == 0 || saleInfo.text.doubleValue == 0) {
-        HLShowHint(@"售价或原价不能为0", self.view);
-        return;
+    NSArray *roles = @[];
+    switch (self.sekillType) {
+        case HLHotSekillTypeNormal:
+            roles = [self sekillTypeNormalRoles];
+            break;
+        case HLHotSekillType20:
+        {
+            roles = [self sekillType20];
+        }
+            break;
+        case HLHotSekillType30:
+        {
+            roles = [self sekillType30];
+        }
+            break;
+        case HLHotSekillType40:
+        {
+            roles = [self sekillType40];
+        }
+            break;
     }
     
-    if (fyInfo.text.doubleValue <_fyMoney.doubleValue) {
-        HLShowHint(@"最低分佣金额为销售金额的6%", self.view);
-        return;
+    for (NSDictionary *subRole in roles) {
+        BOOL roleValue = [subRole[@"role"] boolValue];
+        if (roleValue == YES) {
+            HLShowHint(subRole[@"tip"], self.view);
+            return;
+        }
     }
     
-    if (fyInfo.text.doubleValue > saleInfo.text.doubleValue) {
-        HLShowHint(@"跨店分佣不能高于售价", self.view);
-        return;
+    if (mParams) {
+        HLHotSekillDetailController *sekillDetail = [[HLHotSekillDetailController alloc] init];
+        sekillDetail.buildParams = mParams;
+        [self.navigationController pushViewController:sekillDetail animated:YES];
     }
-    
-    // 额外增加的判断
-    if (orinalInfo.text.doubleValue <= saleInfo.text.doubleValue) {
-        HLShowHint(@"售价必须低于于原价", self.view);
-        return;
-    }
-    
-    // 额外增加的判断
-    if (sumNumInfo.text.integerValue == 0 || limitNumInfo.text.integerValue == 0) {
-        HLShowHint(@"提供数量或限购数量不能为0", self.view);
-        return;
-    }
-    
-    // 额外增加的判断
-    if (sumNumInfo.text.integerValue < limitNumInfo.text.integerValue) {
-        HLShowHint(@"提供数量不能小于限购数量", self.view);
-        return;
-    }
-    
-    HLHotSekillDetailController *sekillDetail = [[HLHotSekillDetailController alloc] init];
-    sekillDetail.buildParams = mParams;
-    [self.navigationController pushViewController:sekillDetail animated:YES];
 }
 
 /// 构建底部的view
@@ -190,14 +209,17 @@ NSString * const kfyLeftTip = @"*跨店分佣";
 }
 
 #pragma mark - HLRightInputViewCellDelegate
+
+/// 输入
 - (void)inputViewCell:(HLRightInputViewCell *)cell textChanged:(HLRightInputTypeInfo *)inputInfo {
-    NSInteger index = [self.dataSource indexOfObject:inputInfo] + 1;
-    HLRightInputTypeInfo *fyInfo = [self.dataSource objectAtIndex:index];
-    if ([inputInfo.leftTip isEqualToString:kSaleLeftTip]) {
+    
+    if ([inputInfo.leftTip containsString:@"售价"]) {
+        // 获取分佣的下标，修改分佣的价格
+        NSInteger index = [self.dataSource indexOfObject:inputInfo] + 1;
+        HLRightInputTypeInfo *fyInfo = [self.dataSource objectAtIndex:index];
         double fyMoney = inputInfo.text.doubleValue * 0.06;
         fyInfo.text = [NSString stringWithFormat:@"%.2lf",fyMoney];
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        _fyMoney = fyInfo.text;
     }
 }
 
@@ -252,12 +274,13 @@ NSString * const kfyLeftTip = @"*跨店分佣";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.view endEditing:YES];
-    // 选择有效期
-    if (indexPath.row == 8) {
-        HLInputDateInfo *dateInfo = self.dataSource[indexPath.row];
+    
+    HLInputDateInfo *dateInfo = self.dataSource[indexPath.row];
+    // 修改秒杀有效期
+    if ([dateInfo.leftTip containsString:@"秒杀有效期"]) {
         if (!dateInfo.enabled) {return;}
         HLCalendarViewController *overView = [[HLCalendarViewController alloc] initWithCallBack:^(NSDate *start, NSDate *end) {
-            dateInfo.text = [NSString stringWithFormat:@"%@ 至 %@",[HLTools formatterWithDate:start formate:@"yyyy.MM.dd"],[HLTools formatterWithDate:end formate:@"yyyy.MM.dd"]];
+            dateInfo.text = [NSString stringWithFormat:@"%@ 至 %@",[HLTools formatterWithDate:start formate:@"yyyy-MM-dd"],[HLTools formatterWithDate:end formate:@"yyyy-MM-dd"]];
             dateInfo.mParams = @{
                 @"startTime":[HLTools formatterWithDate:start formate:@"yyyy-MM-dd"],
                 @"endTime":[HLTools formatterWithDate:end formate:@"yyyy-MM-dd"]
@@ -268,7 +291,7 @@ NSString * const kfyLeftTip = @"*跨店分佣";
     }
     
     // 选择截止日期
-    if (indexPath.row == 9) {
+    if ([dateInfo.leftTip containsString:@"消费截止日期"]) {
         HLInputDateInfo *invaldTimeInfo = self.dataSource[indexPath.row];
         if (!invaldTimeInfo.enabled) {return;}
         [HLTimeSingleSelectView showEditTimeView:invaldTimeInfo.text startWithToday:YES callBack:^(NSString * _Nonnull date) {
@@ -279,6 +302,10 @@ NSString * const kfyLeftTip = @"*跨店分佣";
         return;
     }
 }
+
+
+
+#pragma mark - Getter
 
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -299,130 +326,56 @@ NSString * const kfyLeftTip = @"*跨店分佣";
 
 - (NSArray *)dataSource{
     if (!_dataSource) {
-        
-        HLRightInputTypeInfo *goodNameInfo = [[HLRightInputTypeInfo alloc] init];
-        goodNameInfo.leftTip = @"*标题";
-        goodNameInfo.placeHoder = @"请输入抢购商品或套餐名称";
-        goodNameInfo.cellHeight = FitPTScreen(53);
-        goodNameInfo.canInput = YES;
-        goodNameInfo.saveKey = @"title";
-        goodNameInfo.errorHint = @"请输入抢购商品或套餐名称";
-        goodNameInfo.needCheckParams = YES;
-        
-        HLRightInputTypeInfo *orinalPriceInfo = [[HLRightInputTypeInfo alloc] init];
-        orinalPriceInfo.leftTip = kOrinalLeftTip;
-        orinalPriceInfo.placeHoder = @"¥商品原价";
-        orinalPriceInfo.needCheckParams = YES;
-        orinalPriceInfo.cellHeight = FitPTScreen(53);
-        orinalPriceInfo.canInput = YES;
-        orinalPriceInfo.saveKey = @"orgPrice";
-        orinalPriceInfo.keyBoardType = UIKeyboardTypeDecimalPad;
-        orinalPriceInfo.errorHint = @"请输入商品原价";
-        
-        HLRightInputTypeInfo *salePriceInfo = [[HLRightInputTypeInfo alloc] init];
-        salePriceInfo.leftTip = kSaleLeftTip;
-        salePriceInfo.placeHoder = @"¥商品抢购价格";
-        salePriceInfo.cellHeight = FitPTScreen(53);
-        salePriceInfo.canInput = YES;
-        salePriceInfo.saveKey = @"price";
-        salePriceInfo.keyBoardType = UIKeyboardTypeDecimalPad;
-        salePriceInfo.errorHint = @"请输入商品抢购价格";
-        salePriceInfo.needCheckParams = YES;
-        
-        //        佣金
-        HLRightInputTypeInfo *yjInfo = [[HLRightInputTypeInfo alloc] init];
-        yjInfo.leftTip = @"*跨店分佣";
-        yjInfo.placeHoder = @"¥请输入商品跨店分佣";
-        yjInfo.cellHeight = FitPTScreen(53);
-        yjInfo.canInput = YES;
-        yjInfo.saveKey = @"invite_amount";
-        yjInfo.errorHint = @"请输入商品跨店分佣";
-        yjInfo.needCheckParams = YES;
-        yjInfo.keyBoardType = UIKeyboardTypeDecimalPad;
-        
-        // 构建子类选择，如果数据请求错误的时候，用本地的
-        NSArray *needOrderSubInfoDicts = @[@{@"Id":@"0",@"name":@"不需要"},@{@"Id":@"1",@"name":@"提前24小时"},@{@"Id":@"2",@"name":@"提前48小时"}];
-        NSArray *needOrderSubInfos = [HLDownSelectSubInfo mj_objectArrayWithKeyValuesArray:needOrderSubInfoDicts];
-        
-        HLDownSelectInfo *needOrderInfo = [[HLDownSelectInfo alloc] init];
-        needOrderInfo.subInfos = needOrderSubInfos;
-        needOrderInfo.leftTip = @"*是否提前预约";
-        needOrderInfo.selectSubInfo = needOrderInfo.subInfos.firstObject;
-        needOrderInfo.saveKey = @"booking";
-        needOrderInfo.needCheckParams = YES;
-        needOrderInfo.cellHeight = FitPTScreen(70);
-        needOrderInfo.type = HLInputCellTypeDownSelect;
-        [needOrderInfo buildParams];
-        
-        NSArray *presonNumInfoDicts = @[@{@"Id":@"1",@"name":@"1-2人"},@{@"Id":@"2",@"name":@"2-3人"},@{@"Id":@"3",@"name":@"3-4人"},
-                                        @{@"Id":@"4",@"name":@"5-6人"},@{@"Id":@"5",@"name":@"7-10人"},@{@"Id":@"6",@"name":@"10人以上"}];
-        NSArray *presonNumInfos = [HLDownSelectSubInfo mj_objectArrayWithKeyValuesArray:presonNumInfoDicts];
-        
-        HLDownSelectInfo *presonNumInfo = [[HLDownSelectInfo alloc] init];
-        presonNumInfo.subInfos = presonNumInfos;
-        presonNumInfo.leftTip = @"*适用人数";
-        presonNumInfo.selectSubInfo = presonNumInfo.subInfos.firstObject;
-        presonNumInfo.saveKey = @"peoType";
-        presonNumInfo.cellHeight = FitPTScreen(70);
-        presonNumInfo.needCheckParams = YES;
-        presonNumInfo.type = HLInputCellTypeDownSelect;
-        [presonNumInfo buildParams];
-        
-        HLRightInputTypeInfo *sumNumInfo = [[HLRightInputTypeInfo alloc] init];
-        sumNumInfo.leftTip = kSumNumLeftTip;
-        sumNumInfo.placeHoder = @"抢购总数量";
-        sumNumInfo.rightText = @"份";
-        sumNumInfo.cellHeight = FitPTScreen(53);
-        sumNumInfo.canInput = YES;
-        sumNumInfo.needCheckParams = YES;
-        sumNumInfo.saveKey = @"offerNum";
-        sumNumInfo.errorHint = @"请输入抢购总数量";
-        sumNumInfo.keyBoardType = UIKeyboardTypeNumberPad;
-        
-        HLRightInputTypeInfo *buyNumInfo = [[HLRightInputTypeInfo alloc] init];
-        buyNumInfo.leftTip = kLimitNumLeftTip;
-        buyNumInfo.placeHoder = @"每人限购数量";
-        buyNumInfo.cellHeight = FitPTScreen(53);
-        buyNumInfo.canInput = YES;
-        buyNumInfo.saveKey = @"limitNum";
-        buyNumInfo.needCheckParams = YES;
-        buyNumInfo.rightText = @"份";
-        buyNumInfo.errorHint = @"请输入限购数量";
-        buyNumInfo.keyBoardType = UIKeyboardTypeNumberPad;
-        
-        HLInputDateInfo *timeInfo = [[HLInputDateInfo alloc] init];
-        timeInfo.leftTip = @"*秒杀有效期";
-        timeInfo.placeHoder = @"请选择秒杀有效期";
-        timeInfo.dateType = 0;
-        timeInfo.errorHint = @"请选择秒杀有效期";
-        timeInfo.needCheckParams = YES;
-        timeInfo.cellHeight = FitPTScreen(76);
-        timeInfo.type = HLInputCellTypeDate;
-        timeInfo.needCheckParams = YES;
-        
-        HLInputDateInfo *dateInfo = [[HLInputDateInfo alloc] init];
-        dateInfo.leftTip = @"*消费截止日期";
-        dateInfo.placeHoder = @"在消费截止日期内可使用";
-        dateInfo.dateType = 0;
-        dateInfo.errorHint = @"请选择消费截止日期";
-        dateInfo.needCheckParams = YES;
-        dateInfo.cellHeight = FitPTScreen(76);
-        dateInfo.type = HLInputCellTypeDate;
-        dateInfo.needCheckParams = YES;
-        
-        HLInputUseDescInfo *useInfo = [[HLInputUseDescInfo alloc]init];
-        useInfo.leftTip = @"商品描述";
-        useInfo.placeHolder = @"请输入使用描述";
-        useInfo.type = HLInputCellTypeUseDesc;
-        useInfo.cellHeight = FitPTScreen(149);
-        useInfo.saveKey = @"summary";
-        
-        _dataSource = @[goodNameInfo,orinalPriceInfo,salePriceInfo,yjInfo,needOrderInfo,presonNumInfo,sumNumInfo,buyNumInfo,timeInfo,dateInfo,useInfo];
+        _dataSource = [self buildDataSourceWithType:self.sekillType];
     }
     return _dataSource;
 }
 
-
-
 @end
 
+// 获取详情
+//https://sapi.51huilife.cn/HuiLife_Api/MerchantSide/SeckillInfo.php
+
+//id    60528
+//uid    1954147
+//pid    1346191
+//token    geXNqmoI2gcIFTPFuB53
+//type    10
+//bid    44714
+
+//{
+//    "code": 200,
+//    "data": {
+//        "id": "44714",
+//        "title": "\u54c8\u54c8",
+//        "logo": "http:\/\/aimg8.oss-cn-shanghai.aliyuncs.com\/HotSKAlbum\/47979_16283434241318.jpg",
+//        "orgPrice": "100.00",
+//        "price": "15.00",
+//        "offerNum": "50",
+//        "isSold": "0",
+//        "upOrDown": "2",
+//        "startTime": "2021-08-07",
+//        "endTime": "2021-08-26",
+//        "limitNum": "50",
+//        "closingDate": "2021-08-07",
+//        "booking": "0",
+//        "setMealDetails": "[{\"remarks\":\"\u54c8\u54c8\",\"num\":\"1\",\"price\":\"10\",\"name\":\"\u963f\u554a\",\"unit\":\"\u4efd\"}]",
+//        "summary": "",
+//        "orderCnt": 0,
+//        "usedCnt": 0,
+//        "hitsCnt": 0,
+//        "state": "\u5df2\u4e0b\u67b6",
+//        "stateCode": 5,
+//        "displayRack": "\u6682\u672a\u5f00\u653e\u6b64\u529f\u80fd",
+//        "qrCode": "\u6682\u672a\u5f00\u653e\u6b64\u529f\u80fd",
+//        "wechatMoments": "\u6682\u672a\u5f00\u653e\u6b64\u529f\u80fd",
+//        "friendCircle": "\u6682\u672a\u5f00\u653e\u6b64\u529f\u80fd",
+//        "popularize": "\u4e00\u822c",
+//        "popularColor": "#80BCFF",
+//        "album": "[{\"id\":\"32720\",\"business_id\":\"1954147\",\"store_id\":\"47979\",\"pro_id\":\"44714\",\"image\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283440061766.jpg\",\"is_del\":\"0\",\"input_time\":\"2021-08-07 21:46:46\",\"type\":\"0\",\"up_time\":\"2021-08-07 21:47:07\",\"del_time\":\"2021-08-07 21:46:46\",\"imgPath\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283440061766.jpg\"}]",
+//        "master": "[{\"id\":\"32716\",\"business_id\":\"1954147\",\"store_id\":\"47979\",\"pro_id\":\"44714\",\"image\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283434241318.jpg\",\"is_del\":\"0\",\"input_time\":\"2021-08-07 21:37:04\",\"type\":\"1\",\"up_time\":\"2021-08-07 21:47:07\",\"del_time\":\"2021-08-07 21:37:04\",\"imgPath\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283434241318.jpg\"},{\"id\":\"32717\",\"business_id\":\"1954147\",\"store_id\":\"47979\",\"pro_id\":\"44714\",\"image\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283434261517.png\",\"is_del\":\"0\",\"input_time\":\"2021-08-07 21:37:06\",\"type\":\"1\",\"up_time\":\"2021-08-07 21:47:07\",\"del_time\":\"2021-08-07 21:37:06\",\"imgPath\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283434261517.png\"},{\"id\":\"32718\",\"business_id\":\"1954147\",\"store_id\":\"47979\",\"pro_id\":\"44714\",\"image\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283434261048.png\",\"is_del\":\"0\",\"input_time\":\"2021-08-07 21:37:06\",\"type\":\"1\",\"up_time\":\"2021-08-07 21:47:07\",\"del_time\":\"2021-08-07 21:37:06\",\"imgPath\":\"http:\\\/\\\/aimg8.oss-cn-shanghai.aliyuncs.com\\\/HotSKAlbum\\\/47979_16283434261048.png\"}]",
+//        "invite_amount": "5.00",
+//        "peoType": "1",
+//        "type": 10
+//    }
+//}

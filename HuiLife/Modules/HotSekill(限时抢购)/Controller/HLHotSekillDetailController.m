@@ -102,15 +102,43 @@
     
     // 提出数据
     NSMutableArray *mArr = [NSMutableArray array];
-    for (HLHotSekillDetailInputModel *inputModel in self.dataSource) {
+    
+    for (NSInteger i = 0; i < self.dataSource.count; i++) {
+        HLHotSekillDetailInputModel *inputModel = self.dataSource[i];
         NSDictionary *params = [inputModel buildParams];
-        if (!params) {
-            HLShowHint(@"填写信息不完整", self.view);
+        
+        if (inputModel.contentName.length == 0) {
+            NSString *tip = [NSString stringWithFormat:@"第%ld条信息，请输入名称",i + 1];
+            HLShowHint(tip, self.view);
             return;
         }
         
-        if (inputModel.orinalPrice.doubleValue == 0 || inputModel.num.integerValue == 0) {
-            HLShowHint(@"价格和数量必须大于0", self.view);
+        if (inputModel.num.length == 0) {
+            NSString *tip = [NSString stringWithFormat:@"第%ld条信息，请输入数量",i + 1];
+            HLShowHint(tip, self.view);
+            return;
+        }
+        
+        if (inputModel.num.integerValue == 0) {
+            NSString *tip = [NSString stringWithFormat:@"第%ld条信息，数量应大于0",i + 1];
+            HLShowHint(tip, self.view);
+            return;
+        }
+        
+        if (inputModel.orinalPrice.length == 0) {
+            NSString *tip = [NSString stringWithFormat:@"第%ld条信息，请输入价格",i + 1];
+            HLShowHint(tip, self.view);
+            return;
+        }
+        
+        if (inputModel.orinalPrice.doubleValue <= 0) {
+            NSString *tip = [NSString stringWithFormat:@"第%ld条信息，价格应大于0",i + 1];
+            HLShowHint(tip, self.view);
+            return;
+        }
+        
+        if (!params) {
+            HLShowHint(@"填写信息不完整", self.view);
             return;
         }
         

@@ -19,6 +19,7 @@
 @property(nonatomic,copy)NSString * iosArdess;
 
 @property(nonatomic,strong)NSDictionary * iosParam;
+@property (nonatomic, strong) NSDictionary *androidParam;
 
 @end
 
