@@ -8,6 +8,7 @@
 #import "HLHotSekillListController.h"
 #import "HLHotSekillInputController.h"
 #import "HLBottomControlView.h"
+#import "HLHotSekillEditView.h"
 
 @interface HLHotSekillListController () <UITableViewDelegate,UITableViewDataSource,HLHotSekillListViewCellDelegate>
 
@@ -185,6 +186,11 @@
     NSString *upStateStr = showUp ? @"上架" : @"下架";
     [HLBottomControlView showControlViewWithItemTitles:@[@"微信朋友圈",@"微信好友",@"生成展架",@"二维码下载",upStateStr,@"修改"] callBack:^(HLControlType type) {
         if (type == HLControlTypeStateDown || type == HLControlTypeStateUp) {
+            // 审核中不支持上下架操作
+            if (goodModel.stateCode == 7) {
+                HLShowHint(@"审核中不支持上/下架操作", self.view);
+                return;
+            }
             [self changeUpStatesWithGoodModel:goodModel cell:cell];
             return;
         }
@@ -211,11 +217,32 @@
         
         // 修改
         if (type == HLControlTypeEditCard){
-            HLHotSekillInputController *editGoods = [[HLHotSekillInputController alloc] init];
-            editGoods.isEdit = YES;
-            editGoods.editId = goodModel.Id;
-            editGoods.sekillType = self.sekillType;
-            [self.navigationController pushViewController:editGoods animated:YES];
+            // 订单数>0，只能部分编辑
+            if(goodModel.orderCnt > 0){
+                // 判断类型
+                NSMutableDictionary *mDict = [[NSMutableDictionary alloc] init];
+                [mDict setObject:[NSString stringWithFormat:@"%.2lf",goodModel.invite_amount] forKey:@"invite_amount"];
+                [mDict setObject:[NSString stringWithFormat:@"%ld",goodModel.offerNum] forKey:@"offerNum"];
+                [mDict setObject:[NSString stringWithFormat:@"%ld",goodModel.limitNum] forKey:@"limitNum"];
+                [mDict setObject:goodModel.startTime forKey:@"startTime"];
+                [mDict setObject:goodModel.endTime forKey:@"endTime"];
+                [mDict setObject:goodModel.closingDate forKey:@"closingDate"];
+                [HLHotSekillEditView showEditViewWithData:mDict superView:self.view submitBlock:^(NSDictionary * _Nonnull dict, HLHotSekillEditView * _Nonnull editView) {
+                    
+                    // 验证规则
+                    
+                    NSMutableDictionary *mParams = [[NSMutableDictionary alloc] initWithDictionary:dict];
+                    [mParams setObject:goodModel.Id forKey:@"bid"];
+                    // 保存
+                    
+                }];
+            }else{ // 订单数 = 0，可以全量编辑
+                HLHotSekillInputController *editGoods = [[HLHotSekillInputController alloc] init];
+                editGoods.isEdit = YES;
+                editGoods.editId = goodModel.Id;
+                editGoods.sekillType = self.sekillType;
+                [self.navigationController pushViewController:editGoods animated:YES];
+            }
         }
     }];
 }
@@ -267,7 +294,6 @@
         HLHideLoading(self.view);
     }];
 }
-
 
 //下载二维码
 - (void)dowonLoadQRCodeWithId:(NSString *)Id qrcode:(NSString *)qrcode{
@@ -484,3 +510,45 @@
 
 
 @end
+
+
+///// 洗发水 50 35 2.10 提前 48 小时 5-6人 2份 1份 2021-08-08至2021-08-10 2021-08-08 仅此一天
+////  飘柔洗发水 1瓶 50 大瓶装   包装 1套 2 包装盒
+///   上：1（默认） 2 3 下：4 5
+
+//invite_amount    2.10
+//booking    2
+//peoType    4
+//offerNum    2
+//limitNum    1
+//startTime    2021-08-08
+//endTime    2021-08-10
+//closingDate    2021-08-08
+//setMealDetails    [{"remarks":"大瓶装","num":"1","price":"50","name":"飘柔洗发水","unit":"瓶"},{"remarks":"包装盒","num":"1","price":"2","name":"包装","unit":"套"}]
+//summary    仅此一天
+//logo    http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258231121.jpg
+//master    [{"id":"32870","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258231121.jpg","is_check":0},{"id":"32871","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258241563.jpg","is_check":0},{"id":"32869","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258221207.jpg","is_check":0}]
+//album    [{"id":"32866","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284257321050.jpg","is_check":0},{"id":"32865","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284257321326.jpg","is_check":0}]
+//pid    1346191
+
+//id    60528
+//token    yjkyBQ8wKU8mBlZrpS0V
+//bidd    44744
+//type    10
+//title    洗发水
+//orgPrice    50.00
+//price    35.00
+//invite_amount    2.10
+//booking    2
+//peoType    4
+//offerNum    2
+//limitNum    1
+//startTime    2021-08-08
+//endTime    2021-08-10
+//closingDate    2021-08-08
+//setMealDetails    [{"remarks":"大瓶装","num":"1","price":"50","name":"飘柔洗发水","unit":"瓶"},{"remarks":"包装盒","num":"1","price":"2","name":"包装","unit":"套"}]
+//summary    仅此一天
+//logo    http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258231121.jpg
+//master    [{"id":"32869","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258221207.jpg","is_check":0},{"id":"32870","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258231121.jpg","is_check":0},{"id":"32871","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284258241563.jpg","is_check":0}]
+//album    [{"id":"32865","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284257321326.jpg","is_check":0},{"id":"32866","imgPath":"http://aimg8.oss-cn-shanghai.aliyuncs.com/HotSKAlbum/47979_16284257321050.jpg","is_check":0}]
+//pid    1346191

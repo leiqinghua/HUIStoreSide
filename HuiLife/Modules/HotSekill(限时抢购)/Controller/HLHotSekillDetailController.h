@@ -6,13 +6,11 @@
 //
 
 #import "HLBaseViewController.h"
+#import "HLHotSekillTransporter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HLHotSekillDetailController : HLBaseViewController
-
-/// 构建的参数
-@property (nonatomic, strong) NSMutableDictionary *buildParams;
 
 @end
 

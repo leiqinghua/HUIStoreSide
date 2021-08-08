@@ -8,6 +8,7 @@
 #import "HLBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
+/// 没有用到
 
 @interface HLHotSekillImageController : HLBaseViewController
 

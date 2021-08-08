@@ -111,7 +111,6 @@
     timeInfo.needCheckParams = YES;
     timeInfo.cellHeight = FitPTScreen(76);
     timeInfo.type = HLInputCellTypeDate;
-    timeInfo.needCheckParams = YES;
     
     HLInputDateInfo *dateInfo = [[HLInputDateInfo alloc] init];
     dateInfo.leftTip = @"*消费截止日期";
@@ -121,7 +120,7 @@
     dateInfo.needCheckParams = YES;
     dateInfo.cellHeight = FitPTScreen(76);
     dateInfo.type = HLInputCellTypeDate;
-    dateInfo.needCheckParams = YES;
+    dateInfo.saveKey = @"closingDate";
     
     HLInputUseDescInfo *useInfo = [[HLInputUseDescInfo alloc]init];
     useInfo.leftTip = @"商品描述";
@@ -286,6 +285,8 @@
     // 消费截止日期
     HLInputDateInfo *dateInfo = self.dataSource[9];
     dateInfo.text = [HLTools safeStringObject:dataDict[@"closingDate"]];
+    dateInfo.mParams = @{@"closingDate":dateInfo.text};
+    
     // 备注
     HLInputUseDescInfo *useInfo = self.dataSource[10];
     useInfo.text = [HLTools safeStringObject:dataDict[@"summary"]];

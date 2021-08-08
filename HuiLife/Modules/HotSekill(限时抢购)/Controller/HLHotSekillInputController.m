@@ -12,18 +12,12 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-
-@property(nonatomic, strong) NSString *fyMoney;
-
 @end
 
 @implementation HLHotSekillInputController
 
 #pragma mark - Life Cycle
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,13 +29,20 @@
     
     [self creatFootViewWithButtonTitle:@"下一步 套餐详情"];
     
+    /// 释放参数
+    [[HLHotSekillTransporter sharedTransporter] resetAllParams];
+    
     // 加载可以选择的两项数据
     [self loadDownSelectData];
     
     // 如果是编辑，则拉取详情
     if (self.isEdit) {
+        [HLHotSekillTransporter sharedTransporter].isEdit = YES;
         [self loadEditDetailData];
     }
+    
+    // 设置编辑的 id参数和 type
+    [[HLHotSekillTransporter sharedTransporter] appendParams:@{@"bidd":self.editId ?: @"", @"type":@(self.sekillType)}];
 }
 
 #pragma mark - Methods
@@ -71,6 +72,8 @@
             }else{
                 [self handle20And30EditData:responseObject.data];
             }
+            // 存储编辑的数据
+            [HLHotSekillTransporter sharedTransporter].editModelData = responseObject.data;
             [self.tableView reloadData];
         }
     } onFailure:^(NSError * _Nullable error) {
@@ -163,8 +166,9 @@
     }
     
     if (mParams) {
+        // 设置参数缓存
+        [[HLHotSekillTransporter sharedTransporter] appendParams:mParams];
         HLHotSekillDetailController *sekillDetail = [[HLHotSekillDetailController alloc] init];
-        sekillDetail.buildParams = mParams;
         [self.navigationController pushViewController:sekillDetail animated:YES];
     }
 }
@@ -292,11 +296,10 @@
     
     // 选择截止日期
     if ([dateInfo.leftTip containsString:@"消费截止日期"]) {
-        HLInputDateInfo *invaldTimeInfo = self.dataSource[indexPath.row];
-        if (!invaldTimeInfo.enabled) {return;}
-        [HLTimeSingleSelectView showEditTimeView:invaldTimeInfo.text startWithToday:YES callBack:^(NSString * _Nonnull date) {
-            invaldTimeInfo.text = date;
-            invaldTimeInfo.mParams = @{@"closingDate":date};
+        if (!dateInfo.enabled) {return;}
+        [HLTimeSingleSelectView showEditTimeView:dateInfo.text startWithToday:YES callBack:^(NSString * _Nonnull date) {
+            dateInfo.text = date;
+            dateInfo.mParams = @{@"closingDate":date};
             [self.tableView reloadData];
         }];
         return;

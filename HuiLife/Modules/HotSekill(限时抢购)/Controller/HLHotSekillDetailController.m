@@ -60,11 +60,46 @@
 
 /// 初始化dataSource的数据
 - (void)buildDataSource{
-    HLHotSekillDetailInputModel *inputModel = [[HLHotSekillDetailInputModel alloc] init];
-    inputModel.selectUnit = [self buildNewUnitModelFromCacheWithIndex:0];
-    [self.dataSource addObject:inputModel];
+    
+    if([HLHotSekillTransporter sharedTransporter].isEdit){
+        // 获取编辑时回显的数据
+        NSString *detailJSON = [HLHotSekillTransporter sharedTransporter].editModelData[@"setMealDetails"];
+        detailJSON = [detailJSON stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        NSArray *details = [detailJSON mj_JSONObject];
+        for (NSDictionary *dict in details) {
+            HLHotSekillDetailInputModel *inputModel = [[HLHotSekillDetailInputModel alloc] init];
+            inputModel.remark = dict[@"remarks"];
+            inputModel.num = [HLTools safeStringObject:dict[@"num"]];
+            inputModel.orinalPrice = [HLTools safeStringObject:dict[@"price"]];
+            inputModel.contentName = [HLTools safeStringObject:dict[@"name"]];
+            inputModel.selectUnit = [self buildNewUnitModelFromCacheWithUnitName:dict[@"unit"]];
+            [self.dataSource addObject:inputModel];
+        }
+    }else{
+        HLHotSekillDetailInputModel *inputModel = [[HLHotSekillDetailInputModel alloc] init];
+        inputModel.selectUnit = [self buildNewUnitModelFromCacheWithIndex:0];
+        [self.dataSource addObject:inputModel];
+    }
     
     [self.tableView reloadData];
+}
+
+
+/// 构建一个新的model
+- (HLHotSekillDetailUnitModel *)buildNewUnitModelFromCacheWithUnitName:(NSString *)name{
+    __block HLHotSekillDetailUnitModel *selectUnitModel = nil;
+    [self.cacheUnitArr enumerateObjectsUsingBlock:^(HLHotSekillDetailUnitModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.name isEqualToString:name]) {
+            selectUnitModel = obj;
+            *stop = YES;
+        }
+    }];
+    
+    if (!selectUnitModel) {
+        selectUnitModel = [self buildNewUnitModelFromCacheWithIndex:0];
+    }
+    
+    return selectUnitModel;
 }
 
 /// 构建一个新的model
@@ -145,10 +180,9 @@
         [mArr addObject:params];
     }
     
-    [self.buildParams setValue:[mArr mj_JSONString] forKey:@"setMealDetails"];
-    
+    // 设置参数
+    [[HLHotSekillTransporter sharedTransporter] appendParams:@{@"setMealDetails":[mArr mj_JSONString]}];
     HLHotSekillPickImageController *imageVC = [[HLHotSekillPickImageController alloc]init];
-    imageVC.buildParams = self.buildParams;
     [self.navigationController pushViewController:imageVC animated:YES];
 }
 

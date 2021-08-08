@@ -636,6 +636,8 @@
 		B48E535722FD6C12006BFA58 /* HLSendOrderCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535622FD6C12006BFA58 /* HLSendOrderCodeListCell.m */; };
 		B48E535A22FD6C3D006BFA58 /* HLSendOrderCodeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535922FD6C3C006BFA58 /* HLSendOrderCodeInfo.m */; };
 		B48E535D22FD76F6006BFA58 /* HLSendOrderCodeAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535C22FD76F6006BFA58 /* HLSendOrderCodeAddController.m */; };
+		B49225DF26BFDB8800812247 /* HLHotSekillTransporter.m in Sources */ = {isa = PBXBuildFile; fileRef = B49225DE26BFDB8800812247 /* HLHotSekillTransporter.m */; };
+		B49225E226C00C1E00812247 /* HLHotSekillEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = B49225E126C00C1E00812247 /* HLHotSekillEditView.m */; };
 		B4933D5F236963F500546093 /* HLHotBuyKindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4933D5E236963F500546093 /* HLHotBuyKindModel.m */; };
 		B4A3918026BED3DD00E6E332 /* HLHotSekillInputController+SubType.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */; };
 		B4A3A17D2340C05B00737280 /* HLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A17C2340C05B00737280 /* HLLocationViewController.m */; };
@@ -1936,6 +1938,10 @@
 		B48E535922FD6C3C006BFA58 /* HLSendOrderCodeInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSendOrderCodeInfo.m; sourceTree = "<group>"; };
 		B48E535B22FD76F6006BFA58 /* HLSendOrderCodeAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSendOrderCodeAddController.h; sourceTree = "<group>"; };
 		B48E535C22FD76F6006BFA58 /* HLSendOrderCodeAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSendOrderCodeAddController.m; sourceTree = "<group>"; };
+		B49225DD26BFDB8800812247 /* HLHotSekillTransporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillTransporter.h; sourceTree = "<group>"; };
+		B49225DE26BFDB8800812247 /* HLHotSekillTransporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotSekillTransporter.m; sourceTree = "<group>"; };
+		B49225E026C00C1E00812247 /* HLHotSekillEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillEditView.h; sourceTree = "<group>"; };
+		B49225E126C00C1E00812247 /* HLHotSekillEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotSekillEditView.m; sourceTree = "<group>"; };
 		B4933D5D236963F500546093 /* HLHotBuyKindModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotBuyKindModel.h; sourceTree = "<group>"; };
 		B4933D5E236963F500546093 /* HLHotBuyKindModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotBuyKindModel.m; sourceTree = "<group>"; };
 		B4A3917726BEB55300E6E332 /* HLHotSekillDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillDef.h; sourceTree = "<group>"; };
@@ -4485,6 +4491,8 @@
 				B417A86322FA9B3600011595 /* HLHotSekillImageViewCell.m */,
 				945BD879255109EF00EAD145 /* HLHotBuyImageHeader.h */,
 				945BD87A255109EF00EAD145 /* HLHotBuyImageHeader.m */,
+				B49225E026C00C1E00812247 /* HLHotSekillEditView.h */,
+				B49225E126C00C1E00812247 /* HLHotSekillEditView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4966,6 +4974,8 @@
 			isa = PBXGroup;
 			children = (
 				B4A3917726BEB55300E6E332 /* HLHotSekillDef.h */,
+				B49225DD26BFDB8800812247 /* HLHotSekillTransporter.h */,
+				B49225DE26BFDB8800812247 /* HLHotSekillTransporter.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -5813,6 +5823,7 @@
 				B428FE1822FE614000256258 /* HLSendOrderCodeInputCell.m in Sources */,
 				9404C8B723FFD78600146C5E /* HLExpertTipController.m in Sources */,
 				B4BD0E69231FCDB900E47517 /* HLVoucherSearchView.m in Sources */,
+				B49225DF26BFDB8800812247 /* HLHotSekillTransporter.m in Sources */,
 				B41E38DC2302589B0014DECF /* HLUploadProgress.m in Sources */,
 				9DFEB29C2122CCB300C1C212 /* SelectTimeV.m in Sources */,
 				94389A6123A79E0800A3EA81 /* HLBaseOrderLayout.m in Sources */,
@@ -5885,6 +5896,7 @@
 				94B28A892305513E009D651A /* HLTicketMainHelper.m in Sources */,
 				94389A6323A79E0800A3EA81 /* HLOrderLayoutManager.m in Sources */,
 				945A31C42473DF940097464D /* HLSpecialPersonController.m in Sources */,
+				B49225E226C00C1E00812247 /* HLHotSekillEditView.m in Sources */,
 				9D44801521A4FEDD00E4E1D6 /* HLMineHeaderView.m in Sources */,
 				9DE8A5DF22F6BE5B0034C4AF /* NSString+ALi.m in Sources */,
 				9D0608F42105835800644753 /* HLServiceDescripController.m in Sources */,

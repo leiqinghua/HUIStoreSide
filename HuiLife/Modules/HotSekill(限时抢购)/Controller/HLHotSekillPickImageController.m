@@ -39,6 +39,8 @@
     [self creatFootViewWithButtonTitle:@"完成发布"];
     
     [self loadImageResizeScale];
+    
+    
 }
 
 #pragma mark - Event
@@ -67,7 +69,9 @@
         if (imageModel.isFirst) {
             firstImage = imageModel.imgUrl;
         }
-        [picArr addObject:imageModel.responseData];
+        if (imageModel.responseData) {
+            [picArr addObject:imageModel.responseData];
+        }
     }
     
     // 说明没有任何图片
@@ -101,15 +105,17 @@
         return;
     }
 
-    [self.buildParams setValue:firstImage forKey:@"logo"];
-    [self.buildParams setValue:[picArr mj_JSONString] forKey:@"album"];
-    [self.buildParams setValue:[detailPicArr mj_JSONString] forKey:@"master"];
+    [[HLHotSekillTransporter sharedTransporter] appendParams:@{
+        @"logo":firstImage,
+        @"master":[picArr mj_JSONString],
+        @"album":[detailPicArr mj_JSONString]
+   }];
     
     HLLoading(self.view);
    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
        request.api = @"/MerchantSide/SeckillInsert.php?dev=1";
        request.serverType = HLServerTypeNormal;
-       request.parameters = self.buildParams;
+       request.parameters = [HLHotSekillTransporter sharedTransporter].uploadParams;
    } onSuccess:^(XMResult *  _Nullable responseObject) {
        HLHideLoading(self.view);
        if ([responseObject code] == 200) {
@@ -145,7 +151,7 @@
         }
         [uploadModels addObject:imageModel];
         
-        [sectionArr insertObject:imageModel atIndex:0];
+        [sectionArr addObject:imageModel];
     }];
     [self.collectionView reloadData];
     [self uploadImageModels:uploadModels];
@@ -334,6 +340,40 @@
         
         [_dataSource addObject:section0Arr];
         [_dataSource addObject:section1Arr];
+        
+        // 如果此时正在编辑
+        if ([HLHotSekillTransporter sharedTransporter].isEdit) {
+            
+            // 获取主图的数据
+            NSString *logoUrl = [HLHotSekillTransporter sharedTransporter].editModelData[@"logo"];
+            // 获取推荐导读图的数据
+            NSString *masterJSON = [HLHotSekillTransporter sharedTransporter].editModelData[@"master"];
+            masterJSON = [masterJSON stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+            NSArray *masters = [masterJSON mj_JSONObject];
+            for (NSDictionary *dict in masters) {
+                HLHotSekillImageModel *imageModel = [[HLHotSekillImageModel alloc] init];
+                imageModel.imgUrl = [HLTools toStringWithObj:dict[@"imgPath"]];
+                imageModel.uploadStatus = HLBaseUploadStatusUploaded;
+                imageModel.responseData = @{
+                        @"id":dict[@"id"],
+                        @"imgPath":dict[@"imgPath"]
+                };
+                imageModel.isFirst = [dict[@"imgPath"] isEqualToString:logoUrl];
+                [section0Arr insertObject:imageModel atIndex:0];
+            }
+            
+            // 获取商品详情图
+            NSString *albumJSON = [HLHotSekillTransporter sharedTransporter].editModelData[@"album"];
+            albumJSON = [albumJSON stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+            NSArray *albums = [albumJSON mj_JSONObject];
+            for (NSDictionary *dict in albums) {
+                HLHotSekillImageModel *imageModel = [[HLHotSekillImageModel alloc] init];
+                imageModel.imgUrl = [HLTools toStringWithObj:dict[@"image"]];
+                imageModel.uploadStatus = HLBaseUploadStatusUploaded;
+                imageModel.responseData = dict;
+                [section1Arr insertObject:imageModel atIndex:0];
+            }
+        }
     }
     return _dataSource;
 }
