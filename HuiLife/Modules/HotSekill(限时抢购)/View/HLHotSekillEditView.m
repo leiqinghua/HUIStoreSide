@@ -310,3 +310,16 @@
 
 
 @end
+
+
+//https://sapi.51huilife.cn/HuiLife_Api/MerchantSide/SeckillInsert.php?dev=1
+//id    60528
+//token    xm7Kd7f731rByBzB0tYs
+//bid    40816
+//invite_amount    1
+//offerNum    100
+//limitNum    100
+//startTime    2020-11-25
+//endTime    2021-10-31
+//closingDate    2025-12-31 23:59:59
+//pid    1346191
