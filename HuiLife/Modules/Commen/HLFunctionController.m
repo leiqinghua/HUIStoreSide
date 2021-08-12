@@ -117,7 +117,7 @@
         [mDataSource addObject:@[mArr.firstObject]];
         [mArr removeObjectAtIndex:0];
         [mDataSource addObject:mArr];
-        self.datasource = [mArr copy];
+        self.datasource = [mDataSource copy];
     }
     [self.tableView reloadData];
 }
