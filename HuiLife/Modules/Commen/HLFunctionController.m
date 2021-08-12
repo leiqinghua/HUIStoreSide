@@ -136,7 +136,7 @@
         [_section1Header addSubview:centerTipLab];
         [centerTipLab makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(_section1Header);
-            make.width.equalTo(FitPTScreen(85));
+//            make.width.equalTo(FitPTScreen(85));
             make.height.equalTo(_section1Header);
         }];
         
@@ -173,7 +173,7 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         AdjustsScrollViewInsetNever(self, _tableView);
         
-        UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(110))];
+        UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, FitPTScreen(80))];
         _tableView.tableHeaderView = headerView;
         
         UILabel * tipLb = [[UILabel alloc]init];
