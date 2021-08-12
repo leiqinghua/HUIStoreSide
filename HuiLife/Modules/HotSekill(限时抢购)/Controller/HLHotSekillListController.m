@@ -47,14 +47,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.page = 1;
     [self.view addSubview:self.placeView];
     [self.view addSubview:self.tableView];
     AdjustsScrollViewInsetNever(self, self.tableView);
     [self creatFootViewWithButtonTitle:self.selectBlock ? @"确定" : @"添加秒杀商品"];
     
     /// 加载数据
-    [self loadGoodsList];
+    [self reloadListData];
     
     [HLNotifyCenter addObserver:self selector:@selector(reloadListData) name:@"hotSekillListReloadData" object:nil];
 }
@@ -63,11 +62,11 @@
 
 - (void)reloadListData{
     self.page = 1;
-    [self loadGoodsList];
+    [self loadGoodsList:YES];
 }
 
 /// 加载数据
-- (void)loadGoodsList{
+- (void)loadGoodsList:(BOOL)hud{
     
     // 是否为选择商品
     BOOL isSelectGoods = self.selectBlock != nil;
@@ -81,7 +80,9 @@
         params = @{@"page":@(_page),@"type":self.type};
     }
         
-    HLLoading(self.view);
+    if (hud) {
+        HLLoading(self.view);
+    }
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api = api;
         request.serverType = HLServerTypeNormal;
@@ -89,7 +90,6 @@
     } onSuccess:^(XMResult *  _Nullable responseObject) {
         [self.tableView endRefresh];
         HLHideLoading(self.view);
-        
         if ([responseObject code] == 200) {
             // 处理数据
             NSArray *models = [HLHotSekillGoodModel mj_objectArrayWithKeyValuesArray:responseObject.data[@"items"]];
@@ -162,6 +162,23 @@
     return self.type.integerValue;
 }
 
+/// 部分编辑
+- (void)saveEditModelWithParams:(NSDictionary *)params{
+   HLLoading(self.view);
+   [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+       request.api = @"/MerchantSide/SeckillInsert.php?dev=1";
+       request.serverType = HLServerTypeNormal;
+       request.parameters = params;
+   } onSuccess:^(XMResult *  _Nullable responseObject) {
+       if ([responseObject code] == 200) {
+           self.page = 1;
+           [self loadGoodsList:YES];
+       }
+   } onFailure:^(NSError * _Nullable error) {
+       HLHideLoading(self.view);
+   }];
+}
+
 #pragma mark - HLHotSekillListViewCellDelegate
 
 /// 点击原因
@@ -221,20 +238,32 @@
             if(goodModel.orderCnt > 0){
                 // 判断类型
                 NSMutableDictionary *mDict = [[NSMutableDictionary alloc] init];
-                [mDict setObject:[NSString stringWithFormat:@"%.2lf",goodModel.invite_amount] forKey:@"invite_amount"];
+                if ([self sekillType] == HLHotSekillTypeNormal || [self sekillType] == HLHotSekillType40) {
+                    [mDict setObject:[NSString stringWithFormat:@"%.2lf",goodModel.invite_amount] forKey:@"invite_amount"];
+                }
                 [mDict setObject:[NSString stringWithFormat:@"%ld",goodModel.offerNum] forKey:@"offerNum"];
                 [mDict setObject:[NSString stringWithFormat:@"%ld",goodModel.limitNum] forKey:@"limitNum"];
                 [mDict setObject:goodModel.startTime forKey:@"startTime"];
                 [mDict setObject:goodModel.endTime forKey:@"endTime"];
                 [mDict setObject:goodModel.closingDate forKey:@"closingDate"];
+                weakify(self);
                 [HLHotSekillEditView showEditViewWithData:mDict superView:self.view submitBlock:^(NSDictionary * _Nonnull dict, HLHotSekillEditView * _Nonnull editView) {
-                    
                     // 验证规则
+                    NSArray *roles = [weak_self editDataRolesWithModel:goodModel params:dict];
+                    for (NSDictionary *subRole in roles) {
+                        BOOL roleValue = [subRole[@"role"] boolValue];
+                        if (roleValue == YES) {
+                            HLShowHint(subRole[@"tip"], self.view);
+                            return;
+                        }
+                    }
+                    
+                    [editView hide];
                     
                     NSMutableDictionary *mParams = [[NSMutableDictionary alloc] initWithDictionary:dict];
                     [mParams setObject:goodModel.Id forKey:@"bid"];
                     // 保存
-                    
+                    [weak_self saveEditModelWithParams:mParams];
                 }];
             }else{ // 订单数 = 0，可以全量编辑
                 HLHotSekillInputController *editGoods = [[HLHotSekillInputController alloc] init];
@@ -320,6 +349,29 @@
         return;
     }
     [HLTools pushAppPageLink:@"HLDispalyMainController" params:@{@"pro_id":Id,@"type":@(3)} needBack:false];
+}
+
+#pragma mark - Helper
+
+// 编辑时的规则
+- (NSArray *)editDataRolesWithModel:(HLHotSekillGoodModel *)goodModel params:(NSDictionary *)params{
+    NSArray *roles = @[];
+    switch ([self sekillType]) {
+        case HLHotSekillTypeNormal:
+        case HLHotSekillType40:
+        {
+            double inviteAmount = [params[@"invite_amount"] doubleValue];
+            NSString *fySmallerTip = [NSString stringWithFormat:@"跨店分佣不能低于%.2lf元",goodModel.price * 0.06];
+            roles = @[@{@"tip":fySmallerTip,@"role":@(inviteAmount < goodModel.price * 0.06)},
+                      @{@"tip":@"跨店分佣不能大于售价",@"role":@(inviteAmount > goodModel.price)}];
+        }
+            
+            break;
+        default:
+            roles = @[];
+            break;
+    }
+    return roles;
 }
 
 #pragma mark - UITableViewDataSource
@@ -408,12 +460,12 @@
         [_tableView footerWithEndText:@"没有更多数据"
                       refreshingBlock:^{
             self.page++;
-            [self loadGoodsList];;
+            [self loadGoodsList:NO];
         }];
         
         [_tableView headerNormalRefreshingBlock:^{
             self.page = 1;
-            [self loadGoodsList];
+            [self loadGoodsList:NO];
         }];
         [_tableView hideFooter:YES];
         

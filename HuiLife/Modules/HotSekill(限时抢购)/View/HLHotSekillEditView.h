@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showEditViewWithData:(NSDictionary *)orinalData superView:(UIView *)superView submitBlock:(void(^)(NSDictionary *dict, HLHotSekillEditView *editView))submitBlock;
 
+- (void)hide;
+
 @end
 
 NS_ASSUME_NONNULL_END

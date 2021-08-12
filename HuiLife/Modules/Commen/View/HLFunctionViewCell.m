@@ -49,11 +49,12 @@
     
     _leftImgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];
     [_bagView addSubview:_leftImgV];
+    _leftImgV.contentMode = UIViewContentModeScaleAspectFit;
     [_leftImgV makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(FitPTScreen(7));
         make.centerY.equalTo(_bagView);
         make.width.equalTo(FitPTScreen(55));
-        make.height.equalTo(FitPTScreen(48));
+        make.height.equalTo(FitPTScreen(55));
     }];
     
     _titleLb = [[UILabel alloc]init];
@@ -81,7 +82,6 @@
         make.right.equalTo(FitPTScreen(-15));
         make.centerY.equalTo(_bagView);
     }];
-    
 }
 
 -(void)setModel:(HLFunctionModel *)model{
