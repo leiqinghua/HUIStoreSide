@@ -301,32 +301,34 @@
     HLRightInputTypeInfo *priceInfo = self.dataSource[1];
     priceInfo.text = [HLTools safeStringObject:dataDict[@"orgPrice"]];
     // 是否提前预约
-    HLDownSelectInfo *needOrderInfo = self.dataSource[4];
+    HLDownSelectInfo *needOrderInfo = self.dataSource[2];
     NSInteger bookingId = [dataDict[@"booking"] integerValue];
     needOrderInfo.selectSubInfoId = bookingId;
     needOrderInfo.mParams = @{needOrderInfo.saveKey : @(bookingId)};
     [needOrderInfo resetSelectSubInfo];
     
     // 提供数量
-    HLRightInputTypeInfo *sumNumInfo = self.dataSource[6];
+    HLRightInputTypeInfo *sumNumInfo = self.dataSource[3];
     sumNumInfo.text = [HLTools safeStringObject:dataDict[@"offerNum"]];
 
     // 限购数量
-    HLRightInputTypeInfo *buyNumInfo = self.dataSource[7];
+    HLRightInputTypeInfo *buyNumInfo = self.dataSource[4];
     buyNumInfo.text = [HLTools safeStringObject:dataDict[@"limitNum"]];
 
     // 秒杀有效期
-    HLInputDateInfo *timeInfo = self.dataSource[8];
+    HLInputDateInfo *timeInfo = self.dataSource[5];
     timeInfo.text = [NSString stringWithFormat:@"%@ 至 %@",[HLTools safeStringObject:dataDict[@"startTime"]],[HLTools safeStringObject:dataDict[@"endTime"]]];
     timeInfo.mParams = @{
         @"startTime":[HLTools safeStringObject:dataDict[@"startTime"]],
         @"endTime":[HLTools safeStringObject:dataDict[@"endTime"]]
     };
     // 消费截止日期
-    HLInputDateInfo *dateInfo = self.dataSource[9];
+    HLInputDateInfo *dateInfo = self.dataSource[6];
     dateInfo.text = [HLTools safeStringObject:dataDict[@"closingDate"]];
+    dateInfo.mParams = @{@"closingDate":dateInfo.text};
+
     // 备注
-    HLInputUseDescInfo *useInfo = self.dataSource[10];
+    HLInputUseDescInfo *useInfo = self.dataSource[7];
     useInfo.text = [HLTools safeStringObject:dataDict[@"summary"]];
 }
 
