@@ -70,27 +70,18 @@
 
 //设置
 - (void)setBtnClick {
-//#if DEBUG
-//    [HLTools pushAppPageLink:@"HLDeliveryFeeSetController" params:@{} needBack:NO];
-//#else
     HLSetViewController *setVC = [[HLSetViewController alloc] init];
     [self hl_pushToController:setVC];
-//#endif
-    
 }
 
 //分享
 - (void)shareBtnClick{
-//#if DEBUG
-//    [HLTools pushAppPageLink:@"HLAddProfitController" params:@{} needBack:NO];
-//#else
     [HLTools shareImageWithId:self.homeData[@"id"]?:@"" type:4 controller:self completion:^(NSDictionary * data) {
         HLHomeShareController * shareVC = [[HLHomeShareController alloc]init];
         shareVC.data = data;
         shareVC.Id = self.homeData[@"id"]?:@"";
         [self presentViewController:shareVC animated:false completion:nil];
     }];
-//#endif
 }
 
 // 展示1-5引导
