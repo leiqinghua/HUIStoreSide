@@ -54,7 +54,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    HLFunctionModel * model = self.datasource[indexPath.row];
+    HLFunctionModel * model = self.datasource[indexPath.section][indexPath.row];
     if (!model.iosArdess.length) {
         HLShowHint(@"敬请期待", self.view);
         return;
