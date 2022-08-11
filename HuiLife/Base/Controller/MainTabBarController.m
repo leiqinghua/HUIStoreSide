@@ -13,7 +13,7 @@
 #import "HLNewMineViewController.h"
 #import "HLNewOrderViewController.h"
 #import "HLNavigationController.h"
-#import "HLHotMainViewController.h"
+
 
 @interface MainTabBarController ()<UITabBarControllerDelegate>
 

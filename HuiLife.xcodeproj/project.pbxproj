@@ -29,6 +29,7 @@
 		099466052635536200F3A641 /* HLVideoMarketPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 099466042635536200F3A641 /* HLVideoMarketPlayController.m */; };
 		09A14A512605E7BD00171F0D /* HLBuyCardPackageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */; };
 		09A14A582605EB1C00171F0D /* HLBuyCardPackageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */; };
+		09B64243266F629100F22A4F /* HLTakeOrderTypeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B64242266F629100F22A4F /* HLTakeOrderTypeViewCell.m */; };
 		2EED5CF4837C6B90C4C61C3D /* libPods-HuiLife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71912A473F109382F72211E1 /* libPods-HuiLife.a */; };
 		9403CCA920FF866B001AD3B1 /* HLConfirmTIXianView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403CCA820FF866B001AD3B1 /* HLConfirmTIXianView.m */; };
 		9403CCB02100EB9B001AD3B1 /* HLSelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403CCAF2100EB9B001AD3B1 /* HLSelectTimeCell.m */; };
@@ -65,7 +66,6 @@
 		9422011D2327476300E0FBAD /* HLWXAuthoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9422011C2327476300E0FBAD /* HLWXAuthoView.m */; };
 		942201202327578B00E0FBAD /* HLWithDrawDealController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9422011F2327578B00E0FBAD /* HLWithDrawDealController.m */; };
 		9425E15623069D420025C639 /* HLProduceReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E15523069D420025C639 /* HLProduceReviewController.m */; };
-		9425E159230792070025C639 /* HLCardListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E158230792070025C639 /* HLCardListModel.m */; };
 		9425E15C23091F370025C639 /* HLEditPromoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E15B23091F370025C639 /* HLEditPromoteController.m */; };
 		9425E15F230AA98E0025C639 /* HLDishesWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E15E230AA98E0025C639 /* HLDishesWebController.m */; };
 		9425E16B230D1C3C0025C639 /* HLHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425E16A230D1C3C0025C639 /* HLHomeModel.m */; };
@@ -208,8 +208,6 @@
 		9465AB7A24CADE6A00FF0981 /* HLAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465AB7924CADE6A00FF0981 /* HLAccount.m */; };
 		9466780E249C4F0F007A6C3E /* HLScanYMMainInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466780D249C4F0F007A6C3E /* HLScanYMMainInfo.m */; };
 		9466A82F23161ABB00725981 /* HLSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A82E23161ABB00725981 /* HLSuccessView.m */; };
-		9466A8332316616F00725981 /* HLCollegeFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A8322316616F00725981 /* HLCollegeFindViewCell.m */; };
-		9466A83623166A7C00725981 /* HLCollegeDesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A83523166A7C00725981 /* HLCollegeDesViewCell.m */; };
 		9466A83C2318FFA600725981 /* HLFunctionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A83B2318FFA600725981 /* HLFunctionController.m */; };
 		9466A84123190A1400725981 /* HLFunctionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A84023190A1400725981 /* HLFunctionModel.m */; };
 		9466A84423190A2E00725981 /* HLFunctionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A84323190A2E00725981 /* HLFunctionViewCell.m */; };
@@ -359,7 +357,6 @@
 		9D99EF4E21BD202F00B1E298 /* AppDelegate+HLState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D99EF4D21BD202F00B1E298 /* AppDelegate+HLState.m */; };
 		9DB1D62F2244C58B00B09E41 /* HLHotelCalanderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1D62E2244C58B00B09E41 /* HLHotelCalanderHeader.m */; };
 		9DB1D6322249CC8600B09E41 /* HLBaseDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1D6312249CC8600B09E41 /* HLBaseDateModel.m */; };
-		9DB1D6CA224DBAD700B09E41 /* UIImage+Bitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1D6C6224DBAD500B09E41 /* UIImage+Bitmap.m */; };
 		9DBF035621A6492B00734669 /* HLPrinterSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF035521A6492B00734669 /* HLPrinterSetModel.m */; };
 		9DBF035921A659CA00734669 /* HLPrinterSettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF035821A659CA00734669 /* HLPrinterSettingViewCell.m */; };
 		9DBF035C21A66CFB00734669 /* HLPrinterHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF035B21A66CFB00734669 /* HLPrinterHeaderView.m */; };
@@ -558,6 +555,9 @@
 		B41ED7C3239F8BF500D730D1 /* HLImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B41ED7C2239F8BF500D730D1 /* HLImagePickerManager.m */; };
 		B41ED7C9239F970000D730D1 /* HLImageAlbumController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41ED7C8239F970000D730D1 /* HLImageAlbumController.m */; };
 		B41ED7CC239F9D1C00D730D1 /* HLAlbumViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B41ED7CB239F9D1C00D730D1 /* HLAlbumViewCell.m */; };
+		B4235E6A26BAE7980009DC03 /* HLCollegeFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4235E6726BAE7980009DC03 /* HLCollegeFindViewCell.m */; };
+		B4235E6B26BAE7980009DC03 /* HLCollegeDesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4235E6926BAE7980009DC03 /* HLCollegeDesViewCell.m */; };
+		B4235E6F26BAE8360009DC03 /* HLCardListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4235E6D26BAE8360009DC03 /* HLCardListModel.m */; };
 		B42399FF23CF011A00CF0B2C /* HLOrderPickupDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B42399FE23CF011A00CF0B2C /* HLOrderPickupDetailController.m */; };
 		B4239A0223CF017100CF0B2C /* HLPickUpDetailHead.m in Sources */ = {isa = PBXBuildFile; fileRef = B4239A0123CF017100CF0B2C /* HLPickUpDetailHead.m */; };
 		B4239A0523CF04EF00CF0B2C /* HLPickUpMoneyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4239A0423CF04EF00CF0B2C /* HLPickUpMoneyViewCell.m */; };
@@ -636,7 +636,10 @@
 		B48E535722FD6C12006BFA58 /* HLSendOrderCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535622FD6C12006BFA58 /* HLSendOrderCodeListCell.m */; };
 		B48E535A22FD6C3D006BFA58 /* HLSendOrderCodeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535922FD6C3C006BFA58 /* HLSendOrderCodeInfo.m */; };
 		B48E535D22FD76F6006BFA58 /* HLSendOrderCodeAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E535C22FD76F6006BFA58 /* HLSendOrderCodeAddController.m */; };
+		B49225DF26BFDB8800812247 /* HLHotSekillTransporter.m in Sources */ = {isa = PBXBuildFile; fileRef = B49225DE26BFDB8800812247 /* HLHotSekillTransporter.m */; };
+		B49225E226C00C1E00812247 /* HLHotSekillEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = B49225E126C00C1E00812247 /* HLHotSekillEditView.m */; };
 		B4933D5F236963F500546093 /* HLHotBuyKindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4933D5E236963F500546093 /* HLHotBuyKindModel.m */; };
+		B4A3918026BED3DD00E6E332 /* HLHotSekillInputController+SubType.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */; };
 		B4A3A17D2340C05B00737280 /* HLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A17C2340C05B00737280 /* HLLocationViewController.m */; };
 		B4A3A1802340C11900737280 /* HLAddressSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A17F2340C11900737280 /* HLAddressSearchView.m */; };
 		B4A3A1852340C1A300737280 /* HLAddressPOIInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A3A1812340C1A300737280 /* HLAddressPOIInfo.m */; };
@@ -646,6 +649,8 @@
 		B4AE255122F6C7ED001109E9 /* HLVoucherMarketAddHead.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AE255022F6C7ED001109E9 /* HLVoucherMarketAddHead.m */; };
 		B4AE255422F6D8A5001109E9 /* HLVoucherCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AE255322F6D8A5001109E9 /* HLVoucherCodeController.m */; };
 		B4AE255722F6DC72001109E9 /* HLVoucherCodeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AE255622F6DC72001109E9 /* HLVoucherCodeViewCell.m */; };
+		B4AFFC4B26ADA23A00079467 /* HLTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AFFC4A26ADA23A00079467 /* HLTypeModel.m */; };
+		B4AFFC4E26ADA31900079467 /* HLTypeSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AFFC4D26ADA31900079467 /* HLTypeSelectView.m */; };
 		B4BD0E69231FCDB900E47517 /* HLVoucherSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BD0E68231FCDB900E47517 /* HLVoucherSearchView.m */; };
 		B4BD0E6C231FDB0600E47517 /* HLHeXiaoPassSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BD0E6B231FDB0600E47517 /* HLHeXiaoPassSetController.m */; };
 		B4BE413E2319061800B2AEA2 /* HLStoreBuyMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BE413D2319061800B2AEA2 /* HLStoreBuyMainController.m */; };
@@ -658,6 +663,10 @@
 		B4C5A50A22F91E76001FBBE3 /* HLBuyGoodAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50922F91E76001FBBE3 /* HLBuyGoodAddController.m */; };
 		B4C5A50D22F9206B001FBBE3 /* HLBuyGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50C22F9206B001FBBE3 /* HLBuyGoodListCell.m */; };
 		B4C5A51022F92079001FBBE3 /* HLBuyGoodListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C5A50F22F92079001FBBE3 /* HLBuyGoodListModel.m */; };
+		B4CECAF5267DE0AE00F364CD /* HLOrderPrinterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4CECAF4267DE0AE00F364CD /* HLOrderPrinterModel.m */; };
+		B4CECAF8267DE49D00F364CD /* HLPrinterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4CECAF7267DE49D00F364CD /* HLPrinterHelper.m */; };
+		B4CECB01267DE5BD00F364CD /* UIImage+Bitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = B4CECAFF267DE5BD00F364CD /* UIImage+Bitmap.m */; };
+		B4ECD1B4266FAD4900411D75 /* HLFeeTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */; };
 		B4F126602355AB8D00B0D72B /* HLGuideMask.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F1265F2355AB8D00B0D72B /* HLGuideMask.m */; };
 		B4F126632355AF1800B0D72B /* HLGuideMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F126622355AF1800B0D72B /* HLGuideMaskView.m */; };
 		B4F126672355B1D300B0D72B /* HLGuideLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F126662355B1D300B0D72B /* HLGuideLayout.m */; };
@@ -754,6 +763,8 @@
 		09A14A502605E7BD00171F0D /* HLBuyCardPackageViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageViewCell.m; sourceTree = "<group>"; };
 		09A14A562605EB1C00171F0D /* HLBuyCardPackageItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyCardPackageItemView.h; sourceTree = "<group>"; };
 		09A14A572605EB1C00171F0D /* HLBuyCardPackageItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyCardPackageItemView.m; sourceTree = "<group>"; };
+		09B64241266F629100F22A4F /* HLTakeOrderTypeViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTakeOrderTypeViewCell.h; sourceTree = "<group>"; };
+		09B64242266F629100F22A4F /* HLTakeOrderTypeViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTakeOrderTypeViewCell.m; sourceTree = "<group>"; };
 		61F14042AEBA9E24BCE87BB7 /* Pods-HuiLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HuiLife.release.xcconfig"; path = "Pods/Target Support Files/Pods-HuiLife/Pods-HuiLife.release.xcconfig"; sourceTree = "<group>"; };
 		71912A473F109382F72211E1 /* libPods-HuiLife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HuiLife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9403CCA720FF866B001AD3B1 /* HLConfirmTIXianView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLConfirmTIXianView.h; sourceTree = "<group>"; };
@@ -826,8 +837,6 @@
 		9422011F2327578B00E0FBAD /* HLWithDrawDealController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLWithDrawDealController.m; sourceTree = "<group>"; };
 		9425E15423069D420025C639 /* HLProduceReviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLProduceReviewController.h; sourceTree = "<group>"; };
 		9425E15523069D420025C639 /* HLProduceReviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLProduceReviewController.m; sourceTree = "<group>"; };
-		9425E157230792070025C639 /* HLCardListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HLCardListModel.h; path = "HuiLife/Sections/Ticket(代金券)/Controller/HLCardListModel.h"; sourceTree = SOURCE_ROOT; };
-		9425E158230792070025C639 /* HLCardListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HLCardListModel.m; path = "HuiLife/Sections/Ticket(代金券)/Controller/HLCardListModel.m"; sourceTree = SOURCE_ROOT; };
 		9425E15A23091F370025C639 /* HLEditPromoteController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLEditPromoteController.h; sourceTree = "<group>"; };
 		9425E15B23091F370025C639 /* HLEditPromoteController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLEditPromoteController.m; sourceTree = "<group>"; };
 		9425E15D230AA98E0025C639 /* HLDishesWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLDishesWebController.h; sourceTree = "<group>"; };
@@ -1115,10 +1124,6 @@
 		9466780D249C4F0F007A6C3E /* HLScanYMMainInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLScanYMMainInfo.m; sourceTree = "<group>"; };
 		9466A82D23161ABB00725981 /* HLSuccessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSuccessView.h; sourceTree = "<group>"; };
 		9466A82E23161ABB00725981 /* HLSuccessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSuccessView.m; sourceTree = "<group>"; };
-		9466A8312316616F00725981 /* HLCollegeFindViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HLCollegeFindViewCell.h; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeFindViewCell.h"; sourceTree = SOURCE_ROOT; };
-		9466A8322316616F00725981 /* HLCollegeFindViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HLCollegeFindViewCell.m; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeFindViewCell.m"; sourceTree = SOURCE_ROOT; };
-		9466A83423166A7C00725981 /* HLCollegeDesViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HLCollegeDesViewCell.h; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeDesViewCell.h"; sourceTree = SOURCE_ROOT; };
-		9466A83523166A7C00725981 /* HLCollegeDesViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HLCollegeDesViewCell.m; path = "HuiLife/Sections/College(商家学院)/View/HLCollegeDesViewCell.m"; sourceTree = SOURCE_ROOT; };
 		9466A83A2318FFA600725981 /* HLFunctionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFunctionController.h; sourceTree = "<group>"; };
 		9466A83B2318FFA600725981 /* HLFunctionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFunctionController.m; sourceTree = "<group>"; };
 		9466A83F23190A1400725981 /* HLFunctionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFunctionModel.h; sourceTree = "<group>"; };
@@ -1373,8 +1378,6 @@
 		9DB1D62E2244C58B00B09E41 /* HLHotelCalanderHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotelCalanderHeader.m; sourceTree = "<group>"; };
 		9DB1D6302249CC8600B09E41 /* HLBaseDateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBaseDateModel.h; sourceTree = "<group>"; };
 		9DB1D6312249CC8600B09E41 /* HLBaseDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBaseDateModel.m; sourceTree = "<group>"; };
-		9DB1D6C6224DBAD500B09E41 /* UIImage+Bitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bitmap.m"; sourceTree = "<group>"; };
-		9DB1D6C8224DBAD600B09E41 /* UIImage+Bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bitmap.h"; sourceTree = "<group>"; };
 		9DBF035421A6492B00734669 /* HLPrinterSetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPrinterSetModel.h; sourceTree = "<group>"; };
 		9DBF035521A6492B00734669 /* HLPrinterSetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPrinterSetModel.m; sourceTree = "<group>"; };
 		9DBF035721A659CA00734669 /* HLPrinterSettingViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPrinterSettingViewCell.h; sourceTree = "<group>"; };
@@ -1772,6 +1775,12 @@
 		B41ED7C8239F970000D730D1 /* HLImageAlbumController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLImageAlbumController.m; sourceTree = "<group>"; };
 		B41ED7CA239F9D1C00D730D1 /* HLAlbumViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLAlbumViewCell.h; sourceTree = "<group>"; };
 		B41ED7CB239F9D1C00D730D1 /* HLAlbumViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLAlbumViewCell.m; sourceTree = "<group>"; };
+		B4235E6626BAE7980009DC03 /* HLCollegeFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCollegeFindViewCell.h; sourceTree = "<group>"; };
+		B4235E6726BAE7980009DC03 /* HLCollegeFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLCollegeFindViewCell.m; sourceTree = "<group>"; };
+		B4235E6826BAE7980009DC03 /* HLCollegeDesViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCollegeDesViewCell.h; sourceTree = "<group>"; };
+		B4235E6926BAE7980009DC03 /* HLCollegeDesViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLCollegeDesViewCell.m; sourceTree = "<group>"; };
+		B4235E6D26BAE8360009DC03 /* HLCardListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HLCardListModel.m; path = "HuiLife/Modules/Ticket(代金券)/Controller/HLCardListModel.m"; sourceTree = SOURCE_ROOT; };
+		B4235E6E26BAE8360009DC03 /* HLCardListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HLCardListModel.h; path = "HuiLife/Modules/Ticket(代金券)/Controller/HLCardListModel.h"; sourceTree = SOURCE_ROOT; };
 		B42399FD23CF011A00CF0B2C /* HLOrderPickupDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLOrderPickupDetailController.h; sourceTree = "<group>"; };
 		B42399FE23CF011A00CF0B2C /* HLOrderPickupDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLOrderPickupDetailController.m; sourceTree = "<group>"; };
 		B4239A0023CF017100CF0B2C /* HLPickUpDetailHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPickUpDetailHead.h; sourceTree = "<group>"; };
@@ -1929,8 +1938,15 @@
 		B48E535922FD6C3C006BFA58 /* HLSendOrderCodeInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSendOrderCodeInfo.m; sourceTree = "<group>"; };
 		B48E535B22FD76F6006BFA58 /* HLSendOrderCodeAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSendOrderCodeAddController.h; sourceTree = "<group>"; };
 		B48E535C22FD76F6006BFA58 /* HLSendOrderCodeAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSendOrderCodeAddController.m; sourceTree = "<group>"; };
+		B49225DD26BFDB8800812247 /* HLHotSekillTransporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillTransporter.h; sourceTree = "<group>"; };
+		B49225DE26BFDB8800812247 /* HLHotSekillTransporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotSekillTransporter.m; sourceTree = "<group>"; };
+		B49225E026C00C1E00812247 /* HLHotSekillEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillEditView.h; sourceTree = "<group>"; };
+		B49225E126C00C1E00812247 /* HLHotSekillEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotSekillEditView.m; sourceTree = "<group>"; };
 		B4933D5D236963F500546093 /* HLHotBuyKindModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotBuyKindModel.h; sourceTree = "<group>"; };
 		B4933D5E236963F500546093 /* HLHotBuyKindModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHotBuyKindModel.m; sourceTree = "<group>"; };
+		B4A3917726BEB55300E6E332 /* HLHotSekillDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHotSekillDef.h; sourceTree = "<group>"; };
+		B4A3917E26BED3DD00E6E332 /* HLHotSekillInputController+SubType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLHotSekillInputController+SubType.h"; sourceTree = "<group>"; };
+		B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HLHotSekillInputController+SubType.m"; sourceTree = "<group>"; };
 		B4A3A17B2340C05B00737280 /* HLLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLLocationViewController.h; sourceTree = "<group>"; };
 		B4A3A17C2340C05B00737280 /* HLLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLLocationViewController.m; sourceTree = "<group>"; };
 		B4A3A17E2340C11900737280 /* HLAddressSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLAddressSearchView.h; sourceTree = "<group>"; };
@@ -1949,6 +1965,10 @@
 		B4AE255322F6D8A5001109E9 /* HLVoucherCodeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVoucherCodeController.m; sourceTree = "<group>"; };
 		B4AE255522F6DC72001109E9 /* HLVoucherCodeViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVoucherCodeViewCell.h; sourceTree = "<group>"; };
 		B4AE255622F6DC72001109E9 /* HLVoucherCodeViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVoucherCodeViewCell.m; sourceTree = "<group>"; };
+		B4AFFC4926ADA23A00079467 /* HLTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTypeModel.h; sourceTree = "<group>"; };
+		B4AFFC4A26ADA23A00079467 /* HLTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTypeModel.m; sourceTree = "<group>"; };
+		B4AFFC4C26ADA31900079467 /* HLTypeSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTypeSelectView.h; sourceTree = "<group>"; };
+		B4AFFC4D26ADA31900079467 /* HLTypeSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTypeSelectView.m; sourceTree = "<group>"; };
 		B4BD0E67231FCDB900E47517 /* HLVoucherSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLVoucherSearchView.h; sourceTree = "<group>"; };
 		B4BD0E68231FCDB900E47517 /* HLVoucherSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLVoucherSearchView.m; sourceTree = "<group>"; };
 		B4BD0E6A231FDB0600E47517 /* HLHeXiaoPassSetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHeXiaoPassSetController.h; sourceTree = "<group>"; };
@@ -1973,6 +1993,14 @@
 		B4C5A50C22F9206B001FBBE3 /* HLBuyGoodListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyGoodListCell.m; sourceTree = "<group>"; };
 		B4C5A50E22F92079001FBBE3 /* HLBuyGoodListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLBuyGoodListModel.h; sourceTree = "<group>"; };
 		B4C5A50F22F92079001FBBE3 /* HLBuyGoodListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLBuyGoodListModel.m; sourceTree = "<group>"; };
+		B4CECAF3267DE0AE00F364CD /* HLOrderPrinterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLOrderPrinterModel.h; sourceTree = "<group>"; };
+		B4CECAF4267DE0AE00F364CD /* HLOrderPrinterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLOrderPrinterModel.m; sourceTree = "<group>"; };
+		B4CECAF6267DE49D00F364CD /* HLPrinterHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPrinterHelper.h; sourceTree = "<group>"; };
+		B4CECAF7267DE49D00F364CD /* HLPrinterHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLPrinterHelper.m; sourceTree = "<group>"; };
+		B4CECAFF267DE5BD00F364CD /* UIImage+Bitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bitmap.m"; sourceTree = "<group>"; };
+		B4CECB00267DE5BD00F364CD /* UIImage+Bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bitmap.h"; sourceTree = "<group>"; };
+		B4ECD1B2266FAD4900411D75 /* HLFeeTableViewHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFeeTableViewHeader.h; sourceTree = "<group>"; };
+		B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFeeTableViewHeader.m; sourceTree = "<group>"; };
 		B4F1265E2355AB8D00B0D72B /* HLGuideMask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLGuideMask.h; sourceTree = "<group>"; };
 		B4F1265F2355AB8D00B0D72B /* HLGuideMask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLGuideMask.m; sourceTree = "<group>"; };
 		B4F126612355AF1800B0D72B /* HLGuideMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLGuideMaskView.h; sourceTree = "<group>"; };
@@ -2358,11 +2386,9 @@
 				9D25F0F4223B448C00577ADE /* Base */,
 				9427E2CB20F651D800F5AC43 /* Verdors */,
 				9D7034A022F13917003B14FD /* Manager */,
-				9466A83023165ED300725981 /* baseModel */,
 				9D7034A122F139F6003B14FD /* CommenView */,
-				9427E2CC20F651ED00F5AC43 /* Class */,
-				9427E2CD20F6525100F5AC43 /* Sections */,
-				9DC555DF20F6EE5200AFA604 /* Tools */,
+				9427E2CC20F651ED00F5AC43 /* Tabbar */,
+				9427E2CD20F6525100F5AC43 /* Modules */,
 				9DC555E220F6EFF300AFA604 /* Category */,
 				9DC555ED20F7201100AFA604 /* Resource */,
 				9427E25E20F4DC4E00F5AC43 /* Main.storyboard */,
@@ -2412,24 +2438,24 @@
 			path = Verdors;
 			sourceTree = "<group>";
 		};
-		9427E2CC20F651ED00F5AC43 /* Class */ = {
+		9427E2CC20F651ED00F5AC43 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				943899EB23A79E0700A3EA81 /* Order */,
-				94547A4323FA76D80019B9DD /* Hot */,
-				9DE8A5A222F52B530034C4AF /* Market */,
-				9DE70D3021017FE800B52862 /* Staff */,
-				9DFDF2DA20FC8D2F0081BC46 /* Login */,
-				9D6372B42148ED5B00F791C1 /* Message */,
-				9DC555D720F6EB8000AFA604 /* Home */,
-				9DC555DA20F6EC6600AFA604 /* Mine */,
+				943899EB23A79E0700A3EA81 /* Order(订单) */,
+				9DFDF2DA20FC8D2F0081BC46 /* Login(登录) */,
+				9D6372B42148ED5B00F791C1 /* Message(消息) */,
+				9DC555D720F6EB8000AFA604 /* Home(管理) */,
+				9DC555DA20F6EC6600AFA604 /* Mine(设置) */,
 			);
-			path = Class;
+			path = Tabbar;
 			sourceTree = "<group>";
 		};
-		9427E2CD20F6525100F5AC43 /* Sections */ = {
+		9427E2CD20F6525100F5AC43 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9DE8A5A222F52B530034C4AF /* Market(推广工具) */,
+				9DE70D3021017FE800B52862 /* Staff(员工管理) */,
+				94547A4323FA76D80019B9DD /* Hot(爆客推广) */,
 				097C40E92636639B00D4C70E /* 我的推送 */,
 				B47721EF2630631600998C26 /* 短视频营销 */,
 				946AC12825621D3200A545D0 /* 红包推广 */,
@@ -2453,14 +2479,14 @@
 				9DE8A66D22FD1DBA0034C4AF /* Promotion(推广) */,
 				B40EFCE622FC212900296DDA /* SendOrder(点单外送) */,
 				9DE8A64222FBBEAD0034C4AF /* Card(卡营销) */,
-				B4176A5C22F9525700CF277F /* HotSekill(爆款秒杀) */,
+				B4176A5C22F9525700CF277F /* HotSekill(限时抢购) */,
 				B4C5A50122F91DD7001FBBE3 /* BuyGoods(加购商品) */,
 				9DE8A60E22F7DAD20034C4AF /* Ticket(代金券) */,
 				B4FCAA5122F427F20053EA41 /* Vouchers(买单营销) */,
 				9DFFC04A21D3247E00C26E7B /* Finance（财务） */,
 				9D298B9A213638700066DD5F /* DishesManage(菜品管理) */,
 			);
-			path = Sections;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		942960F3235709C000203C74 /* HelpCenter */ = {
@@ -2506,7 +2532,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		943899EB23A79E0700A3EA81 /* Order */ = {
+		943899EB23A79E0700A3EA81 /* Order(订单) */ = {
 			isa = PBXGroup;
 			children = (
 				943899EC23A79E0700A3EA81 /* Controller */,
@@ -2515,7 +2541,7 @@
 				94389A2623A79E0700A3EA81 /* View */,
 				94389A3923A79E0700A3EA81 /* FunctionView */,
 			);
-			path = Order;
+			path = "Order(订单)";
 			sourceTree = "<group>";
 		};
 		943899EC23A79E0700A3EA81 /* Controller */ = {
@@ -2596,6 +2622,8 @@
 				94389A1923A79E0700A3EA81 /* HLOrderGoodModel.m */,
 				94389A1823A79E0700A3EA81 /* HLOrderLayoutManager.h */,
 				94389A2123A79E0700A3EA81 /* HLOrderLayoutManager.m */,
+				B4CECAF3267DE0AE00F364CD /* HLOrderPrinterModel.h */,
+				B4CECAF4267DE0AE00F364CD /* HLOrderPrinterModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2715,14 +2743,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		94547A4323FA76D80019B9DD /* Hot */ = {
+		94547A4323FA76D80019B9DD /* Hot(爆客推广) */ = {
 			isa = PBXGroup;
 			children = (
 				94547A4623FA77170019B9DD /* Model */,
 				94547A4523FA76FB0019B9DD /* Controller */,
 				94547A4423FA76F20019B9DD /* View */,
 			);
-			path = Hot;
+			path = "Hot(爆客推广)";
 			sourceTree = "<group>";
 		};
 		94547A4423FA76F20019B9DD /* View */ = {
@@ -2812,6 +2840,8 @@
 				9456D8C22431BD4600B2BB4C /* HLTradeTimeTableCell.m */,
 				94FBA33F2432D241006E4E3C /* HLSellTimeSelectView.h */,
 				94FBA3402432D241006E4E3C /* HLSellTimeSelectView.m */,
+				09B64241266F629100F22A4F /* HLTakeOrderTypeViewCell.h */,
+				09B64242266F629100F22A4F /* HLTakeOrderTypeViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2928,6 +2958,8 @@
 				945A31DB247516120097464D /* HLDiscountSetTableCell.m */,
 				940995A22521D76B00EC61CC /* HLDeliveryWayTableCell.h */,
 				940995A32521D76B00EC61CC /* HLDeliveryWayTableCell.m */,
+				B4ECD1B2266FAD4900411D75 /* HLFeeTableViewHeader.h */,
+				B4ECD1B3266FAD4900411D75 /* HLFeeTableViewHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2967,10 +2999,10 @@
 		945BD875255103C500EAD145 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9466A8312316616F00725981 /* HLCollegeFindViewCell.h */,
-				9466A8322316616F00725981 /* HLCollegeFindViewCell.m */,
-				9466A83423166A7C00725981 /* HLCollegeDesViewCell.h */,
-				9466A83523166A7C00725981 /* HLCollegeDesViewCell.m */,
+				B4235E6826BAE7980009DC03 /* HLCollegeDesViewCell.h */,
+				B4235E6926BAE7980009DC03 /* HLCollegeDesViewCell.m */,
+				B4235E6626BAE7980009DC03 /* HLCollegeFindViewCell.h */,
+				B4235E6726BAE7980009DC03 /* HLCollegeFindViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2995,13 +3027,13 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		9466A83023165ED300725981 /* baseModel */ = {
+		9466A83023165ED300725981 /* BaseInfoModel */ = {
 			isa = PBXGroup;
 			children = (
 				949CDF8523152B9D00BDB144 /* HLInfoModel.h */,
 				949CDF8623152B9D00BDB144 /* HLInfoModel.m */,
 			);
-			path = baseModel;
+			path = BaseInfoModel;
 			sourceTree = "<group>";
 		};
 		9466A83D231909DE00725981 /* Model */ = {
@@ -3142,6 +3174,7 @@
 		9D25F0F4223B448C00577ADE /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				9466A83023165ED300725981 /* BaseInfoModel */,
 				D2C5BFA926B973490066C419 /* Controller */,
 				D2C5BFA826B9733C0066C419 /* Cell */,
 			);
@@ -3256,14 +3289,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9D6372B42148ED5B00F791C1 /* Message */ = {
+		9D6372B42148ED5B00F791C1 /* Message(消息) */ = {
 			isa = PBXGroup;
 			children = (
 				AB06C9272150E66F0017995A /* Model */,
 				9D6372BC2148FA6B00F791C1 /* Controller */,
 				9D6372BB2148FA6200F791C1 /* View */,
 			);
-			path = Message;
+			path = "Message(消息)";
 			sourceTree = "<group>";
 		};
 		9D6372BB2148FA6200F791C1 /* View */ = {
@@ -3317,12 +3350,11 @@
 		9D7034A022F13917003B14FD /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				9437C503250F5ED50048AFB7 /* HLFileManager.h */,
-				9437C504250F5ED50048AFB7 /* HLFileManager.m */,
-				94295FDB2350770D00203C74 /* HLJDAPIManager.h */,
-				94295FDC2350770D00203C74 /* HLJDAPIManager.m */,
-				9D70349C22F13899003B14FD /* HLAudioPlayManager.h */,
-				9D70349D22F1389A003B14FD /* HLAudioPlayManager.m */,
+				ABE6359B2153594100F20CCA /* HLAreaCache */,
+				9DC555DF20F6EE5200AFA604 /* Tools */,
+				B4235E6526BAE5360009DC03 /* HLAudioPlayManager */,
+				B4235E6426BAE5240009DC03 /* HLNetwork */,
+				B4235E6326BAE5010009DC03 /* HLFileManager */,
 				B415FC002317A18000F4331D /* HLPlayManager */,
 				B41E38D0230252040014DECF /* ImagesUpLoad */,
 				9DC101A121A2AB930079EA17 /* Bluetooth */,
@@ -3420,17 +3452,19 @@
 		9DC101A121A2AB930079EA17 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				9DB1D6C8224DBAD600B09E41 /* UIImage+Bitmap.h */,
-				9DB1D6C6224DBAD500B09E41 /* UIImage+Bitmap.m */,
+				B4CECB00267DE5BD00F364CD /* UIImage+Bitmap.h */,
+				B4CECAFF267DE5BD00F364CD /* UIImage+Bitmap.m */,
 				9DC101A321A2ABA90079EA17 /* HLBLEManager.h */,
 				9DC101A821A2ABAB0079EA17 /* HLBLEManager.m */,
 				9D98D5A021BE515B00CF5491 /* HLPeripheral.h */,
 				9D98D5A121BE515B00CF5491 /* HLPeripheral.m */,
+				B4CECAF6267DE49D00F364CD /* HLPrinterHelper.h */,
+				B4CECAF7267DE49D00F364CD /* HLPrinterHelper.m */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
 		};
-		9DC555D720F6EB8000AFA604 /* Home */ = {
+		9DC555D720F6EB8000AFA604 /* Home(管理) */ = {
 			isa = PBXGroup;
 			children = (
 				941E2B8824F7BA72009F1FD3 /* HX(核销) */,
@@ -3438,17 +3472,17 @@
 				9DC555DD20F6ECCC00AFA604 /* View */,
 				9DC555DB20F6ECAF00AFA604 /* Controller */,
 			);
-			path = Home;
+			path = "Home(管理)";
 			sourceTree = "<group>";
 		};
-		9DC555DA20F6EC6600AFA604 /* Mine */ = {
+		9DC555DA20F6EC6600AFA604 /* Mine(设置) */ = {
 			isa = PBXGroup;
 			children = (
 				9DFDF28D20F83BCA0081BC46 /* View */,
 				9DFDF28B20F83BB70081BC46 /* Model */,
 				9DFDF28920F83BA20081BC46 /* Controller */,
 			);
-			path = Mine;
+			path = "Mine(设置)";
 			sourceTree = "<group>";
 		};
 		9DC555DB20F6ECAF00AFA604 /* Controller */ = {
@@ -3484,7 +3518,6 @@
 		9DC555DF20F6EE5200AFA604 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				ABE6359B2153594100F20CCA /* HLAreaCache */,
 				9D0CD5C9210E9AF200C06620 /* HLTools.h */,
 				9D0CD5CA210E9AF200C06620 /* HLTools.m */,
 				9DE8A59322F3DAD00034C4AF /* HLTools+DeviceInfo.h */,
@@ -3547,14 +3580,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		9DE70D3021017FE800B52862 /* Staff */ = {
+		9DE70D3021017FE800B52862 /* Staff(员工管理) */ = {
 			isa = PBXGroup;
 			children = (
 				9D61568C21781F3D005B96E2 /* Model */,
 				9DE70D322101800C00B52862 /* Controller */,
 				9DE70D312101800100B52862 /* Subview */,
 			);
-			path = Staff;
+			path = "Staff(员工管理)";
 			sourceTree = "<group>";
 		};
 		9DE70D312101800100B52862 /* Subview */ = {
@@ -3593,14 +3626,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		9DE8A5A222F52B530034C4AF /* Market */ = {
+		9DE8A5A222F52B530034C4AF /* Market(推广工具) */ = {
 			isa = PBXGroup;
 			children = (
 				9DE8A5A522F52B780034C4AF /* Controller */,
 				9DE8A5A422F52B6D0034C4AF /* View */,
 				9DE8A5A322F52B610034C4AF /* Model */,
 			);
-			path = Market;
+			path = "Market(推广工具)";
 			sourceTree = "<group>";
 		};
 		9DE8A5A322F52B610034C4AF /* Model */ = {
@@ -3816,7 +3849,7 @@
 		9DE8A64222FBBEAD0034C4AF /* Card(卡营销) */ = {
 			isa = PBXGroup;
 			children = (
-				9DE8A64522FBBEDA0034C4AF /* Model */,
+				B4235E6C26BAE82D0009DC03 /* Model */,
 				9DE8A64422FBBED20034C4AF /* Controller */,
 				9DE8A64322FBBEC70034C4AF /* View */,
 			);
@@ -3843,15 +3876,6 @@
 				B431840C23507E910080B21C /* HLCardProductController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		9DE8A64522FBBEDA0034C4AF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9425E157230792070025C639 /* HLCardListModel.h */,
-				9425E158230792070025C639 /* HLCardListModel.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9DE8A65822FD06FE0034C4AF /* XMNetworking */ = {
@@ -4031,9 +4055,10 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		9DFDF2DA20FC8D2F0081BC46 /* Login */ = {
+		9DFDF2DA20FC8D2F0081BC46 /* Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
+				B4AFFC4826ADA22600079467 /* Model */,
 				9DFDF2DE20FC90A80081BC46 /* View */,
 				9DFDF2DB20FC90930081BC46 /* HLLoginController.h */,
 				9DFDF2DC20FC90930081BC46 /* HLLoginController.m */,
@@ -4046,7 +4071,7 @@
 				949CDF7E2315123700BDB144 /* HLNewRegisterController.h */,
 				949CDF7F2315123700BDB144 /* HLNewRegisterController.m */,
 			);
-			path = Login;
+			path = "Login(登录)";
 			sourceTree = "<group>";
 		};
 		9DFDF2DE20FC90A80081BC46 /* View */ = {
@@ -4062,6 +4087,8 @@
 				949CDF822315134900BDB144 /* HLRegisterViewCell.m */,
 				9466A82D23161ABB00725981 /* HLSuccessView.h */,
 				9466A82E23161ABB00725981 /* HLSuccessView.m */,
+				B4AFFC4C26ADA31900079467 /* HLTypeSelectView.h */,
+				B4AFFC4D26ADA31900079467 /* HLTypeSelectView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4410,14 +4437,15 @@
 			path = HLTimeSelectView;
 			sourceTree = "<group>";
 		};
-		B4176A5C22F9525700CF277F /* HotSekill(爆款秒杀) */ = {
+		B4176A5C22F9525700CF277F /* HotSekill(限时抢购) */ = {
 			isa = PBXGroup;
 			children = (
+				B4A3917626BEB54000E6E332 /* Other */,
 				B4176A5E22F9526100CF277F /* Controller */,
 				B4176A5D22F9526100CF277F /* Model */,
 				B4176A5F22F9526100CF277F /* View */,
 			);
-			path = "HotSekill(爆款秒杀)";
+			path = "HotSekill(限时抢购)";
 			sourceTree = "<group>";
 		};
 		B4176A5D22F9526100CF277F /* Model */ = {
@@ -4440,6 +4468,8 @@
 				B4176A6122F9527600CF277F /* HLHotSekillListController.m */,
 				B4176A6322F9529D00CF277F /* HLHotSekillInputController.h */,
 				B4176A6422F9529D00CF277F /* HLHotSekillInputController.m */,
+				B4A3917E26BED3DD00E6E332 /* HLHotSekillInputController+SubType.h */,
+				B4A3917F26BED3DD00E6E332 /* HLHotSekillInputController+SubType.m */,
 				B4176A6622F952A900CF277F /* HLHotSekillDetailController.h */,
 				B4176A6722F952A900CF277F /* HLHotSekillDetailController.m */,
 				B4176A6922F952B400CF277F /* HLHotSekillImageController.h */,
@@ -4461,6 +4491,8 @@
 				B417A86322FA9B3600011595 /* HLHotSekillImageViewCell.m */,
 				945BD879255109EF00EAD145 /* HLHotBuyImageHeader.h */,
 				945BD87A255109EF00EAD145 /* HLHotBuyImageHeader.m */,
+				B49225E026C00C1E00812247 /* HLHotSekillEditView.h */,
+				B49225E126C00C1E00812247 /* HLHotSekillEditView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4527,6 +4559,42 @@
 				B41ED7C2239F8BF500D730D1 /* HLImagePickerManager.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		B4235E6326BAE5010009DC03 /* HLFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				9437C503250F5ED50048AFB7 /* HLFileManager.h */,
+				9437C504250F5ED50048AFB7 /* HLFileManager.m */,
+			);
+			path = HLFileManager;
+			sourceTree = "<group>";
+		};
+		B4235E6426BAE5240009DC03 /* HLNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				94295FDB2350770D00203C74 /* HLJDAPIManager.h */,
+				94295FDC2350770D00203C74 /* HLJDAPIManager.m */,
+			);
+			path = HLNetwork;
+			sourceTree = "<group>";
+		};
+		B4235E6526BAE5360009DC03 /* HLAudioPlayManager */ = {
+			isa = PBXGroup;
+			children = (
+				9D70349C22F13899003B14FD /* HLAudioPlayManager.h */,
+				9D70349D22F1389A003B14FD /* HLAudioPlayManager.m */,
+			);
+			path = HLAudioPlayManager;
+			sourceTree = "<group>";
+		};
+		B4235E6C26BAE82D0009DC03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B4235E6E26BAE8360009DC03 /* HLCardListModel.h */,
+				B4235E6D26BAE8360009DC03 /* HLCardListModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B42399F923CF00F300CF0B2C /* PickUpOrder(商超自提核单) */ = {
@@ -4898,6 +4966,25 @@
 			children = (
 				B483DC5923162EB1004EDA63 /* HLCaseListModel.h */,
 				B483DC5A23162EB1004EDA63 /* HLCaseListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B4A3917626BEB54000E6E332 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				B4A3917726BEB55300E6E332 /* HLHotSekillDef.h */,
+				B49225DD26BFDB8800812247 /* HLHotSekillTransporter.h */,
+				B49225DE26BFDB8800812247 /* HLHotSekillTransporter.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		B4AFFC4826ADA22600079467 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B4AFFC4926ADA23A00079467 /* HLTypeModel.h */,
+				B4AFFC4A26ADA23A00079467 /* HLTypeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5397,7 +5484,6 @@
 				94298E74251DCDC600E3288C /* HLHUIProfitInfo.m in Sources */,
 				B429ED9123795FFC00637FD5 /* HLImagePreview.m in Sources */,
 				9DE8A5E022F6BE5B0034C4AF /* UIView+ALi.m in Sources */,
-				9DB1D6CA224DBAD700B09E41 /* UIImage+Bitmap.m in Sources */,
 				9DBF036321A6A4F000734669 /* HLPrinterSettingAlertView.m in Sources */,
 				94D5B0F0249B706E0038596E /* HLScanYMGoodTableCell.m in Sources */,
 				9DED3262217D91E1007E7D75 /* HLStoreDetailModel.m in Sources */,
@@ -5420,9 +5506,11 @@
 				B4F126632355AF1800B0D72B /* HLGuideMaskView.m in Sources */,
 				9425E16B230D1C3C0025C639 /* HLHomeModel.m in Sources */,
 				B4FCAA5A22F42D110053EA41 /* HLVoucherMarketHead.m in Sources */,
+				B4A3918026BED3DD00E6E332 /* HLHotSekillInputController+SubType.m in Sources */,
 				9D44801221A4FDAB00E4E1D6 /* HLMineModel.m in Sources */,
 				9DE8A5EB22F6BE850034C4AF /* ALiAsset.m in Sources */,
 				B419579622F97D59006AB9A5 /* HLDownSelectView.m in Sources */,
+				B4CECB01267DE5BD00F364CD /* UIImage+Bitmap.m in Sources */,
 				945A187C2519988100DE16BF /* HLHUIMainController.m in Sources */,
 				945A31C72473E0D30097464D /* HLSpecialTableHead.m in Sources */,
 				945ECD4223B5E0F200162FAA /* HLPayManage.m in Sources */,
@@ -5585,6 +5673,7 @@
 				9D70348B22F1264A003B14FD /* HLBaseViewController.m in Sources */,
 				94695065255BD48E00BE8774 /* HLCompeteUpCollectionCell.m in Sources */,
 				9D6372BF2148FDDC00F791C1 /* HLMessageHeaderView.m in Sources */,
+				B4235E6F26BAE8360009DC03 /* HLCardListModel.m in Sources */,
 				090069462639498F0065C6E4 /* HLPushHistorySectionHeader.m in Sources */,
 				9DE8A64E22FBD6040034C4AF /* HLAddCardController.m in Sources */,
 				B415FC202317A18100F4331D /* ZFAVPlayerManager.m in Sources */,
@@ -5616,13 +5705,13 @@
 				B4F126602355AB8D00B0D72B /* HLGuideMask.m in Sources */,
 				9D95262F220029740047D74A /* JZLocationConverter.m in Sources */,
 				9468CE0225206D6900C9ADA1 /* HLPickImageViewCell.m in Sources */,
-				9466A8332316616F00725981 /* HLCollegeFindViewCell.m in Sources */,
 				B48E535422FD6A0C006BFA58 /* HLSendOrderCodeController.m in Sources */,
 				9DE8A62022F813EB0034C4AF /* HLAddTicketController.m in Sources */,
 				9D99EF4E21BD202F00B1E298 /* AppDelegate+HLState.m in Sources */,
 				94389A6023A79E0800A3EA81 /* HLOrderGoodModel.m in Sources */,
 				9464711325637C3B002C2218 /* HLDayDealGoodController.m in Sources */,
 				B4C5A51022F92079001FBBE3 /* HLBuyGoodListModel.m in Sources */,
+				B4235E6A26BAE7980009DC03 /* HLCollegeFindViewCell.m in Sources */,
 				B4175B2F22F803510079909F /* HLVoucherMarketInfo.m in Sources */,
 				945A31CD2473E8280097464D /* HLSpecialPeron.m in Sources */,
 				9D6372D3214A12A700F791C1 /* NJKWebViewProgressView.m in Sources */,
@@ -5684,7 +5773,6 @@
 				9DFEC62121FD8A2600FAC93B /* HLLocationManager.m in Sources */,
 				9DFDF2F220FDEAE20081BC46 /* HLHowFindPassController.m in Sources */,
 				94536FA7238BB67000DE1A89 /* HLDisplaySubController.m in Sources */,
-				9466A83623166A7C00725981 /* HLCollegeDesViewCell.m in Sources */,
 				942922AD236AE7A9009C7E58 /* HLScanViewController.m in Sources */,
 				940995A42521D76B00EC61CC /* HLDeliveryWayTableCell.m in Sources */,
 				9D99EF4B21BCF67F00B1E298 /* UIView+HLExtension.m in Sources */,
@@ -5693,7 +5781,6 @@
 				AB06C92A2150E67B0017995A /* HLMessageListModel.m in Sources */,
 				9DE8A66322FD06FF0034C4AF /* XMResult.m in Sources */,
 				9422011D2327476300E0FBAD /* HLWXAuthoView.m in Sources */,
-				9425E159230792070025C639 /* HLCardListModel.m in Sources */,
 				9DB1D62F2244C58B00B09E41 /* HLHotelCalanderHeader.m in Sources */,
 				9DFDF29820F84B6A0081BC46 /* UIColor+Common.m in Sources */,
 				9DFEC62721FDB5CB00FAC93B /* HLAboutUsTableViewCell.m in Sources */,
@@ -5710,6 +5797,7 @@
 				94389A6E23A79E0800A3EA81 /* HLRefundReasonView.m in Sources */,
 				9D804C5A21A5563D00677C51 /* HLBuniessAlertView.m in Sources */,
 				B4AE255722F6DC72001109E9 /* HLVoucherCodeViewCell.m in Sources */,
+				09B64243266F629100F22A4F /* HLTakeOrderTypeViewCell.m in Sources */,
 				9DE8A60A22F6BEA90034C4AF /* ALiImageBrowserBottomToolBar.m in Sources */,
 				94289D692333307500D1A42A /* HLRightButtonsViewCell.m in Sources */,
 				9D6372B72148EDB100F791C1 /* HLMessageViewController.m in Sources */,
@@ -5735,6 +5823,7 @@
 				B428FE1822FE614000256258 /* HLSendOrderCodeInputCell.m in Sources */,
 				9404C8B723FFD78600146C5E /* HLExpertTipController.m in Sources */,
 				B4BD0E69231FCDB900E47517 /* HLVoucherSearchView.m in Sources */,
+				B49225DF26BFDB8800812247 /* HLHotSekillTransporter.m in Sources */,
 				B41E38DC2302589B0014DECF /* HLUploadProgress.m in Sources */,
 				9DFEB29C2122CCB300C1C212 /* SelectTimeV.m in Sources */,
 				94389A6123A79E0800A3EA81 /* HLBaseOrderLayout.m in Sources */,
@@ -5788,6 +5877,7 @@
 				9DED3265217DB03A007E7D75 /* HLStoreDetailTableViewCell.m in Sources */,
 				94389A6C23A79E0800A3EA81 /* HLFastBuyTableCell.m in Sources */,
 				945A31D624750A890097464D /* HLFeatureMainInfo.m in Sources */,
+				B4ECD1B4266FAD4900411D75 /* HLFeeTableViewHeader.m in Sources */,
 				949CDF832315134900BDB144 /* HLRegisterViewCell.m in Sources */,
 				946920B12592EC1000680A7E /* HLReviewFailAlert.m in Sources */,
 				9DCA5A4A212AC835001AF43F /* HLEmptyDataView.m in Sources */,
@@ -5806,10 +5896,12 @@
 				94B28A892305513E009D651A /* HLTicketMainHelper.m in Sources */,
 				94389A6323A79E0800A3EA81 /* HLOrderLayoutManager.m in Sources */,
 				945A31C42473DF940097464D /* HLSpecialPersonController.m in Sources */,
+				B49225E226C00C1E00812247 /* HLHotSekillEditView.m in Sources */,
 				9D44801521A4FEDD00E4E1D6 /* HLMineHeaderView.m in Sources */,
 				9DE8A5DF22F6BE5B0034C4AF /* NSString+ALi.m in Sources */,
 				9D0608F42105835800644753 /* HLServiceDescripController.m in Sources */,
 				098529842630305C00D376C3 /* HLSetStoreModel.m in Sources */,
+				B4AFFC4E26ADA31900079467 /* HLTypeSelectView.m in Sources */,
 				9DE8A5D322F594920034C4AF /* HLMutableImageCell.m in Sources */,
 				94389A7323A79E0800A3EA81 /* HLOrderTitleView.m in Sources */,
 				943899E023A7923700A3EA81 /* HLBaseCollectionCell.m in Sources */,
@@ -5856,6 +5948,7 @@
 				9466A83C2318FFA600725981 /* HLFunctionController.m in Sources */,
 				B41ED7CC239F9D1C00D730D1 /* HLAlbumViewCell.m in Sources */,
 				9404C8AB23FE802000146C5E /* HLActivityMethodTableCell.m in Sources */,
+				B4CECAF8267DE49D00F364CD /* HLPrinterHelper.m in Sources */,
 				B43886922303A18A00CE25A2 /* HLSekillPromoteListCell.m in Sources */,
 				B4C5A50D22F9206B001FBBE3 /* HLBuyGoodListCell.m in Sources */,
 				9DFFC04921D31AA200C26E7B /* HLAlertView.m in Sources */,
@@ -5874,6 +5967,7 @@
 				B429ED8823795FFC00637FD5 /* CALayer+JPExtension.m in Sources */,
 				9DE8A68922FE56BE0034C4AF /* HLAlertAction.m in Sources */,
 				9DE8A67322FD1FF70034C4AF /* HLCardPromotionController.m in Sources */,
+				B4AFFC4B26ADA23A00079467 /* HLTypeModel.m in Sources */,
 				9DBF036F21A806DA00734669 /* HLNextAddPrinterController.m in Sources */,
 				B48E535722FD6C12006BFA58 /* HLSendOrderCodeListCell.m in Sources */,
 				B417A85B22FA647700011595 /* HLHotSekillDetailViewCell.m in Sources */,
@@ -5924,6 +6018,7 @@
 				B41ED7C9239F970000D730D1 /* HLImageAlbumController.m in Sources */,
 				941CC9B5255A45E100D16307 /* HLCompeteUpController.m in Sources */,
 				B4C5A50722F91E6C001FBBE3 /* HLBuyGoodsListController.m in Sources */,
+				B4CECAF5267DE0AE00F364CD /* HLOrderPrinterModel.m in Sources */,
 				9D0608F72105962A00644753 /* HLLBManagerController.m in Sources */,
 				9DED325F2179ADF9007E7D75 /* HLStoreModel.m in Sources */,
 				9456D8BD2431979100B2BB4C /* HLSellTimeTableViewCell.m in Sources */,
@@ -5996,6 +6091,7 @@
 				9403CCB02100EB9B001AD3B1 /* HLSelectTimeCell.m in Sources */,
 				946B8A332506403500436B3A /* HLMonthCardTableCell.m in Sources */,
 				B4154DCC231F8F36003C2821 /* HLVoucherQueryInfo.m in Sources */,
+				B4235E6B26BAE7980009DC03 /* HLCollegeDesViewCell.m in Sources */,
 				94389A7123A79E0800A3EA81 /* HLTKReasonViewCell.m in Sources */,
 				94389A5123A79E0800A3EA81 /* HLOrderPriceDescView.m in Sources */,
 				B48E534E22FD5E31006BFA58 /* HLSendOrderRewardController.m in Sources */,
@@ -6212,7 +6308,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6249,7 +6345,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6337,7 +6433,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;
@@ -6374,7 +6470,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HLNotificationExtension",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.6;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fno-exceptions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.storeversion.appname.HuiLife.HLNotificationExtension;

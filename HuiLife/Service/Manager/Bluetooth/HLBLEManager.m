@@ -9,6 +9,7 @@
 #import "HLBLEManager.h"
 #import "HLPrinterSetModel.h"
 #import "HLPeripheral.h"
+#import "HLOrderPrinterModel.h"
 
 //打印机的服务id
 #define kiOSServiceId1 @"18F0"
@@ -22,11 +23,11 @@ typedef void(^PrinterCallBack)(void);
     PrinterCallBack _success;
 }
 
-//写入特征
-@property (strong,nonatomic)CBCharacteristic *characteristicInfo;
-
-//中心设备
+// 中心设备，创建一个CBCentralManager实例来进行蓝牙管理
 @property (strong,nonatomic)CBCentralManager * manager;
+
+// 写入特征
+@property (strong,nonatomic)CBCharacteristic *characteristicInfo;
 
 @property (assign,nonatomic)BOOL stopScanAfterConnected;
 
@@ -44,8 +45,10 @@ typedef void(^PrinterCallBack)(void);
 
 @property (copy,nonatomic)HLConnectResult disConnectCallBack;
 
-//是否自动连
+// 是否自动连
 @property (assign,nonatomic)BOOL autoConnect;
+
+@property (nonatomic, assign) BOOL addObserver;
 
 @end
 
@@ -66,17 +69,18 @@ static HLBLEManager * _instance;
 }
 
 #pragma mark - CBCentralManagerDelegate
-//确定蓝牙状态
+
+// 确定蓝牙状态
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if (@available(iOS 10.0, *)) {
-        if (central.state == CBManagerStatePoweredOn) {//正在工
+        if (central.state == CBManagerStatePoweredOn) {//正在工作
             
         }
         if (central.state == CBManagerStatePoweredOff) {
-            //当页面处于打印机设置页
+            // 当页面处于打印机设置页
             [self updateState];
-            //断开连接(页面不在打印机设置页)
+            // 断开连接(页面不在打印机设置页)
             [self cancelCurrentPeripheral:^{
                 
             } loading:NO];
@@ -85,9 +89,9 @@ static HLBLEManager * _instance;
         if (central.state == CBCentralManagerStatePoweredOn) {
         }
         if (central.state == CBCentralManagerStatePoweredOff) {
-            //蓝牙断开
+            // 蓝牙断开
             [self updateState];
-            //断开连接
+            // 断开连接
             [self cancelCurrentPeripheral:^{
                 
             } loading:NO];
@@ -100,6 +104,7 @@ static HLBLEManager * _instance;
 }
 
 #pragma mark - CBCentralManagerDelegate
+
 /*
  扫描，发现设备后会调用
  */
@@ -112,7 +117,7 @@ static HLBLEManager * _instance;
     
     HLLog(@"advertisementData = %@",advertisementData);
     
-//    扫描到后 就去连接
+    // 扫描到后 就去连接
     if (!_autoConnect) {
         _autoConnect = YES;
         [HLPeripheral conncetPeripheral:peripheral callBack:^{
@@ -125,7 +130,7 @@ static HLBLEManager * _instance;
     
 }
 
-//失去链接后
+// 失去链接后
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
     
@@ -149,14 +154,14 @@ static HLBLEManager * _instance;
 
 {
     _connectResult(peripheral,nil,nil);
-    //重置
+    // 重置
     self.curPeripheral = peripheral;
     self.characteristicInfo = nil;
-    //添加监听
+    // 添加监听
     [self addObserverWith:self.curPeripheral];
-    //设置代理
+    // 设置代理
     peripheral.delegate = self;
-    //寻找外设内所包含的服务
+    // 寻找外设内所包含的服务
     [peripheral discoverServices:nil];
     
     if (!self.stopAfterScan) {
@@ -166,6 +171,7 @@ static HLBLEManager * _instance;
 }
 
 #pragma mark - CBPeripheralDelegate
+
 /*
  扫描到服务后回调
  */
@@ -210,6 +216,7 @@ static HLBLEManager * _instance;
 }
 
 #pragma mark - method
+
 - (BOOL)blueToothUseable{
     if (@available(iOS 10.0, *)) {
         if (self.manager.state != CBManagerStatePoweredOn) {
@@ -223,14 +230,14 @@ static HLBLEManager * _instance;
     return YES;
 }
 
-//扫描打印机
+// 启动扫描打印机
 - (void)scanPrinterDevices {
     CBUUID *uuid1 = [CBUUID UUIDWithString:kiOSServiceId1];
     CBUUID *uuid2 = [CBUUID UUIDWithString:kiOSServiceId2];
     [self.manager scanForPeripheralsWithServices:@[uuid1,uuid2] options:nil];
 }
 
-//自动连接打印机
+// 定时自动连接打印机
 - (void)autoConnectPrinter {
 // 监听5s
     double delayInSeconds = 5.0;
@@ -253,7 +260,7 @@ static HLBLEManager * _instance;
     [self.manager stopScan];
 }
 
-//连接蓝牙设备
+// 连接蓝牙设备
 - (void)connectPeripheral:(CBPeripheral *)peripheral stopScanAfterConnected:(BOOL)stop result:(nonnull HLConnectResult)resultCallBack {
     _connectResult = resultCallBack;
     if (![self blueToothUseable]) {
@@ -305,32 +312,24 @@ static HLBLEManager * _instance;
 //打印数据
 - (void)printeDataWithOrderId:(NSString *)orderid blueTooth:(BOOL)bluetooth wifiSn:(NSString *)wifiSn type:(NSInteger)type success:(void(^)(void))success{
     _success = success;
-    if (type != 1) { //自动。两个接口都调用
-        [HLTools printDataWithOrderId:orderid type:type success:^(NSData * _Nonnull data) {
-            [self handleDataWithData:data type:type];
-        } fail:^{
+
+    [HLTools printDataWithOrderId:orderid printerSn:wifiSn mode:@"1" type:type success:^(NSDictionary * _Nonnull data) {
+        // 处理打印数据
+        [self handleDataWithData:data type:type];
+    } fail:^{
             
-        }];
-        //    WiFi
-        [HLTools wifiPrintWithOrderId:orderid wifiSn:wifiSn];
-        return;
-    }
-    if (bluetooth) {
-        [HLTools printDataWithOrderId:orderid type:type success:^(NSData * _Nonnull data) {
-            [self handleDataWithData:data type:type];
-        } fail:^{
-            
-        }];
-        return;
-    }
-//    WiFi
-    [HLTools wifiPrintWithOrderId:orderid wifiSn:wifiSn];
+    }];
 }
 
-- (void)handleDataWithData:(NSData *)data type:(NSInteger)type{
+- (void)handleDataWithData:(NSDictionary *)dataDict type:(NSInteger)type{
+    HLOrderPrinterModel *printerModel = [HLOrderPrinterModel mj_objectWithKeyValues:dataDict];
+    
+    // 处理最后的数据
+    NSData *data = printerModel.printData;
+    
     HLAccount *account = [HLAccount shared];
     //打印连数
-    NSInteger count = account.print_count;
+    NSInteger count = printerModel.times;
     if (type == 1) {//手动
         [self startPrintWithCount:count data:data];
         _success();
@@ -399,20 +398,26 @@ static HLBLEManager * _instance;
 
 #pragma mark - KVO--
 - (void)addObserverWith:(CBPeripheral *)peripheral{
+    if (self.addObserver) {
+        return;
+    }
     [peripheral addObserver:self
                  forKeyPath:@"state"
                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                     context:nil];
+    self.addObserver = YES;
 }
 
 //移除状态监听
 - (void)removeObserveForPerpheal:(CBPeripheral *)peral{
-    if (self.curPeripheral) {
+    if (self.curPeripheral && self.addObserver) {
+        self.addObserver = NO;
         [peral removeObserver:self forKeyPath:@"state"];
     }
 }
 
 #pragma mark 监听代理
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"state"])

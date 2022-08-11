@@ -37,36 +37,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong,nonatomic)NSMutableArray *peripherals;
 
-//当前连接的外设
-@property (strong,nonatomic)CBPeripheral *curPeripheral;
+// 当前连接的外设
+@property (strong,nonatomic) CBPeripheral *curPeripheral;
 
-@property (assign,nonatomic)BOOL stopAfterScan;//扫描到存储的设备后是否停止扫描
+// 扫描到存储的设备后是否停止扫描
+@property (assign,nonatomic) BOOL stopAfterScan;
 
 + (instancetype)shared;
 
-//当前蓝牙是否可用
+// 当前蓝牙是否可用
 - (BOOL)blueToothUseable;
 
-//扫描打印机(根据指定的服务id)
-- (void)scanPrinterDevices ;
-//自动连接
+// 扫描打印机(根据指定的服务id)
+- (void)scanPrinterDevices;
+// 自动连接
 - (void)autoConnectPrinter;
-//停止扫描
+// 停止扫描
 - (void)stopScan;
 
-//连接蓝牙设备
+// 连接蓝牙设备
 - (void)connectPeripheral:(CBPeripheral *)peripheral stopScanAfterConnected:(BOOL)stop result:(HLConnectResult)resultCallBack;
 
-//取消连接蓝牙设备(成功或失败的回调)
+// 取消连接蓝牙设备(成功或失败的回调)
 - (void)cancelConnectPeripheral:(CBPeripheral *)peripheral callBack:(HLConnectResult)callBack;
 
-//取消连接当前的蓝牙设备（做假的loading）
+// 取消连接当前的蓝牙设备（做假的loading）
 - (void)cancelCurrentPeripheral:(void(^)(void))callBack loading:(BOOL)loading;
 
-//添加监听
+// 添加监听
 - (void)addObserverWith:(CBPeripheral *)peripheral;
 
-//移除状态监听
+// 移除状态监听
 - (void)removeObserveForPerpheal:(CBPeripheral *)peral;
 
 - (void)printeDataWithOrderId:(NSString *)orderid blueTooth:(BOOL)bluetooth wifiSn:(NSString *)wifiSn type:(NSInteger)type success:(void(^)(void))success;
